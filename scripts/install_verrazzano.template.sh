@@ -4,14 +4,14 @@
 
 echo "Installing Verrazzano"
 
-if [[ ${verrazzano_type} = "admin" ]]
+if [[ ${verrazzano_profile} = "admin" ]]
 then
   sed -i -e "s?profile: dev?profile: prod?g" verrazzano.yaml
   echo "profile type set to prod for an admin cluster"
-elif [[ ${verrazzano_type} = "dev" ]]
+elif [[ ${verrazzano_profile} = "dev" ]]
 then
   echo "profile type set to dev for a dev cluster"
-elif [[ ${verrazzano_type} = "managed" ]]
+elif [[ ${verrazzano_profile} = "managed" ]]
 then
   sed -i -e "s?profile: dev?profile: managed?g" verrazzano.yaml
   echo "profile type set to managed for a managed cluster"

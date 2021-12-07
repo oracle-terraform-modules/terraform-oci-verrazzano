@@ -73,5 +73,5 @@ freeform_tags = {
 }
 
 verrazzano_name    = "v8o"
-verrazzano_type    = "dev"
+verrazzano_profile    = "dev"
 verrazzano_version = "1.0.3"

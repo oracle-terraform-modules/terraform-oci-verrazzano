@@ -43,7 +43,7 @@ ssh_private_key_path = "~/.ssh/id_rsa"
 ssh_public_key_path = "~/.ssh/id_rsa.pub"
 
 verrazzano_name    = "v8o"
-verrazzano_type    = "dev"
+verrazzano_profile    = "dev"
 verrazzano_version = "1.0.3"
 ```
 

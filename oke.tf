@@ -16,7 +16,7 @@ module "oke" {
   ssh_public_key_path  = var.ssh_public_key_path
 
   # networking
-  create_drg                   = var.verrazzano_type == "admin" || var.verrazzano_type == "managed" ? true : false
+  create_drg                   = var.verrazzano_profile == "admin" || var.verrazzano_profile == "managed" ? true : false
   internet_gateway_route_rules = []
   nat_gateway_route_rules      = []
 
@@ -25,11 +25,11 @@ module "oke" {
   vcn_name      = var.vcn_name
 
   # bastion host
-  create_bastion_host = var.verrazzano_type == "managed" ? false : true
+  create_bastion_host = var.verrazzano_profile == "managed" ? false : true
   upgrade_bastion     = false
 
   # operator host
-  create_operator                    = var.verrazzano_type == "managed" ? false : true
+  create_operator                    = var.verrazzano_profile == "managed" ? false : true
   enable_operator_instance_principal = true
   upgrade_operator                   = false
 

@@ -809,12 +809,12 @@ variable "verrazzano_name" {
   type        = string
 }
 
-variable "verrazzano_type" {
+variable "verrazzano_profile" {
   default     = "dev"
   description = "Verrazzano cluster type. Can be set to admin, dev, managed or prod"
   type        = string
   validation {
-    condition     = contains(["admin", "dev", "managed", "prod"], var.verrazzano_type)
+    condition     = contains(["admin", "dev", "managed", "prod"], var.verrazzano_profile)
     error_message = "Accepted values are admin, dev, managed or prod."
   }
 }

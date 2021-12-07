@@ -13,7 +13,7 @@ locals {
   install_verrazzano_template = templatefile("${path.module}/scripts/install_verrazzano.template.sh",
     {
       verrazzano_name = var.verrazzano_name
-      verrazzano_type = var.verrazzano_type
+      verrazzano_profile = var.verrazzano_profile
     }
   )
 
