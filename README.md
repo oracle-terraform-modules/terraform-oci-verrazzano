@@ -28,10 +28,10 @@ cp terraform.tfvars.example terraform.tfvars
 ```
 api_fingerprint      = ""
 api_private_key_path = ""
-verrazzano_regions = {
-  home  = "us-phoenix-1"
-  v8o   = "ap-sydney-1"
-}
+
+home_region  = "us-phoenix-1"
+region       = "ap-sydney-1"
+
 tenancy_id = ""
 user_id    = ""
 
@@ -41,6 +41,10 @@ label_prefix   = "dev"
 
 ssh_private_key_path = "~/.ssh/id_rsa"
 ssh_public_key_path = "~/.ssh/id_rsa.pub"
+
+verrazzano_name    = "v8o"
+verrazzano_type    = "dev"
+verrazzano_version = "1.0.3"
 ```
 
 ### 3. Run Terraform
