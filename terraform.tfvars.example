@@ -1,0 +1,77 @@
+# Copyright (c) 2019, 2021 Oracle Corporation and/or affiliates.  All rights reserved.
+# Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl
+
+# provider identity parameters
+
+api_fingerprint = ""
+
+api_private_key_path = ""
+
+region = "us-phoenix-1"
+
+tenancy_id = ""
+
+user_id = ""
+
+# general oci parameters
+
+compartment_id = ""
+
+label_prefix = "dev"
+
+# network parameters
+
+availability_domain = 1
+
+bastion_access = ["anywhere"]
+
+ig_route_id = ""
+
+netnum = 30
+
+newbits = 14
+
+vcn_id = ""
+
+bastion_image_id = "Autonomous"
+
+bastion_os_version = "7.9"
+
+bastion_shape = {
+  shape="VM.Standard.E4.Flex",
+  ocpus=1,
+  memory=4,
+  boot_volume_size=50
+}
+
+bastion_state= "RUNNING"
+
+bastion_timezone = "Australia/Sydney"
+
+bastion_type = "public"
+
+ssh_public_key = ""
+
+ssh_public_key_path = ""
+
+upgrade_bastion = false
+
+# notification
+
+enable_bastion_notification = false
+
+bastion_notification_endpoint = ""
+
+bastion_notification_protocol = "EMAIL"
+
+bastion_notification_topic = "bastion"
+
+freeform_tags = {
+    access      = "public"
+    environment = "dev"
+    role        = "bastion"
+}
+
+verrazzano_name    = "v8o"
+verrazzano_type    = "dev"
+verrazzano_version = "1.0.3"
