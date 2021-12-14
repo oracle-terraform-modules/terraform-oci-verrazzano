@@ -13,6 +13,25 @@ You need to create 2 providers:
 * 1 provider for the region where your OKE cluster and other resources will be created
 * 1 provider for your tenancy's home region. This is required for conducting identity operations. 
 
+```
+provider "oci" {
+  fingerprint      = var.api_fingerprint
+  private_key_path = var.api_private_key_path
+  region           = var.region
+  tenancy_ocid     = var.tenancy_id
+  user_ocid        = var.user_id
+}
+
+provider "oci" {
+  fingerprint      = var.api_fingerprint
+  private_key_path = var.api_private_key_path
+  region           = var.home_region
+  tenancy_ocid     = var.tenancy_id
+  user_ocid        = var.user_id
+  alias            = "home"
+}
+```
+
 > **Note that your home region may not necessarily be the same as the region where you want to create the cluster.**
 
 ### 2. Update Terraform values
