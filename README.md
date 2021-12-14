@@ -3,7 +3,7 @@
 
 # terraform-oci-verrazzano
 
-This module automates the installation of [Verrazzano][verrazzano] on top of this [terraform-oci-oke][terraform-oci-oke] module.
+This module automates the installation of [Verrazzano][verrazzano] on top of this [terraform-oci-oke][terraform-oci-oke] module. This module is currently in technical preview. Your ideas and feedback are most welcome.
 
 ## Quick start
 
