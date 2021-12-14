@@ -1,9 +1,9 @@
 [terraform-oci-oke]: https://github.com/oracle-terraform-modules/terraform-oci-oke
 [verrazzano]: https://verrazzano.io
 
-# Installing Verrazzano on Oracle Container Engine for Kubernetes (OKE)
+# terraform-oci-verrazzano
 
-This module automates the installation of [Verrazzano][verrazzano] on top of this [terraform-oci-oke][terraform-oci-oke].
+This module automates the installation of [Verrazzano][verrazzano] on top of this [terraform-oci-oke][terraform-oci-oke] module.
 
 ## Quick start
 
