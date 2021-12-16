@@ -19,4 +19,5 @@ locals {
 
   verrazzano_profile_template = templatefile("${path.module}/resources/verrazzano.template.yaml",{})
 
+  oci_secret_template = templatefile("${path.module}/resources/oci_secret.template.yaml",{})
 }

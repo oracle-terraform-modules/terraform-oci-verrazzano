@@ -22,4 +22,6 @@ fi
 
 sed -i -e "s?example-verrazzano?${verrazzano_name}?g" verrazzano.yaml
 
+kubectl create secret -n verrazzano-install generic oci --from-file=oci_secret.yaml
+
 kubectl apply -f verrazzano.yaml
