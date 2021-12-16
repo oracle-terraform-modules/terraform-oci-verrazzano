@@ -42,8 +42,11 @@ module "oke" {
   services_cidr               = var.services_cidr
 
   # node pools
-  node_pools = var.node_pools
   node_pool_name_prefix = var.node_pool_name_prefix
+
+  node_pools = {
+    np1 = { shape = "VM.Standard.E4.Flex", ocpus = 2, memory = 32, node_pool_size = 2, boot_volume_size = 150, label = { app = "frontend", pool = "np1" } }
+  }
 
   # oke load balancers
   load_balancers          = var.load_balancers

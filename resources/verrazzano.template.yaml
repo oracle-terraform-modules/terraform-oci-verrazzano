@@ -1,6 +1,29 @@
-  apiVersion: install.verrazzano.io/v1alpha1
-  kind: Verrazzano
-  metadata:
-    name: example-verrazzano
-  spec:
-    profile: dev
+# Copyright (c) 2020, 2021, Oracle and/or its affiliates.
+# Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
+#
+# This install resource installs the "prod" profile to install a full set of Verrazzano services
+# for production scenarios, using OCI DNS for name resolution of Verrazzano endpoints.
+#
+# Note that before you install verrazzano you need to run the create_oci_config_secret.sh in the
+# verrazzano/platform-operator/scripts/install directory to set up the ociConfigSecret below.
+#
+apiVersion: install.verrazzano.io/v1alpha1
+kind: Verrazzano
+metadata:
+  name: example-verrazzano
+spec:
+  environmentName: example-verrazzano
+  profile: dev
+  components:
+    certManager:
+      certificate:
+        acme:
+          provider: letsEncrypt
+          environment: staging
+          emailAddress: <your email>
+    dns:
+      oci:
+        ociConfigSecret: oci
+        dnsZoneCompartmentOCID: <ocid1.compartment.oc1.. mvgiqdatqgq>
+        dnsZoneOCID: <ocid1.dns-zone.oc1.. hjqqd3ug6nuazxnrsopiruq>
+        dnsZoneName: <your OCI DNS zone name>

@@ -31,6 +31,11 @@ resource "null_resource" "install_verrazzano" {
     destination = "~/verrazzano.yaml"
   }
 
+  provisioner "file" {
+    content     = local.oci_secret_template
+    destination = "~/oci_secret.yaml"
+  }
+
   provisioner "remote-exec" {
     inline = [
       "chmod +x $HOME/install_verrazzano_operator",
