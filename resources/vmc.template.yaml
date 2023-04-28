@@ -1,0 +1,8 @@
+apiVersion: clusters.verrazzano.io/v1alpha1
+kind: VerrazzanoManagedCluster
+metadata:
+  name: CLUSTER
+  namespace: verrazzano-mc
+spec:
+  description: "CLUSTER VerrazzanoManagedCluster object"
+  caSecret: ca-secret-CLUSTER

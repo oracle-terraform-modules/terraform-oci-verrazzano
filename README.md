@@ -1,79 +1,46 @@
-[terraform-oci-oke]: https://github.com/oracle-terraform-modules/terraform-oci-oke
-[verrazzano]: https://verrazzano.io
+
+[uri-docs]: https://github.com/oracle-terraform-modules/terraform-oci-verrazzano/blob/main/docs
+[uri-multi-cluster]: https://github.com/oracle-terraform-modules/terraform-oci-verrazzano/blob/main/docs/multi-cluster.md
+[uri-single-cluster-dev]: https://github.com/oracle-terraform-modules/terraform-oci-verrazzano/blob/main/docs/single-cluster-dev.md
+[uri-single-cluster-prod]: https://github.com/oracle-terraform-modules/terraform-oci-verrazzano/blob/main/docs/single-cluster-prod.md
+[uri-terraform-oci-oke]: https://github.com/oracle-terraform-modules/terraform-oci-oke
+[uri-terraform-options]: https://github.com/oracle-terraform-modules/terraform-oci-verrazzano/blob/main/docs/terraformoptions.md
+[uri-verrazzano]: https://verrazzano.io
+[uri-verrazzano-medium]: https://medium.com/verrazzano
+[uri-verrazzano-slack]: https://bit.ly/3gOeRJn
+[uri-verrazzano-youtube]: https://www.youtube.com/@verrazzano_io
 
 # terraform-oci-verrazzano
 
-This module automates the installation of [Verrazzano][verrazzano] on top of this [terraform-oci-oke][terraform-oci-oke] module. This module is currently in technical preview. Your ideas and feedback are most welcome.
+This module automates the installation of [Verrazzano Container Platform][uri-verrazzano] on top of the [terraform-oci-oke][uri-terraform-oci-oke] module. This module is currently in technical preview. Your ideas and feedback are most welcome.
 
-## Quick start
+## [Documentation][uri-docs]
 
-### 1. Creating Providers
+* [Create a single cluster with dev profile][uri-single-cluster-dev]
+* [Create a single cluster with production profile][uri-single-cluster-prod]
+* [Create a multi-cluster][uri-multi-cluster]
+* [Terraform Options][uri-terraform-options]
 
-You need to create 2 providers:
-* 1 provider for the region where your OKE cluster and other resources will be created
-* 1 provider for your tenancy's home region. This is required for conducting identity operations. 
 
-```
-provider "oci" {
-  fingerprint      = var.api_fingerprint
-  private_key_path = var.api_private_key_path
-  region           = var.region
-  tenancy_ocid     = var.tenancy_id
-  user_ocid        = var.user_id
-}
+## Related Documentation, Blog
 
-provider "oci" {
-  fingerprint      = var.api_fingerprint
-  private_key_path = var.api_private_key_path
-  region           = var.home_region
-  tenancy_ocid     = var.tenancy_id
-  user_ocid        = var.user_id
-  alias            = "home"
-}
-```
+* [Verrazzano Documentation][uri-verrazzano]
+* [Verrazzano on Medium][uri-verrazzano-medium]
+* [Verrazzano on Slack][uri-verrazzano-slack]
+* [Verrazzano on YouTube][uri-verrazzano-youtube]
 
-> **Note that your home region may not necessarily be the same as the region where you want to create the cluster.**
+## Changelog
 
-### 2. Update Terraform values
+View the [CHANGELOG][uri-changelog].
 
-* Copy or rename the `terraform.tfvars.example` to `terraform.tfvars`
+## Security
 
-```
-cp terraform.tfvars.example terraform.tfvars
-```
+Please consult the [security guide](./docs/SECURITY.md) for our responsible security vulnerability disclosure process
 
-* Enter or update the values to `terraform.tfvars`:
 
-```
-api_fingerprint      = ""
-api_private_key_path = ""
+## License
 
-home_region  = "us-phoenix-1"
-region       = "ap-sydney-1"
+Copyright (c) 2019-2023 Oracle and/or its affiliates.
 
-tenancy_id = ""
-user_id    = ""
-
-# general oci parameters
-compartment_id = ""
-label_prefix   = "dev"
-
-ssh_private_key_path = "~/.ssh/id_rsa"
-ssh_public_key_path = "~/.ssh/id_rsa.pub"
-
-verrazzano_name    = "v8o"
-verrazzano_profile    = "dev"
-verrazzano_version = "1.0.3"
-```
-
-### 3. Run Terraform
-
-Run Terraform:
-
-. Run Terraform:
-
-```
-terraform init
-terraform plan
-terraform apply
-```
+Released under the Universal Permissive License v1.0 as shown at
+<https://oss.oracle.com/licenses/upl/>.
