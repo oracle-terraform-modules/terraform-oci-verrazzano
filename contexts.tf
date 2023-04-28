@@ -17,9 +17,7 @@ resource "null_resource" "set_contexts" {
   }
 
   depends_on = [
-    module.admin,
-    module.sydney,
-    module.melbourne
+    module.admin
   ]
 
   provisioner "file" {

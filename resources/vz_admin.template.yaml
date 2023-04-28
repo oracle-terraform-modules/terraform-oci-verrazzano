@@ -17,7 +17,7 @@ spec:
               matchExpressions:
               - key: vz
                 operator: In
-                values: [oci,aws]
+                values: [oci]
     dns:
       oci:
         ociConfigSecret: oci

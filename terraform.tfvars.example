@@ -5,6 +5,8 @@ api_fingerprint = ""
 
 api_private_key_path = ""
 
+home_region = "us-ashburn-1"
+
 tenancy_id = ""
 
 user_id = ""
@@ -13,26 +15,23 @@ compartment_id = ""
 
 label_prefix = "vmc"
 
-home_region = "us-ashburn-1"
+ssh_private_key_path = "~/.ssh/id_rsa"
+
+ssh_public_key_path  = "~/.ssh/id_rsa.pub"
 
 connectivity_mode = "star"
 
-ssh_private_key_path = "~/.ssh/id_rsa"
-ssh_public_key_path  = "~/.ssh/id_rsa.pub"
-
-secret_id = ""
+kubernetes_version = "v1.24.1"
 
 admin_region = {
   admin_name = "admin"
-  region   = "Sydney"
-  vcn_cidr = "10.0.0.0/16"
-  pods     = "10.200.0.0/16"
-  services = "10.100.0.0/16"
+  region     = "Sydney"
+  vcn_cidr   = "10.0.0.0/16"
+  pods       = "10.200.0.0/16"
+  services   = "10.100.0.0/16"
 }
 
-kubernetes_version = "v1.24.1"
-
-control_plane_type = "private"
+control_plane_type = "public"
 
 clusters = {
   # Africa
@@ -85,9 +84,14 @@ clusters = {
   toronto   = false
 }
 
-
+# verrazzano
 install_vz         = false
 verrazzano_version = "1.5.2"
+verrazzano_profile = "prod"
 
+# dns
+configure_dns = false
+secret_id = ""
 dns_zone_id   = ""
+dns_compartment_id = ""
 dns_zone_name = ""

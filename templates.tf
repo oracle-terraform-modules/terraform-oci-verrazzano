@@ -71,7 +71,14 @@ locals {
 
   install_admin_script = templatefile("${path.module}/scripts/install_vz_admin.template.sh", {})
 
-  vz_admin_template = templatefile("${path.module}/resources/vz_admin.template.yaml", {
+  vz_admin_template = tobool(var.configure_dns) ? templatefile("${path.module}/resources/vz_admin.template.yaml", {
+    compartment_id = var.dns_compartment_id
+    dns_zone_id    = var.dns_zone_id
+    dns_zone_name  = var.dns_zone_name
+    profile        = var.verrazzano_profile
+    public_nsg     = lookup(local.pub_nsg_ids, "admin")
+    }
+  ) : templatefile("${path.module}/resources/vz_admin_nip.template.yaml", {
     compartment_id = var.dns_compartment_id
     dns_zone_id    = var.dns_zone_id
     dns_zone_name  = var.dns_zone_name
@@ -90,9 +97,21 @@ locals {
     k => v if k != "admin" && v != "none"
   }
 
-  install_managed_vz_templates = {
+  install_managed_vz_templates = tobool(var.configure_dns) ? {
     for k, v in local.managed_clusters :
     k => templatefile("${path.module}/resources/vz_mc.template.yaml",
+      {
+        cluster        = k
+        compartment_id = var.dns_compartment_id
+        dns_zone_id    = var.dns_zone_id
+        dns_zone_name  = var.dns_zone_name
+        public_nsg     = lookup(local.pub_nsg_ids, k)
+        int_nsg        = lookup(local.int_nsg_ids, k)
+      }
+    ) if(var.install_vz == true)
+    } : {
+    for k, v in local.managed_clusters :
+    k => templatefile("${path.module}/resources/vz_mc_nip.template.yaml",
       {
         cluster        = k
         compartment_id = var.dns_compartment_id

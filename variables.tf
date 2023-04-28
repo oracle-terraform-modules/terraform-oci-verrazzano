@@ -184,7 +184,6 @@ variable "kubernetes_version" {
   type        = string
 }
 
-
 # clusters
 
 variable "admin_region" {
@@ -289,28 +288,33 @@ variable "verrazzano_profile" {
   }  
 }
 
-# TODO: make DNS optional
+# dns
+variable "configure_dns" {
+  default     = false
+  description = "Whether ready to configure DNS"
+  type        = bool
+}
+
 variable "secret_id" {
   default     = ""
   description = "ocid of oci secret"
   type        = string
 }
 
-# dns
 variable "dns_zone_id" {
   default     = ""
-  description = "dns zone id"
+  description = "DNS Zone ocid in OCI DNS"
   type        = string
 }
 
 variable "dns_compartment_id" {
   default     = ""
-  description = "dns compartment id"
+  description = "DNS Zone's Compartment id"
   type        = string
 }
 
 variable "dns_zone_name" {
   default     = ""
-  description = "dns zone name"
+  description = "DNS Zone Name"
   type        = string
 }

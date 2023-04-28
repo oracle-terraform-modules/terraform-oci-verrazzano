@@ -1,17 +1,23 @@
 apiVersion: install.verrazzano.io/v1beta1
 kind: Verrazzano
 metadata:
-  name: ${cluster}
+  name: admin
 spec:
-  profile: managed-cluster
-  environmentName: ${cluster}
+  profile: ${profile}
+  environmentName: admin
   components:
-    dns:
-      oci:
-        ociConfigSecret: oci
-        dnsZoneCompartmentOCID: ${compartment_id}
-        dnsZoneOCID: ${dns_zone_id}
-        dnsZoneName: ${dns_zone_name}
+    argoCD:
+      enabled: true
+    clusterOperator:
+      overrides:
+      - values:
+          syncClusters:
+            enabled: true
+            clusterSelector:
+              matchExpressions:
+              - key: vz
+                operator: In
+                values: [oci]
     ingressNGINX:
       type: LoadBalancer
       overrides:

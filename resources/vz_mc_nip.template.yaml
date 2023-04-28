@@ -6,12 +6,6 @@ spec:
   profile: managed-cluster
   environmentName: ${cluster}
   components:
-    dns:
-      oci:
-        ociConfigSecret: oci
-        dnsZoneCompartmentOCID: ${compartment_id}
-        dnsZoneOCID: ${dns_zone_id}
-        dnsZoneName: ${dns_zone_name}
     ingressNGINX:
       type: LoadBalancer
       overrides:

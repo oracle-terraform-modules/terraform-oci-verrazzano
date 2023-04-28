@@ -1,4 +1,4 @@
-
+[uri-changelog]: https://github.com/oracle-terraform-modules/terraform-oci-verrazzano/blob/main/docs/CHANGELOG.md
 [uri-docs]: https://github.com/oracle-terraform-modules/terraform-oci-verrazzano/blob/main/docs
 [uri-multi-cluster]: https://github.com/oracle-terraform-modules/terraform-oci-verrazzano/blob/main/docs/multi-cluster.md
 [uri-single-cluster-dev]: https://github.com/oracle-terraform-modules/terraform-oci-verrazzano/blob/main/docs/single-cluster-dev.md
