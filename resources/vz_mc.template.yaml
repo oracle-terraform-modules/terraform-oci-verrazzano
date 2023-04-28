@@ -1,0 +1,59 @@
+apiVersion: install.verrazzano.io/v1beta1
+kind: Verrazzano
+metadata:
+  name: ${cluster}
+spec:
+  profile: managed-cluster
+  environmentName: ${cluster}
+  components:
+    dns:
+      oci:
+        ociConfigSecret: oci
+        dnsZoneCompartmentOCID: ${compartment_id}
+        dnsZoneOCID: ${dns_zone_id}
+        dnsZoneName: ${dns_zone_name}
+    ingressNGINX:
+      type: LoadBalancer
+      overrides:
+      - values:
+          controller:
+            service:
+              annotations:
+                service.beta.kubernetes.io/oci-load-balancer-shape: "100Mbps"
+                service.beta.kubernetes.io/oci-load-balancer-shape-flex-min: "25"
+                service.beta.kubernetes.io/oci-load-balancer-shape-flex-max: "50"
+                service.beta.kubernetes.io/oci-load-balancer-security-list-management-mode: "None"
+                oci.oraclecloud.com/oci-network-security-groups: "${public_nsg}"
+    istio:
+      overrides:
+      - values:
+          apiVersion: install.istio.io/v1alpha1
+          kind: IstioOperator
+          spec:
+            components:
+              ingressGateways:
+                - enabled: true
+                  name: istio-ingressgateway
+                  k8s:
+                    serviceAnnotations:
+                      service.beta.kubernetes.io/oci-load-balancer-shape: "100Mbps"
+                      service.beta.kubernetes.io/oci-load-balancer-shape-flex-min: "25"
+                      service.beta.kubernetes.io/oci-load-balancer-shape-flex-max: "50"
+                      service.beta.kubernetes.io/oci-load-balancer-security-list-management-mode: "None"
+                      oci.oraclecloud.com/oci-network-security-groups: "${public_nsg}"
+    # prometheusOperator:
+    #   overrides:
+    #   - values:
+    #       prometheus:
+    #         thanosService:
+    #           enabled: true
+    #           annotations:
+    #             service.beta.kubernetes.io/oci-load-balancer-shape: "flexible"
+    #             service.beta.kubernetes.io/oci-load-balancer-shape-flex-min: "25"
+    #             service.beta.kubernetes.io/oci-load-balancer-shape-flex-max: "50"
+    #             service.beta.kubernetes.io/oci-load-balancer-security-list-management-mode: "None"
+    #             service.beta.kubernetes.io/oci-load-balancer-internal: "true"                
+    #             oci.oraclecloud.com/oci-network-security-groups: "${int_nsg}"
+    #         prometheusSpec:
+    #           externalLabels:
+    #             cluster: ${cluster}
