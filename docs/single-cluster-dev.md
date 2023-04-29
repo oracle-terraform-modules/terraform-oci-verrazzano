@@ -1,6 +1,6 @@
 # Create a single cluster with dev profile
 
-## Create the OKE cluster
+## 1. Create the OKE cluster
 
 1. Copy terraform.tfvars.example to terraform.tfvars
 2. Provide values for the input variables `api_fingerprint`,`api_private_key_path`,`tenancy_id`,`user_id`, `compartment_id`.
@@ -32,7 +32,7 @@ terraform plan
 terraform apply
 ```
 
-## Generate Verrazzano Installation scripts
+## 2. Generate Verrazzano Installation scripts
 
 1. Set `install_vz` to true
 
@@ -43,7 +43,7 @@ install_vz = true
 2. Configure Verrazzano profile:
 
 ```
-verrazzano_profile = dev
+verrazzano_profile = "dev"
 ```
 
 3. If you need to use your own DNS, you need to configure DNS before you run Terraform and the installation scripts. Else, the installation scripts will use nip.io.
@@ -55,7 +55,7 @@ terraform plan
 terraform apply
 ```
 
-## Run Verrazzano Installation scripts
+## 3. Run Verrazzano Installation scripts
 
 These steps are to be run manually today. We'll automate them in the future.
 

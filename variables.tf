@@ -187,7 +187,7 @@ variable "kubernetes_version" {
 # clusters
 
 variable "admin_region" {
-  description = "The region parameters of the Admin cluster."
+  description = "The region parameters of the Admin cluster. In case a single cluster is created, the Admin region is used for the single cluster."
   type        = map(any)
   default = {
     admin_name = "admin"
