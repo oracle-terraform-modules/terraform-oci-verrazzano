@@ -1,7 +1,6 @@
 # Copyright (c) 2023 Oracle Corporation and/or its affiliates.
 # Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl
 
-
 locals {
 
   admin_region = lookup(local.regions,lower(lookup(var.admin_region, "region")))
@@ -56,6 +55,7 @@ locals {
     sanjose   = "us-sanjose-1"
     toronto   = "ca-toronto-1"
   }
+
     managed_nodepools = {
     np1 = {
       shape            = "VM.Standard.E4.Flex",
