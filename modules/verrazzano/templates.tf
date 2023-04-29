@@ -36,6 +36,12 @@ locals {
 
   setup_vz_env_template = templatefile("${path.module}/scripts/setup_vz_env.template.sh", {})
 
+  install_vz_cli_template = templatefile(
+    "${path.module}/scripts/install_vz_cli.template.sh", {
+        version = var.verrazzano_version
+      }
+    )
+
   install_vz_operator_templates = {
     for k, v in var.cluster_ids :
     k => templatefile("${path.module}/scripts/install_vz_operator.template.sh",
