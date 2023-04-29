@@ -66,8 +66,8 @@ clusters = {
   jerusalem = false
 
   # Oceania
-  melbourne = true
-  sydney    = true
+  melbourne = false
+  sydney    = false
 
   # South America
   santiago = false

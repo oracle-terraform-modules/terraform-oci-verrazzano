@@ -87,7 +87,7 @@ module "admin" {
   user_id = var.user_id
 
   providers = {
-    oci      = oci.sydney
+    oci      = oci.melbourne
     oci.home = oci.home
   }
 }
