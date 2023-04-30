@@ -49,7 +49,7 @@ locals {
         cluster = k
         version = var.verrazzano_version
       }
-    ) if v != "none"
+    ) if v != ""
   }
 
   check_vz_operator_templates = {
@@ -58,7 +58,7 @@ locals {
       {
         cluster = k
       }
-    ) if v != "none"
+    ) if v != ""
   }
 
   get_oci_secret_template = templatefile("${path.module}/scripts/get_oci_secret.template.sh", {
@@ -72,7 +72,7 @@ locals {
       {
         cluster = k
       }
-    ) if v != "none"
+    ) if v != ""
   }
 
   install_admin_script = templatefile("${path.module}/scripts/install_vz_admin.template.sh", {})
@@ -95,12 +95,12 @@ locals {
 
   all_clusters = {
     for k, v in var.cluster_ids :
-    k => v if v != "none"
+    k => v if v != ""
   }
 
   managed_clusters = {
     for k, v in var.cluster_ids :
-    k => v if k != "admin" && v != "none"
+    k => v if k != "admin" && v != ""
   }
 
   install_managed_vz_templates = tobool(var.configure_dns) ? {
