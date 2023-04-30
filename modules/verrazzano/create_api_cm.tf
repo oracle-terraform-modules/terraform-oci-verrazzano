@@ -24,6 +24,14 @@ resource "null_resource" "create_api_cm" {
     destination = "/home/opc/vz/cm/create_api_cm.sh"
   }
 
+  provisioner "remote-exec" {
+    inline = [
+      "if [ -f \"$HOME/vz/cm/create_api_cm.sh.sh\" ]; then bash \"$HOME/vz/cm/create_api_cm.sh.sh\";sleep 10;fi",
+    ]
+  }
+
   depends_on = [null_resource.create_cert_secret]
+
+  count = local.all_clusters > 1 ? 1 :0
 
 }

@@ -49,10 +49,15 @@ resource "null_resource" "create_oci_secret" {
     destination = "/home/opc/vz/oci/create_oci_secret_${each.key}.sh"
   }
 
+  provisioner "remote-exec" {
+    inline = [
+      "if [ -f \"$HOME/vz/certs/create_oci_secret_${each.key}.sh\" ]; then bash \"$HOME/vz/ocertsci/create_oci_secret_${each.key}.sh\"; sleep 10; fi"
+    ]
+  }
+
   depends_on = [null_resource.get_oci_secret]
 
   triggers = {
     clusters = length(var.cluster_ids)
   }
-
 }
