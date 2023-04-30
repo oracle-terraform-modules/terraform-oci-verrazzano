@@ -3,7 +3,7 @@
 
 locals {
 
-  admin_region = lookup(local.regions,lower(lookup(var.admin_region, "region")))
+  admin_region = lookup(local.regions, lower(lookup(var.admin_region, "region")))
 
   regions = {
     # Africa
@@ -40,7 +40,6 @@ locals {
     melbourne = "ap-melbourne-1"
     sydney    = "ap-sydney-1"
 
-
     # South America
     santiago = "sa-santiago-1"
     saupaulo = "sa-saupaulo-1"
@@ -54,15 +53,5 @@ locals {
     queretaro = "mx-queretaro-1"
     sanjose   = "us-sanjose-1"
     toronto   = "ca-toronto-1"
-  }
-
-    managed_nodepools = {
-    np1 = {
-      shape            = "VM.Standard.E4.Flex",
-      ocpus            = 2,
-      memory           = 32,
-      node_pool_size   = 2,
-      boot_volume_size = 150,
-    }
   }
 }

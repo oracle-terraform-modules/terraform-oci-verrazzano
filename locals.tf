@@ -4,7 +4,7 @@
 
 locals {
 
-  admin_region = lookup(local.regions,lower(lookup(var.admin_region, "region")))
+  admin_region = lookup(local.regions, lower(lookup(var.admin_region, "region")))
 
   regions = {
     # Africa
@@ -56,7 +56,7 @@ locals {
     sanjose   = "us-sanjose-1"
     toronto   = "ca-toronto-1"
   }
-    managed_nodepools = {
+  managed_nodepools = {
     np1 = {
       shape            = "VM.Standard.E4.Flex",
       ocpus            = 2,

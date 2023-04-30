@@ -38,9 +38,9 @@ locals {
 
   install_vz_cli_template = templatefile(
     "${path.module}/scripts/install_vz_cli.template.sh", {
-        version = var.verrazzano_version
-      }
-    )
+      version = var.verrazzano_version
+    }
+  )
 
   install_vz_operator_templates = {
     for k, v in var.cluster_ids :
@@ -84,12 +84,12 @@ locals {
     profile        = var.verrazzano_profile
     public_nsg     = lookup(var.pub_nsg_ids, "admin")
     }
-  ) : templatefile("${path.module}/resources/vz_admin_nip.template.yaml", {
-    compartment_id = var.dns_compartment_id
-    dns_zone_id    = var.dns_zone_id
-    dns_zone_name  = var.dns_zone_name
-    profile        = var.verrazzano_profile
-    public_nsg     = lookup(var.pub_nsg_ids, "admin")
+    ) : templatefile("${path.module}/resources/vz_admin_nip.template.yaml", {
+      compartment_id = var.dns_compartment_id
+      dns_zone_id    = var.dns_zone_id
+      dns_zone_name  = var.dns_zone_name
+      profile        = var.verrazzano_profile
+      public_nsg     = lookup(var.pub_nsg_ids, "admin")
     }
   )
 
@@ -114,7 +114,7 @@ locals {
         public_nsg     = lookup(var.pub_nsg_ids, k)
         int_nsg        = lookup(var.int_nsg_ids, k)
       }
-    ) if(var.install_vz == true)
+    )
     } : {
     for k, v in local.managed_clusters :
     k => templatefile("${path.module}/resources/vz_mc_nip.template.yaml",
@@ -126,7 +126,7 @@ locals {
         public_nsg     = lookup(var.pub_nsg_ids, k)
         int_nsg        = lookup(var.int_nsg_ids, k)
       }
-    ) if(var.install_vz == true)
+    )
   }
 
   install_managed_vz_script = {
@@ -135,7 +135,7 @@ locals {
       {
         cluster = k
       }
-    ) if(var.install_vz == true)
+    )
   }
 
   managed_clusters_str = join(" ", keys(local.managed_clusters))
@@ -152,7 +152,7 @@ locals {
       {
         cluster = k
       }
-    ) if(var.install_vz == true)
+    )
   }
 
   api_cm_template = templatefile("${path.module}/resources/api_cm.template.yaml", {})
@@ -165,13 +165,13 @@ locals {
     for k, v in local.managed_clusters :
     k => templatefile("${path.module}/scripts/create_vmc.template.sh", {
       cluster = k
-    }) if(var.install_vz == true)
+    })
   }
 
   register_vmc_templates = {
     for k, v in local.managed_clusters :
     k => templatefile("${path.module}/scripts/register_vmc.template.sh", {
       cluster = k
-    }) if(var.install_vz == true)
+    })
   }
 }

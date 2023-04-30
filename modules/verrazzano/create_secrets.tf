@@ -27,12 +27,10 @@ resource "null_resource" "get_oci_secret" {
 
   depends_on = [null_resource.check_vz_operator]
 
-  count = var.install_vz == true ? 1 : 0
-
 }
 
 resource "null_resource" "create_oci_secret" {
-  for_each = var.install_vz == true ? local.all_clusters : {}
+  for_each = local.all_clusters
 
   connection {
     host        = var.operator_ip
