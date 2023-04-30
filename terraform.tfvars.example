@@ -21,6 +21,8 @@ ssh_public_key_path  = "~/.ssh/id_rsa.pub"
 
 connectivity_mode = "star"
 
+configure_clusters = true
+
 kubernetes_version = "v1.24.1"
 
 admin_region = {
@@ -85,7 +87,7 @@ clusters = {
 }
 
 # verrazzano
-install_vz         = false
+install_verrazzano = true
 verrazzano_version = "1.5.2"
 verrazzano_profile = "prod"
 

@@ -12,6 +12,10 @@ variable "ssh_private_key_path" {
   type = string
 }
 
+variable "install_verrazzano" {
+  type = bool
+}
+
 variable "verrazzano_version" {
   type = string
 }

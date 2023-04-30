@@ -77,6 +77,8 @@ module "verrazzano" {
 
   verrazzano_version = var.verrazzano_version
 
+  install_verrazzano = var.install_verrazzano
+
   admin_region = var.admin_region
 
   verrazzano_profile = var.verrazzano_profile
@@ -101,5 +103,5 @@ module "verrazzano" {
     module.clusters
   ]
 
-  count = var.install_vz == true ? 1 : 0
+  count = var.configure_clusters == true ? 1 : 0
 }

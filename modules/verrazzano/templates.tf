@@ -114,7 +114,7 @@ locals {
         public_nsg     = lookup(var.pub_nsg_ids, k)
         int_nsg        = lookup(var.int_nsg_ids, k)
       }
-    )
+    ) if(var.install_verrazzano == true)
     } : {
     for k, v in local.managed_clusters :
     k => templatefile("${path.module}/resources/vz_mc_nip.template.yaml",
@@ -126,7 +126,7 @@ locals {
         public_nsg     = lookup(var.pub_nsg_ids, k)
         int_nsg        = lookup(var.int_nsg_ids, k)
       }
-    )
+    ) if(var.install_verrazzano == true)
   }
 
   install_managed_vz_script = {
@@ -152,7 +152,7 @@ locals {
       {
         cluster = k
       }
-    )
+    ) if(var.install_verrazzano == true)
   }
 
   api_cm_template = templatefile("${path.module}/resources/api_cm.template.yaml", {})
@@ -165,13 +165,13 @@ locals {
     for k, v in local.managed_clusters :
     k => templatefile("${path.module}/scripts/create_vmc.template.sh", {
       cluster = k
-    })
+    }) if(var.install_verrazzano == true)
   }
 
   register_vmc_templates = {
     for k, v in local.managed_clusters :
     k => templatefile("${path.module}/scripts/register_vmc.template.sh", {
       cluster = k
-    })
+    }) if(var.install_verrazzano == true)
   }
 }

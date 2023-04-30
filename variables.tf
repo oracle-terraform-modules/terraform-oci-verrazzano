@@ -178,6 +178,13 @@ variable "connectivity_mode" {
 }
 
 # kubernetes
+
+variable "configure_clusters" {
+  default     = true
+  description = "Whether to set up access to the clusters."
+  type        = bool
+}
+
 variable "kubernetes_version" {
   default     = "v1.24.1"
   description = "The version of Kubernetes to use."
@@ -265,9 +272,9 @@ variable "clusters" {
 
 # verrazzano
 
-variable "install_vz" {
+variable "install_verrazzano" {
   default     = false
-  description = "Whether ready to install vz"
+  description = "Whether ready to install Verrazzano"
   type        = bool
 }
 

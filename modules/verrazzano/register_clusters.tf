@@ -2,7 +2,7 @@
 # Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl
 
 resource "null_resource" "register_vmc" {
-  for_each = local.managed_clusters
+  for_each =  var.install_verrazzano == true ? local.managed_clusters : {}
 
   connection {
     host        = var.operator_ip

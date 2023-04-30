@@ -31,11 +31,13 @@ resource "null_resource" "install_vz_admin" {
   }
 
   depends_on = [null_resource.create_oci_secret]
+
+  count = var.install_verrazzano == true ? 1 : 0
 }
 
 resource "null_resource" "install_managed_vz" {
 
-  for_each = local.managed_clusters
+  for_each = var.install_verrazzano == true ? local.managed_clusters : {}
 
   connection {
     host        = var.operator_ip
@@ -99,4 +101,5 @@ resource "null_resource" "check_managed_vz" {
     clusters = length(var.cluster_ids)
   }
 
+  count = var.install_verrazzano == true ? 1 : 0
 }
