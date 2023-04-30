@@ -26,6 +26,4 @@ resource "null_resource" "create_api_cm" {
 
   depends_on = [null_resource.create_cert_secret]
 
-  count = var.install_vz == true ? 1: 0
-
 }

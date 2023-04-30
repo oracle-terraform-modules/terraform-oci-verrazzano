@@ -285,7 +285,7 @@ variable "verrazzano_profile" {
   validation {
     condition     = contains(["dev", "prod"], lower(var.verrazzano_profile))
     error_message = "Accepted values are 'dev' or 'prod'."
-  }  
+  }
 }
 
 # dns

@@ -6,14 +6,14 @@ terraform {
     oci = {
       source = "oracle/oci"
       # pass oci home region provider explicitly for identity operations
-      configuration_aliases = [oci.home, oci.johannesburg, oci.chuncheon, oci.hyderabad, oci.mumbai, oci.osaka, 
-                               oci.seoul, oci.singapore, oci.tokyo, oci.amsterdam, oci.frankfurt, oci.london, 
-                               oci.madrid, oci.marseille, oci.milan, oci.newport, oci.paris, oci.stockholm,
-                               oci.zurich, oci.abudhabi, oci.dubai, oci.jeddah, oci.jerusalem, oci.melbourne,
-                               oci.sydney, oci.santiago, oci.saupaulo, oci.vinhedo, oci.ashburn, oci.chicago,
-                               oci.montreal, oci.phoenix, oci.queretaro, oci.sanjose, oci.toronto 
-                            ]
-      version               = ">= 4.67.3"
+      configuration_aliases = [oci.home, oci.johannesburg, oci.chuncheon, oci.hyderabad, oci.mumbai, oci.osaka,
+        oci.seoul, oci.singapore, oci.tokyo, oci.amsterdam, oci.frankfurt, oci.london,
+        oci.madrid, oci.marseille, oci.milan, oci.newport, oci.paris, oci.stockholm,
+        oci.zurich, oci.abudhabi, oci.dubai, oci.jeddah, oci.jerusalem, oci.melbourne,
+        oci.sydney, oci.santiago, oci.saupaulo, oci.vinhedo, oci.ashburn, oci.chicago,
+        oci.montreal, oci.phoenix, oci.queretaro, oci.sanjose, oci.toronto
+      ]
+      version = ">= 4.67.3"
     }
   }
   required_version = ">= 1.0.0"
@@ -120,5 +120,15 @@ locals {
     queretaro = { vcn = "10.32.0.0/16", pods = "10.244.0.0/16", services = "10.96.0.0/16" }
     sanjose   = { vcn = "10.33.0.0/16", pods = "10.244.0.0/16", services = "10.96.0.0/16" }
     toronto   = { vcn = "10.34.0.0/16", pods = "10.244.0.0/16", services = "10.96.0.0/16" }
+  }
+
+      managed_nodepools = {
+    np1 = {
+      shape            = "VM.Standard.E4.Flex",
+      ocpus            = 2,
+      memory           = 32,
+      node_pool_size   = 2,
+      boot_volume_size = 150,
+    }
   }
 }

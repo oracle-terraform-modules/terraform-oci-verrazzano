@@ -25,6 +25,4 @@ resource "null_resource" "setup_vz_env" {
     ]
   }
 
-  count = var.install_vz == true ? 1 : 0
-
 }

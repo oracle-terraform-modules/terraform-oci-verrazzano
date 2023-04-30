@@ -19,7 +19,7 @@ module "admin" {
   ssh_public_key_path  = var.ssh_public_key_path
 
   # networking
-  create_drg = true
+  create_drg       = true
   drg_display_name = lookup(var.admin_region, "admin_name")
 
   # admin is always connected to everybody

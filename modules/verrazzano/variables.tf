@@ -2,22 +2,18 @@
 # Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl
 
 variable "bastion_ip" {
-    type = string
+  type = string
 }
 variable "operator_ip" {
-    type = string
+  type = string
 }
 
 variable "ssh_private_key_path" {
-    type = string
-}
-
-variable "install_vz" {
-  type        = bool
+  type = string
 }
 
 variable "verrazzano_version" {
-  type        = string
+  type = string
 }
 
 variable "admin_region" {
@@ -25,7 +21,7 @@ variable "admin_region" {
 }
 
 variable "verrazzano_profile" {
-  type        = string
+  type = string
 }
 
 variable "cluster_ids" {
@@ -41,21 +37,21 @@ variable "pub_nsg_ids" {
 }
 # dns
 variable "configure_dns" {
-  type        = bool
+  type = bool
 }
 
 variable "secret_id" {
-  type        = string
+  type = string
 }
 
 variable "dns_zone_id" {
-  type        = string
+  type = string
 }
 
 variable "dns_compartment_id" {
-  type        = string
+  type = string
 }
 
 variable "dns_zone_name" {
-  type        = string
+  type = string
 }

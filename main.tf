@@ -69,13 +69,11 @@ module "clusters" {
 module "verrazzano" {
   source = "./modules/verrazzano"
 
-  bastion_ip  = module.admin.bastion_public_ip
+  bastion_ip = module.admin.bastion_public_ip
 
   operator_ip = module.admin.operator_private_ip
 
   ssh_private_key_path = var.ssh_private_key_path
-
-  install_vz = var.install_vz
 
   verrazzano_version = var.verrazzano_version
 
@@ -83,12 +81,12 @@ module "verrazzano" {
 
   verrazzano_profile = var.verrazzano_profile
 
-  cluster_ids = merge({"admin" = module.admin.cluster_id},module.clusters.cluster_ids)
+  cluster_ids = merge({ "admin" = module.admin.cluster_id }, module.clusters.cluster_ids)
 
-  int_nsg_ids = merge({"admin" = lookup(module.admin.nsg_ids, "int_lb")},module.clusters.int_nsg_ids)
+  int_nsg_ids = merge({ "admin" = lookup(module.admin.nsg_ids, "int_lb") }, module.clusters.int_nsg_ids)
 
-  pub_nsg_ids = merge({"admin" = lookup(module.admin.nsg_ids, "pub_lb")},module.clusters.pub_nsg_ids)
-  
+  pub_nsg_ids = merge({ "admin" = lookup(module.admin.nsg_ids, "pub_lb") }, module.clusters.pub_nsg_ids)
+
   configure_dns = var.configure_dns
 
   secret_id = var.secret_id

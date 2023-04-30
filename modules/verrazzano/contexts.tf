@@ -2,7 +2,7 @@
 # Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl
 
 resource "null_resource" "set_contexts" {
-  for_each = var.install_vz == true ? local.all_clusters : {}
+  for_each = local.all_clusters
 
   connection {
     host        = var.operator_ip
@@ -46,5 +46,5 @@ resource "null_resource" "set_contexts" {
   lifecycle {
     create_before_destroy = true
   }
-    
+
 }
