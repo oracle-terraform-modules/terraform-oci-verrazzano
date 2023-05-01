@@ -1,4 +1,4 @@
-baseURL = 'https://junior.github.io/otm-terraform-oci-verrazzano'
+baseURL = 'https://oracle-terraform-modules.github.io/terraform-oci-verrazzano'
 languageCode = 'en-us'
 title = 'Terraform module for Verrazzano on OCI'
 
