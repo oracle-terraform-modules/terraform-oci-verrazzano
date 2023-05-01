@@ -21,11 +21,11 @@ resource "null_resource" "create_cert_secret" {
     destination = "/home/opc/vz/certs/create_cert_secret_${each.key}.sh"
   }
 
-  provisioner "remote-exec" {
-    inline = [
-      "if [ -f \"$HOME/vz/certs/create_cert_secret_${each.key}.sh\" ]; then bash \"$HOME/vz/ocertsci/create_cert_secret_${each.key}.sh\"; sleep 10; fi"
-    ]
-  }
+  # provisioner "remote-exec" {
+  #   inline = [
+  #     "if [ -f \"$HOME/vz/certs/create_cert_secret_${each.key}.sh\" ]; then bash \"$HOME/vz/certs/create_cert_secret_${each.key}.sh\"; sleep 10; fi"
+  #   ]
+  # }
 
   depends_on = [null_resource.check_managed_vz]
 

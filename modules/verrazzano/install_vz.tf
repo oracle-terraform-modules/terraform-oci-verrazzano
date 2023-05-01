@@ -21,16 +21,16 @@ resource "null_resource" "install_vz_admin" {
 
   provisioner "file" {
     content     = local.install_admin_script
-    destination = "/home/opc/vz/clusters/install_vz_admin.sh"
+    destination = "/home/opc/vz/clusters/install_vz_cluster_admin.sh"
   }
 
-  provisioner "remote-exec" {
-    inline = [
-      "if [ -f \"$HOME/opc/vz/operator/install_vz_admin.sh\" ]; then bash \"$HOME/opc/vz/operator/install_vz_admin.sh\";fi",
-    ]
-  }
+  # provisioner "remote-exec" {
+  #   inline = [
+  #     "if [ -f \"$HOME/opc/vz/operator/install_vz_admin.sh\" ]; then bash \"$HOME/opc/vz/operator/install_vz_admin.sh\";fi",
+  #   ]
+  # }
 
-  depends_on = [null_resource.create_oci_secret]
+  depends_on = [null_resource.check_vz_operator]
 
   count = var.install_verrazzano == true ? 1 : 0
 }
@@ -61,11 +61,11 @@ resource "null_resource" "install_managed_vz" {
     destination = "/home/opc/vz/clusters/install_vz_cluster_${each.key}.sh"
   }
 
-  provisioner "remote-exec" {
-    inline = [
-      "if [ -f \"$HOME/opc/vz/operator/install_vz_cluster_${each.key}.sh\" ]; then bash \"$HOME/opc/vz/operator/install_vz_cluster_${each.key}.sh\";sleep 10;fi",
-    ]
-  }
+  # provisioner "remote-exec" {
+  #   inline = [
+  #     "if [ -f \"$HOME/opc/vz/operator/install_vz_cluster_${each.key}.sh\" ]; then bash \"$HOME/opc/vz/operator/install_vz_cluster_${each.key}.sh\";sleep 10;fi",
+  #   ]
+  # }
 
   depends_on = [null_resource.install_vz_admin]
 
@@ -90,11 +90,11 @@ resource "null_resource" "check_managed_vz" {
     destination = "/home/opc/vz/clusters/vz_status.sh"
   }
 
-  provisioner "remote-exec" {
-    inline = [
-      "if [ -f \"$HOME/opc/vz/operator/vz_status.sh\" ]; then bash \"$HOME/opc/vz/operator/vz_status.sh\";fi",
-    ]
-  }
+  # provisioner "remote-exec" {
+  #   inline = [
+  #     "if [ -f \"$HOME/opc/vz/operator/vz_status.sh\" ]; then bash \"$HOME/opc/vz/operator/vz_status.sh\";fi",
+  #   ]
+  # }
 
   depends_on = [null_resource.install_managed_vz]
   triggers = {

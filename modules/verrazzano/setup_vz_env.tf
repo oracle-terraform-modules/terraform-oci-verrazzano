@@ -21,7 +21,7 @@ resource "null_resource" "setup_vz_env" {
 
   provisioner "remote-exec" {
     inline = [
-      "if [ -f \"$HOME/setup_vz_env.sh\" ]; then bash \"$HOME/setup_vz_env.sh\";fi",
+      "if [ -f \"$HOME/setup_vz_env.sh\" ]; then bash \"$HOME/setup_vz_env.sh\";sleep 10;fi",
     ]
   }
 

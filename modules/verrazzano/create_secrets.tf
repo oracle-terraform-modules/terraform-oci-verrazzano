@@ -27,12 +27,12 @@ resource "null_resource" "get_oci_secret" {
 
   depends_on = [null_resource.check_vz_operator]
 
-  count = var.install_verrazzano == true ? 1 : 0
+  count = alltrue([var.install_verrazzano, var.configure_dns]) ? 1 : 0
 
 }
 
 resource "null_resource" "create_oci_secret" {
-  for_each = var.install_verrazzano == true ? local.all_clusters : {}
+  for_each = alltrue([var.install_verrazzano, var.configure_dns]) ? local.all_clusters : {}
   connection {
     host        = var.operator_ip
     private_key = file(var.ssh_private_key_path)
@@ -52,7 +52,7 @@ resource "null_resource" "create_oci_secret" {
 
   provisioner "remote-exec" {
     inline = [
-      "if [ -f \"$HOME/vz/certs/create_oci_secret_${each.key}.sh\" ]; then bash \"$HOME/vz/ocertsci/create_oci_secret_${each.key}.sh\"; sleep 10; fi"
+      "if [ -f \"$HOME/vz/certs/create_oci_secret_${each.key}.sh\" ]; then bash \"$HOME/vz/certs/create_oci_secret_${each.key}.sh\"; sleep 10; fi"
     ]
   }
 
@@ -61,4 +61,5 @@ resource "null_resource" "create_oci_secret" {
   triggers = {
     clusters = length(var.cluster_ids)
   }
+
 }

@@ -49,11 +49,11 @@ resource "null_resource" "install_vz_operator" {
     destination = "/home/opc/vz/operator/install_vz_operator_${each.key}.sh"
   }
 
-  provisioner "remote-exec" {
-    inline = [
-      "if [ -f \"$HOME/opc/vz/operator/install_vz_operator_${each.key}.sh\" ]; then bash \"$HOME/opc/vz/operator/install_vz_operator_${each.key}.sh\";sleep 10;fi",
-    ]
-  }  
+  # provisioner "remote-exec" {
+  #   inline = [
+  #     "if [ -f \"$HOME/opc/vz/operator/install_vz_operator_${each.key}.sh\" ]; then bash \"$HOME/opc/vz/operator/install_vz_operator_${each.key}.sh\";sleep 10;fi",
+  #   ]
+  # }  
 
   depends_on = [null_resource.setup_vz_env]
 
@@ -83,11 +83,12 @@ resource "null_resource" "check_vz_operator" {
     destination = "/home/opc/vz/operator/check_vz_operator_${each.key}.sh"
   }
 
-  provisioner "remote-exec" {
-    inline = [
-      "if [ -f \"$HOME/opc/vz/operator/check_vz_operator_${each.key}.sh\" ]; then bash \"$HOME/opc/vz/operator/check_vz_operator_${each.key}.sh\";sleep 10;fi",
-    ]
-  }  
+  # provisioner "remote-exec" {
+  #   inline = [
+  #     "if [ -f \"$HOME/opc/vz/operator/check_vz_operator_${each.key}.sh\" ]; then bash \"$HOME/opc/vz/operator/check_vz_operator_${each.key}.sh\";sleep 10;fi",
+  #   ]
+  # }
+
   depends_on = [null_resource.install_vz_operator]
 
   triggers = {

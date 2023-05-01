@@ -21,11 +21,11 @@ resource "null_resource" "register_vmc" {
     destination = "/home/opc/vz/clusters/register_vmc_${each.key}.sh"
   }
 
-  provisioner "remote-exec" {
-    inline = [
-      "if [ -f \"$HOME/vz/clusters/register_vmc_${each.key}.sh\" ]; then bash \"$HOME/vz/clusters/register_vmc_${each.key}.sh\"; sleep 10; fi"
-    ]
-  }
+  # provisioner "remote-exec" {
+  #   inline = [
+  #     "if [ -f \"$HOME/vz/clusters/register_vmc_${each.key}.sh\" ]; then bash \"$HOME/vz/clusters/register_vmc_${each.key}.sh\"; sleep 10; fi"
+  #   ]
+  # }
 
   depends_on = [null_resource.create_vmc]
 
