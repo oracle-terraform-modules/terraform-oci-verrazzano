@@ -148,24 +148,7 @@ module "sydney" {
 
 
   # node pools
-  node_pools = {
-    gateway = {
-      shape            = "VM.Standard.E4.Flex",
-      ocpus            = 2,
-      memory           = 32,
-      node_pool_size   = 1,
-      boot_volume_size = 150,
-      label            = { "submariner.io/gateway" = "true" }
-    }
-    np1 = {
-      shape            = "VM.Standard.E4.Flex",
-      ocpus            = 2,
-      memory           = 32,
-      node_pool_size   = 1,
-      boot_volume_size = 150,
-      label            = { "submariner.io/gateway" = "false" }
-    }
-  }
+  node_pools = local.managed_nodepools
 
   node_pool_image_type = "oke"
 
