@@ -56,13 +56,4 @@ locals {
     sanjose   = "us-sanjose-1"
     toronto   = "ca-toronto-1"
   }
-  managed_nodepools = {
-    np1 = {
-      shape            = "VM.Standard.E4.Flex",
-      ocpus            = 2,
-      memory           = 32,
-      node_pool_size   = 2,
-      boot_volume_size = 150,
-    }
-  }
 }

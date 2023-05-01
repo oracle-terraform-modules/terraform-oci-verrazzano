@@ -270,6 +270,20 @@ variable "clusters" {
   }
 }
 
+variable "nodepools" {
+  type        = any
+  description = "Node pools for all clusters"
+  default = {
+    np1 = {
+      shape            = "VM.Standard.E4.Flex",
+      ocpus            = 2,
+      memory           = 32,
+      node_pool_size   = 3,
+      boot_volume_size = 150,
+    }
+  }
+}
+
 # verrazzano
 
 variable "install_verrazzano" {

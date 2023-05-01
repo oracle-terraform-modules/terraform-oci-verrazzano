@@ -27,6 +27,8 @@ module "clusters" {
 
   control_plane_type = var.control_plane_type
 
+  nodepools = var.nodepools
+
   providers = {
     oci.home         = oci.home,
     oci.johannesburg = oci.johannesburg,

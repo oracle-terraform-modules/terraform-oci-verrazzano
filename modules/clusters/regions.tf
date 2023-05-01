@@ -122,13 +122,5 @@ locals {
     toronto   = { vcn = "10.34.0.0/16", pods = "10.244.0.0/16", services = "10.96.0.0/16" }
   }
 
-      managed_nodepools = {
-    np1 = {
-      shape            = "VM.Standard.E4.Flex",
-      ocpus            = 2,
-      memory           = 32,
-      node_pool_size   = 2,
-      boot_volume_size = 150,
-    }
-  }
+  managed_nodepools = var.nodepools
 }

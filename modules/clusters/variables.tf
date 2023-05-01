@@ -48,6 +48,9 @@ variable "clusters" {
 }
 
 variable "control_plane_type" {
-  description = "Whether to keep all control planes public or private"
-  type        = string
+  type = string
+}
+
+variable "nodepools" {
+  type = any
 }

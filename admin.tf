@@ -72,7 +72,7 @@ module "admin" {
 
 
   # node pools
-  node_pools = local.managed_nodepools
+  node_pools = var.nodepools
 
   node_pool_image_type = "oke"
 
@@ -87,7 +87,7 @@ module "admin" {
   user_id = var.user_id
 
   providers = {
-    oci      = oci.melbourne
+    oci      = oci.sydney
     oci.home = oci.home
   }
 }
