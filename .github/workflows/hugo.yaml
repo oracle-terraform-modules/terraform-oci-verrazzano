@@ -60,14 +60,14 @@ jobs:
           HUGO_ENVIRONMENT: production
           HUGO_ENV: production
         run: |
-          hugo \
+          hugo new site docs --force \
             --gc \
             --minify \
             --baseURL "${{ steps.pages.outputs.base_url }}/"          
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          path: ./docs/content/docs
+          path: ./public
 
   # Deployment job
   deploy:
