@@ -1,7 +1,13 @@
-baseURL = 'https://oracle-terraform-modules.github.io/terraform-oci-verrazzano'
+baseURL = 'https://oracle-terraform-modules.github.io/terraform-oci-verrazzano/'
 languageCode = 'en-us'
 title = 'Terraform module for Verrazzano on OCI'
 theme = "hugo-theme-relearn"
+
+[markup]
+  [markup.tableOfContents]
+    endLevel = 5
+    ordered = false
+    startLevel = 3
 
 [outputs]
   home = ["HTML", "RSS", "PRINT", "SEARCH"]
@@ -12,3 +18,4 @@ theme = "hugo-theme-relearn"
   alwaysopen = true
   showVisitedLinks = false
   disableBreadcrumb = true
+  collapsibleMenu = true
