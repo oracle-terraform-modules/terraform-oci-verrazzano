@@ -1,7 +1,7 @@
 ---
 title: "Single dev cluster"
 date: 2023-05-04T18:00:34+10:00
-draft: true
+draft: false
 weight: 1
 ---
 
