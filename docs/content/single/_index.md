@@ -8,6 +8,6 @@ weight = 1
 * [Create a single cluster for a production environment][prod]
 * [Create a single customized cluster][custom]
 
-[dev]: ./dev
-[prod]: ./prod 
-[custom]: ./custom 
+[dev]: ./dev/
+[prod]: ./prod/
+[custom]: ./custom/
