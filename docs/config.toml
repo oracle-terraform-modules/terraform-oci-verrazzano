@@ -3,12 +3,6 @@ languageCode = 'en-us'
 title = 'Terraform module for Verrazzano on OCI'
 theme = "hugo-theme-relearn"
 
-[markup]
-  [markup.tableOfContents]
-    endLevel = 5
-    ordered = false
-    startLevel = 3
-
 [outputs]
   home = ["HTML", "RSS", "PRINT", "SEARCH"]
   section = ["HTML", "RSS", "PRINT"]
@@ -17,5 +11,6 @@ theme = "hugo-theme-relearn"
 [params]
   alwaysopen = true
   showVisitedLinks = false
-  disableBreadcrumb = true
+  disableBreadcrumb = false
   collapsibleMenu = true
+  ordersectionsby = "weight"
