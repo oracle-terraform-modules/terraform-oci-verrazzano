@@ -8,3 +8,4 @@ path = 'github.com/alex-shpak/hugo-book'
 
 [params]
   BookSearch = false
+  BookToC = true  
