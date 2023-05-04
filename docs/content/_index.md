@@ -1,10 +1,6 @@
 [uri-changelog]: https://github.com/oracle-terraform-modules/terraform-oci-verrazzano/blob/main/docs/CHANGELOG.md
 [uri-docs]: https://oracle-terraform-modules.github.io/terraform-oci-verrazzano
-[uri-multi-cluster]: https://oracle-terraform-modules.github.io/terraform-oci-verrazzano/mc
-[uri-single-cluster-dev]: https://github.com/oracle-terraform-modules/terraform-oci-verrazzano/blob/main/docs/content/docs/1.-single-cluster-dev.md
-[uri-single-cluster-prod]: https://github.com/oracle-terraform-modules/terraform-oci-verrazzano/blob/main/docs/content/docs/2.-single-cluster-prod.md
 [uri-terraform-oci-oke]: https://github.com/oracle-terraform-modules/terraform-oci-oke
-[uri-terraform-options]: https://github.com/oracle-terraform-modules/terraform-oci-verrazzano/blob/main/docs/content/docs/5.-terraform-options.md
 [uri-verrazzano]: https://verrazzano.io
 [uri-verrazzano-medium]: https://medium.com/verrazzano
 [uri-verrazzano-slack]: https://bit.ly/3gOeRJn
