@@ -3,6 +3,14 @@ languageCode = 'en-us'
 title = 'Terraform module for Verrazzano on OCI'
 theme = "hugo-theme-relearn"
 
+canonifyURLs = true
+
+[markup]
+  [markup.tableOfContents]
+    endLevel = 5
+    ordered = true
+    startLevel = 1
+
 [outputs]
   home = ["HTML", "RSS", "PRINT", "SEARCH"]
   section = ["HTML", "RSS", "PRINT"]
