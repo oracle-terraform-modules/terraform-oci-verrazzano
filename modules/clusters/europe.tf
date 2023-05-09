@@ -3,7 +3,7 @@
 
 # module "frankfurt" {
 #   source  = "oracle-terraform-modules/oke/oci"
-#   version = "4.5.7"
+#   version = "4.5.9"
 
 #   home_region = var.home_region
 #   region      = local.regions["frankfurt"]
@@ -87,7 +87,7 @@
 
 # module "amsterdam" {
 #   source  = "oracle-terraform-modules/oke/oci"
-#   version = "4.5.7"
+#   version = "4.5.9"
 
 #   home_region = var.home_region
 #   region      = local.regions["amsterdam"]
@@ -171,7 +171,7 @@
 
 # module "madrid" {
 #   source  = "oracle-terraform-modules/oke/oci"
-#   version = "4.5.7"
+#   version = "4.5.9"
 
 #   home_region = var.home_region
 #   region      = local.regions["madrid"]
@@ -254,7 +254,7 @@
 
 # module "milan" {
 #   source  = "oracle-terraform-modules/oke/oci"
-#   version = "4.5.7"
+#   version = "4.5.9"
 
 #   home_region = var.home_region
 #   region      = local.regions["milan"]
@@ -337,7 +337,7 @@
 
 # module "stockholm" {
 #   source  = "oracle-terraform-modules/oke/oci"
-#   version = "4.5.7"
+#   version = "4.5.9"
 
 #   home_region = var.home_region
 #   region      = local.regions["stockholm"]
@@ -420,7 +420,7 @@
 
 # module "zurich" {
 #   source  = "oracle-terraform-modules/oke/oci"
-#   version = "4.5.7"
+#   version = "4.5.9"
 
 #   home_region = var.home_region
 #   region      = local.regions["zurich"]

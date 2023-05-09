@@ -3,7 +3,7 @@
 
 # module "london" {
 #   source  = "oracle-terraform-modules/oke/oci"
-#   version = "4.5.7"
+#   version = "4.5.9"
 
 #   home_region = var.home_region
 #   region      = local.regions["london"]
@@ -86,7 +86,7 @@
 
 # module "newport" {
 #   source  = "oracle-terraform-modules/oke/oci"
-#   version = "4.5.7"
+#   version = "4.5.9"
 
 #   home_region = var.home_region
 #   region      = local.regions["newport"]

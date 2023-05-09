@@ -3,7 +3,7 @@
 
 # module "ashburn" {
 #   source  = "oracle-terraform-modules/oke/oci"
-#   version = "4.5.7"
+#   version = "4.5.9"
 
 #   home_region = var.home_region
 #   region      = local.regions["ashburn"]
@@ -86,7 +86,7 @@
 
 # module "phoenix" {
 #   source  = "oracle-terraform-modules/oke/oci"
-#   version = "4.5.7"
+#   version = "4.5.9"
 
 #   home_region = var.home_region
 #   region      = local.regions["phoenix"]
@@ -169,7 +169,7 @@
 
 # module "sanjose" {
 #   source  = "oracle-terraform-modules/oke/oci"
-#   version = "4.5.7"
+#   version = "4.5.9"
 
 #   home_region = var.home_region
 #   region      = local.regions["sanjose"]
@@ -252,7 +252,7 @@
 
 # module "chicago" {
 #   source  = "oracle-terraform-modules/oke/oci"
-#   version = "4.5.7"
+#   version = "4.5.9"
 
 #   home_region = var.home_region
 #   region      = local.regions["chicago"]
