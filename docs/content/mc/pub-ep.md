@@ -74,7 +74,7 @@ done
 
 ```
 cd /home/opc/vz/clusters
-bash install_vz_admin.sh
+bash install_vz_cluster_admin.sh
 ```
 
 4. While the admin cluster is being installed in the background, you can install the managed clusters in parallel:
