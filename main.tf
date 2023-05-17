@@ -25,7 +25,7 @@ module "clusters" {
 
   clusters = var.clusters
 
-  control_plane_type = var.control_plane_type
+  oke_control_plane = var.oke_control_plane
 
   nodepools = var.nodepools
 
@@ -84,6 +84,12 @@ module "verrazzano" {
   admin_region = var.admin_region
 
   verrazzano_profile = var.verrazzano_profile
+
+  verrazzano_control_plane = var.verrazzano_control_plane
+
+  verrazzano_data_plane = var.verrazzano_data_plane
+
+  verrazzano_load_balancer = var.verrazzano_load_balancer
 
   cluster_ids = merge({ "admin" = module.admin.cluster_id }, module.clusters.cluster_ids)
 

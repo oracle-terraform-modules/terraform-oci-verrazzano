@@ -64,7 +64,7 @@ module "admin" {
 
   # oke cluster options
   cluster_name                = lookup(var.admin_region, "admin_name")
-  control_plane_type          = var.control_plane_type
+  control_plane_type          = var.oke_control_plane
   control_plane_allowed_cidrs = ["0.0.0.0/0"]
   kubernetes_version          = var.kubernetes_version
   pods_cidr                   = lookup(var.admin_region, "pods")

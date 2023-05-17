@@ -78,18 +78,26 @@ locals {
   install_admin_script = templatefile("${path.module}/scripts/install_vz_admin.template.sh", {})
 
   vz_admin_template = tobool(var.configure_dns) ? templatefile("${path.module}/resources/vz_admin.template.yaml", {
-    compartment_id = var.dns_compartment_id
-    dns_zone_id    = var.dns_zone_id
-    dns_zone_name  = var.dns_zone_name
-    profile        = var.verrazzano_profile
-    public_nsg     = lookup(var.pub_nsg_ids, "admin")
+    compartment_id    = var.dns_compartment_id
+    dns_zone_id       = var.dns_zone_id
+    dns_zone_name     = var.dns_zone_name
+    profile           = var.verrazzano_profile
+    control_plane_nsg = var.verrazzano_control_plane == "public" ? lookup(var.pub_nsg_ids, "admin") : lookup(var.int_nsg_ids, "admin")
+    data_plane_nsg    = var.verrazzano_data_plane == "public" ? lookup(var.pub_nsg_ids, "admin") : lookup(var.int_nsg_ids, "admin")
+    lb_shape          = lookup(var.verrazzano_load_balancer, "shape")
+    flex_min          = lookup(var.verrazzano_load_balancer, "flex_min")
+    flex_max          = lookup(var.verrazzano_load_balancer, "flex_max")
     }
     ) : templatefile("${path.module}/resources/vz_admin_nip.template.yaml", {
-      compartment_id = var.dns_compartment_id
-      dns_zone_id    = var.dns_zone_id
-      dns_zone_name  = var.dns_zone_name
-      profile        = var.verrazzano_profile
-      public_nsg     = lookup(var.pub_nsg_ids, "admin")
+      compartment_id    = var.dns_compartment_id
+      dns_zone_id       = var.dns_zone_id
+      dns_zone_name     = var.dns_zone_name
+      profile           = var.verrazzano_profile
+      control_plane_nsg = var.verrazzano_control_plane == "public" ? lookup(var.pub_nsg_ids, "admin") : lookup(var.int_nsg_ids, "admin")
+      data_plane_nsg    = var.verrazzano_data_plane == "public" ? lookup(var.pub_nsg_ids, "admin") : lookup(var.int_nsg_ids, "admin")
+      lb_shape          = lookup(var.verrazzano_load_balancer, "shape")
+      flex_min          = lookup(var.verrazzano_load_balancer, "flex_min")
+      flex_max          = lookup(var.verrazzano_load_balancer, "flex_max")
     }
   )
 
@@ -107,24 +115,32 @@ locals {
     for k, v in local.managed_clusters :
     k => templatefile("${path.module}/resources/vz_mc.template.yaml",
       {
-        cluster        = k
-        compartment_id = var.dns_compartment_id
-        dns_zone_id    = var.dns_zone_id
-        dns_zone_name  = var.dns_zone_name
-        public_nsg     = lookup(var.pub_nsg_ids, k)
-        int_nsg        = lookup(var.int_nsg_ids, k)
+        cluster           = k
+        compartment_id    = var.dns_compartment_id
+        dns_zone_id       = var.dns_zone_id
+        dns_zone_name     = var.dns_zone_name
+        control_plane_nsg = var.verrazzano_control_plane == "public" ? lookup(var.pub_nsg_ids, k) : lookup(var.int_nsg_ids, k)
+        data_plane_nsg    = var.verrazzano_data_plane == "public" ? lookup(var.pub_nsg_ids, k) : lookup(var.int_nsg_ids, k)
+        lb_shape          = lookup(var.verrazzano_load_balancer, "shape")
+        flex_min          = lookup(var.verrazzano_load_balancer, "flex_min")
+        flex_max          = lookup(var.verrazzano_load_balancer, "flex_max")
+
       }
     ) if(var.install_verrazzano == true)
     } : {
     for k, v in local.managed_clusters :
     k => templatefile("${path.module}/resources/vz_mc_nip.template.yaml",
       {
-        cluster        = k
-        compartment_id = var.dns_compartment_id
-        dns_zone_id    = var.dns_zone_id
-        dns_zone_name  = var.dns_zone_name
-        public_nsg     = lookup(var.pub_nsg_ids, k)
-        int_nsg        = lookup(var.int_nsg_ids, k)
+        cluster           = k
+        compartment_id    = var.dns_compartment_id
+        dns_zone_id       = var.dns_zone_id
+        dns_zone_name     = var.dns_zone_name
+        control_plane_nsg = var.verrazzano_control_plane == "public" ? lookup(var.pub_nsg_ids, k) : lookup(var.int_nsg_ids, k)
+        data_plane_nsg    = var.verrazzano_data_plane == "public" ? lookup(var.pub_nsg_ids, k) : lookup(var.int_nsg_ids, k)
+        lb_shape          = lookup(var.verrazzano_load_balancer, "shape")
+        flex_min          = lookup(var.verrazzano_load_balancer, "flex_min")
+        flex_max          = lookup(var.verrazzano_load_balancer, "flex_max")
+
       }
     ) if(var.install_verrazzano == true)
   }

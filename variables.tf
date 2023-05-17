@@ -205,13 +205,13 @@ variable "admin_region" {
   }
 }
 
-variable "control_plane_type" {
+variable "oke_control_plane" {
   default     = "public"
-  description = "Whether to keep all control planes public or private"
+  description = "Whether to keep all OKE control planes public or private"
   type        = string
 
   validation {
-    condition     = contains(["public", "private"], lower(var.control_plane_type))
+    condition     = contains(["public", "private"], lower(var.oke_control_plane))
     error_message = "Accepted values are 'public' or 'private'."
   }
 }
@@ -306,6 +306,38 @@ variable "verrazzano_profile" {
   validation {
     condition     = contains(["dev", "prod"], lower(var.verrazzano_profile))
     error_message = "Accepted values are 'dev' or 'prod'."
+  }
+}
+
+variable "verrazzano_control_plane" {
+  default     = "public"
+  description = "Whether to keep all Verrazzano control planes public or private"
+  type        = string
+
+  validation {
+    condition     = contains(["public", "private"], lower(var.verrazzano_control_plane))
+    error_message = "Accepted values are 'public' or 'private'."
+  }
+}
+
+variable "verrazzano_data_plane" {
+  default     = "public"
+  description = "Whether to keep all Verrazzano data planes public or private"
+  type        = string
+
+  validation {
+    condition     = contains(["public", "private"], lower(var.verrazzano_data_plane))
+    error_message = "Accepted values are 'public' or 'private'."
+  }
+}
+
+variable "verrazzano_load_balancer" {
+  description = "Load Balancer Shape"
+  type        = map(string)
+  default = {
+    shape    = "10Mbps"
+    flex_min = "25"
+    flex_max = "50"
   }
 }
 
