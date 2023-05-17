@@ -28,6 +28,16 @@ variable "verrazzano_profile" {
   type = string
 }
 
+variable "verrazzano_control_plane" {
+}
+
+variable "verrazzano_data_plane" {
+}
+
+variable "verrazzano_load_balancer" {
+  type        = map(string)
+}
+
 variable "cluster_ids" {
   type = map(any)
 }

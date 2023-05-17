@@ -9,7 +9,7 @@ weight: 2
 1. Copy terraform.tfvars.example to terraform.tfvars
 2. Provide values for the input variables `api_fingerprint`,`api_private_key_path`,`tenancy_id`,`user_id`, `compartment_id`.
 3. Set your tenancy's home region using `home_region`.
-4. Set the `control_plane_type = private`
+4. Set the `oke_control_plane = private`
 5. Configure the admin region:
    - Set the Admin region for where you want to place the Verrazzano multi-cluster. This should be the region name only e.g. `Sydney`. This should not be the region identifier `ap-sydney-1`.
    - Also change the provider to its corresponding alias. The aliases can be found in providers.tf e.g. if you want to place your admin cluster in Ashburn, you'll change the provider from `oci.sydney` to `oci.ashburn`. This should be configured in `admin.tf` in the root module.

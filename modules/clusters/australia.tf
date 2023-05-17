@@ -55,7 +55,7 @@ module "melbourne" {
   # oke cluster options
   allow_worker_ssh_access     = false
   cluster_name                = "melbourne"
-  control_plane_type          = var.control_plane_type
+  control_plane_type          = var.oke_control_plane
   control_plane_allowed_cidrs = ["0.0.0.0/0"]
   kubernetes_version          = var.kubernetes_version
   pods_cidr                   = lookup(lookup(var.cidrs, lower("melbourne")), "pods")
@@ -140,7 +140,7 @@ module "sydney" {
   # oke cluster options
   allow_worker_ssh_access     = false
   cluster_name                = "sydney"
-  control_plane_type          = var.control_plane_type
+  control_plane_type          = var.oke_control_plane
   control_plane_allowed_cidrs = ["0.0.0.0/0"]
   kubernetes_version          = var.kubernetes_version
   pods_cidr                   = lookup(lookup(var.cidrs, lower("sydney")), "pods")

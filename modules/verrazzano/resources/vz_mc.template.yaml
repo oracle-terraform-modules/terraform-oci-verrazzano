@@ -19,11 +19,11 @@ spec:
           controller:
             service:
               annotations:
-                service.beta.kubernetes.io/oci-load-balancer-shape: "100Mbps"
-                service.beta.kubernetes.io/oci-load-balancer-shape-flex-min: "25"
-                service.beta.kubernetes.io/oci-load-balancer-shape-flex-max: "50"
+                service.beta.kubernetes.io/oci-load-balancer-shape: "${lb_shape}"
+                service.beta.kubernetes.io/oci-load-balancer-shape-flex-min: "${flex_min}"
+                service.beta.kubernetes.io/oci-load-balancer-shape-flex-max: "${flex_max}"
                 service.beta.kubernetes.io/oci-load-balancer-security-list-management-mode: "None"
-                oci.oraclecloud.com/oci-network-security-groups: "${public_nsg}"
+                oci.oraclecloud.com/oci-network-security-groups: "${control_plane_nsg}"
     istio:
       overrides:
       - values:
@@ -36,8 +36,8 @@ spec:
                   name: istio-ingressgateway
                   k8s:
                     serviceAnnotations:
-                      service.beta.kubernetes.io/oci-load-balancer-shape: "100Mbps"
-                      service.beta.kubernetes.io/oci-load-balancer-shape-flex-min: "25"
-                      service.beta.kubernetes.io/oci-load-balancer-shape-flex-max: "50"
+                      service.beta.kubernetes.io/oci-load-balancer-shape: "${lb_shape}"
+                      service.beta.kubernetes.io/oci-load-balancer-shape-flex-min: "${flex_min}"
+                      service.beta.kubernetes.io/oci-load-balancer-shape-flex-max: "${flex_max}"
                       service.beta.kubernetes.io/oci-load-balancer-security-list-management-mode: "None"
-                      oci.oraclecloud.com/oci-network-security-groups: "${public_nsg}"
+                      oci.oraclecloud.com/oci-network-security-groups: "${data_plane_nsg}"

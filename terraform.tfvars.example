@@ -33,7 +33,7 @@ admin_region = {
   services   = "10.100.0.0/16"
 }
 
-control_plane_type = "public"
+oke_control_plane = "public"
 
 clusters = {
   # Africa
@@ -90,6 +90,15 @@ clusters = {
 install_verrazzano = true
 verrazzano_version = "1.5.2"
 verrazzano_profile = "prod"
+
+verrazzano_control_plane = "private"
+verrazzano_data_plane    = "public"
+
+verrazzano_load_balancer = {
+  shape    = "flexible"
+  flex_min = "50"
+  flex_max = "100"
+}
 
 # dns
 configure_dns = false
