@@ -284,6 +284,12 @@ variable "nodepools" {
   }
 }
 
+variable "cloudinit_nodepool_common" {
+  type        = string
+  description = "custom cloud-init"
+  default     = ""
+}
+
 # verrazzano
 
 variable "install_verrazzano" {

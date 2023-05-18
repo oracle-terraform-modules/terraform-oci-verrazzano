@@ -82,6 +82,8 @@ locals {
     dns_zone_id       = var.dns_zone_id
     dns_zone_name     = var.dns_zone_name
     profile           = var.verrazzano_profile
+    control_plane     = var.verrazzano_control_plane == "public" ? false : true
+    data_plane        = var.verrazzano_data_plane == "public" ? false : true
     control_plane_nsg = var.verrazzano_control_plane == "public" ? lookup(var.pub_nsg_ids, "admin") : lookup(var.int_nsg_ids, "admin")
     data_plane_nsg    = var.verrazzano_data_plane == "public" ? lookup(var.pub_nsg_ids, "admin") : lookup(var.int_nsg_ids, "admin")
     lb_shape          = lookup(var.verrazzano_load_balancer, "shape")
@@ -89,10 +91,13 @@ locals {
     flex_max          = lookup(var.verrazzano_load_balancer, "flex_max")
     }
     ) : templatefile("${path.module}/resources/vz_admin_nip.template.yaml", {
-      compartment_id    = var.dns_compartment_id
-      dns_zone_id       = var.dns_zone_id
-      dns_zone_name     = var.dns_zone_name
-      profile           = var.verrazzano_profile
+      compartment_id = var.dns_compartment_id
+      dns_zone_id    = var.dns_zone_id
+      dns_zone_name  = var.dns_zone_name
+      profile        = var.verrazzano_profile
+      control_plane  = var.verrazzano_control_plane == "public" ? false : true
+      data_plane     = var.verrazzano_data_plane == "public" ? false : true
+
       control_plane_nsg = var.verrazzano_control_plane == "public" ? lookup(var.pub_nsg_ids, "admin") : lookup(var.int_nsg_ids, "admin")
       data_plane_nsg    = var.verrazzano_data_plane == "public" ? lookup(var.pub_nsg_ids, "admin") : lookup(var.int_nsg_ids, "admin")
       lb_shape          = lookup(var.verrazzano_load_balancer, "shape")
@@ -121,6 +126,8 @@ locals {
         dns_zone_name     = var.dns_zone_name
         control_plane_nsg = var.verrazzano_control_plane == "public" ? lookup(var.pub_nsg_ids, k) : lookup(var.int_nsg_ids, k)
         data_plane_nsg    = var.verrazzano_data_plane == "public" ? lookup(var.pub_nsg_ids, k) : lookup(var.int_nsg_ids, k)
+        control_plane     = var.verrazzano_control_plane == "public" ? false : true
+        data_plane        = var.verrazzano_data_plane == "public" ? false : true
         lb_shape          = lookup(var.verrazzano_load_balancer, "shape")
         flex_min          = lookup(var.verrazzano_load_balancer, "flex_min")
         flex_max          = lookup(var.verrazzano_load_balancer, "flex_max")
@@ -137,10 +144,11 @@ locals {
         dns_zone_name     = var.dns_zone_name
         control_plane_nsg = var.verrazzano_control_plane == "public" ? lookup(var.pub_nsg_ids, k) : lookup(var.int_nsg_ids, k)
         data_plane_nsg    = var.verrazzano_data_plane == "public" ? lookup(var.pub_nsg_ids, k) : lookup(var.int_nsg_ids, k)
+        control_plane     = var.verrazzano_control_plane == "public" ? false : true
+        data_plane        = var.verrazzano_data_plane == "public" ? false : true
         lb_shape          = lookup(var.verrazzano_load_balancer, "shape")
         flex_min          = lookup(var.verrazzano_load_balancer, "flex_min")
         flex_max          = lookup(var.verrazzano_load_balancer, "flex_max")
-
       }
     ) if(var.install_verrazzano == true)
   }

@@ -17,7 +17,7 @@ spec:
               matchExpressions:
               - key: vz
                 operator: In
-                values: [oci]
+                values: [verrazzano]
     ingressNGINX:
       type: LoadBalancer
       overrides:
@@ -25,6 +25,7 @@ spec:
           controller:
             service:
               annotations:
+                service.beta.kubernetes.io/oci-load-balancer-internal: "${control_plane}"
                 service.beta.kubernetes.io/oci-load-balancer-shape: "${lb_shape}"
                 service.beta.kubernetes.io/oci-load-balancer-shape-flex-min: "${flex_min}"
                 service.beta.kubernetes.io/oci-load-balancer-shape-flex-max: "${flex_max}"
@@ -42,6 +43,7 @@ spec:
                   name: istio-ingressgateway
                   k8s:
                     serviceAnnotations:
+                      service.beta.kubernetes.io/oci-load-balancer-internal: "${data_plane}"
                       service.beta.kubernetes.io/oci-load-balancer-shape: "${lb_shape}"
                       service.beta.kubernetes.io/oci-load-balancer-shape-flex-min: "${flex_min}"
                       service.beta.kubernetes.io/oci-load-balancer-shape-flex-max: "${flex_max}"

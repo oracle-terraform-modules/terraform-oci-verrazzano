@@ -54,3 +54,7 @@ variable "oke_control_plane" {
 variable "nodepools" {
   type = any
 }
+
+variable "cloudinit_nodepool_common" {
+  type        = string
+}

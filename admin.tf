@@ -74,6 +74,8 @@ module "admin" {
   # node pools
   node_pools = var.nodepools
 
+  cloudinit_nodepool_common = var.cloudinit_nodepool_common
+
   node_pool_image_type = "oke"
 
   # oke load balancers

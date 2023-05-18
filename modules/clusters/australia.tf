@@ -64,6 +64,7 @@ module "melbourne" {
 
   # node pools
   node_pools = local.managed_nodepools
+  cloudinit_nodepool_common = var.cloudinit_nodepool_common
 
   node_pool_image_type = "oke"
 
@@ -149,6 +150,7 @@ module "sydney" {
 
   # node pools
   node_pools = local.managed_nodepools
+  cloudinit_nodepool_common = var.cloudinit_nodepool_common  
 
   node_pool_image_type = "oke"
 

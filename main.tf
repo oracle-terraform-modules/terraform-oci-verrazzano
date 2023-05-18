@@ -27,6 +27,8 @@ module "clusters" {
 
   oke_control_plane = var.oke_control_plane
 
+  cloudinit_nodepool_common = var.cloudinit_nodepool_common
+
   nodepools = var.nodepools
 
   providers = {
