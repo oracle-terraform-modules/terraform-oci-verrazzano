@@ -48,7 +48,7 @@
     --INTERNAL-MENU-HEADER-BG-color: var(--MENU-HEADER-BG-color, var(--PRIMARY-color, rgba( 0, 0, 0, 0 ))); /* not --INTERNAL-PRIMARY-color */
     --INTERNAL-MENU-HEADER-BORDER-color: var(--MENU-HEADER-BORDER-color, var(--INTERNAL-MENU-HEADER-BG-color));
 
-    --INTERNAL-MENU-HOME-LINK-color: var(--MENU-HOME-LINK-color, #323232);
+    --INTERNAL-MENU-HOME-LINK-color: var(--MENU-HOME-LINK-color, #FFFFFF);
     --INTERNAL-MENU-HOME-LINK-HOVER-color: var(--MENU-HOME-LINK-HOVER-color, var(--MENU-HOME-LINK-HOVERED-color, #808080));
 
     --INTERNAL-MENU-SEARCH-color: var(--MENU-SEARCH-color, var(--MENU-SEARCH-BOX-ICONS-color, #e0e0e0));
