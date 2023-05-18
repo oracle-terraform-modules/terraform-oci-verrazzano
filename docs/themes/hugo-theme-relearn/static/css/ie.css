@@ -380,7 +380,7 @@
 	}
 
 	div.box.primary {
-		background-color: #7dc903; /* var(--INTERNAL-PRIMARY-color) */
+		background-color: #00688c; /* var(--INTERNAL-PRIMARY-color) */
 	}
 
 	div.box.primary > .box-content {
@@ -516,8 +516,8 @@
 	}
 
 	#homelinks {
-		background-color: #7dc903; /* var(--MENU-HEADER-BORDER-color) */
-		border-color: #7dc903; /* var(--MENU-HEADER-BORDER-color) */
+		background-color: #00688c; /* var(--MENU-HEADER-BORDER-color) */
+		border-color: #00688c; /* var(--MENU-HEADER-BORDER-color) */
 	}
 
 	#homelinks a {
@@ -589,11 +589,11 @@
 	}
 
 	.btn.cstyle.primary {
-		background-color: #7dc903; /* var(--PRIMARY-color) */
+		background-color: #00688c; /* var(--PRIMARY-color) */
 	}
 
 	.btn.cstyle.primary > * {
-		border-color: #7dc903; /* var(--PRIMARY-color) */
+		border-color: #00688c; /* var(--PRIMARY-color) */
 	}
 
 	.btn.cstyle.secondary {
@@ -668,13 +668,13 @@
 	}
 
 	#body .tags a.tag-link {
-		background-color: #7dc903; /* var(--TAG-BG-color) */
+		background-color: #00688c; /* var(--TAG-BG-color) */
 		color: #ffffff; /* var(--MAIN-BG-color) */
 		margin-right: 16px;
 	}
 
 	#body .tags a.tag-link:before {
-		border-right-color: #7dc903; /* var(--TAG-BG-color) */
+		border-right-color: #00688c; /* var(--TAG-BG-color) */
 	}
 
 	#body .tags a.tag-link:after {
@@ -712,7 +712,7 @@
 	}
 
 	.badge.primary > .badge-content {
-		background-color: #7dc903; /* var(--INTERNAL-PRIMARY-color) */
+		background-color: #00688c; /* var(--INTERNAL-PRIMARY-color) */
 	}
 
 	.badge.secondary > .badge-content {
@@ -754,7 +754,7 @@
 	}
 
 	article ul > li > input[type="checkbox"]::before {
-		box-shadow: inset 1em 1em #7dc903; /* var(--INTERNAL-PRIMARY-color) */
+		box-shadow: inset 1em 1em #00688c; /* var(--INTERNAL-PRIMARY-color) */
 	}
 
 	/* ----------------------------------------------- */
@@ -768,8 +768,8 @@
 
     /* our silly dinosaur browser wants to have the real colors */
     #header-wrapper {
-        background-color: #7dc903; /* var(--MENU-HEADER-BG-color) */
-        border-bottom-color: #7dc903; /* var(--MENU-HEADER-BORDER-color) */
+        background-color: #00688c; /* var(--MENU-HEADER-BG-color) */
+        border-bottom-color: #00688c; /* var(--MENU-HEADER-BORDER-color) */
     }
 
     /* clears the 'X' from Internet Explorer's search input */

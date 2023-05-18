@@ -6,7 +6,7 @@
 @import "chroma-relearn-dark.css";
 
 :root {
-    --PRIMARY-color: #7dc903; /* brand primary color */
+    --PRIMARY-color: #00688c; /* brand primary color */
     --SECONDARY-color: #6c8ce3; /* brand secondary color */
     --ACCENT-color: #ff44ff; /* brand accent color, used for search highlights */
 
