@@ -5,5 +5,5 @@
 if [ ! -f $HOME/vz/clusters/vz_admin.completed ]; then
   echo "Installing Verrazzano in Admin cluster"
   kubectx admin
-  kubectl apply -f $HOME/vz/clusters/install_vz_admin.yaml
+  kubectl apply -f $HOME/vz/clusters/vz_admin.yaml
 fi

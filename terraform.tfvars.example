@@ -15,16 +15,12 @@ compartment_id = ""
 
 label_prefix = "vmc"
 
+# ssh
 ssh_private_key_path = "~/.ssh/id_rsa"
 
 ssh_public_key_path  = "~/.ssh/id_rsa.pub"
 
-connectivity_mode = "star"
-
-configure_clusters = true
-
-kubernetes_version = "v1.24.1"
-
+# clusters
 admin_region = {
   admin_name = "admin"
   region     = "Sydney"
@@ -33,7 +29,11 @@ admin_region = {
   services   = "10.100.0.0/16"
 }
 
+kubernetes_version = "v1.24.1"
+
 oke_control_plane = "public"
+
+connectivity_mode = "star"
 
 clusters = {
   # Africa
@@ -86,12 +86,19 @@ clusters = {
   toronto   = false
 }
 
+cloudinit_nodepool_common = "./cloudinit.sh"
+
+configure_clusters = false
+
 # verrazzano
-install_verrazzano = true
-verrazzano_version = "1.5.2"
+install_verrazzano = false
+verrazzano_version = "1.5.3"
 verrazzano_profile = "prod"
 
-verrazzano_control_plane = "private"
+# ingress-nginx
+verrazzano_control_plane = "public"
+
+# istio
 verrazzano_data_plane    = "public"
 
 verrazzano_load_balancer = {

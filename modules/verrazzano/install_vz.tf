@@ -16,7 +16,7 @@ resource "null_resource" "install_vz_admin" {
 
   provisioner "file" {
     content     = local.vz_admin_template
-    destination = "/home/opc/vz/clusters/install_vz_admin.yaml"
+    destination = "/home/opc/vz/clusters/vz_admin.yaml"
   }
 
   provisioner "file" {
