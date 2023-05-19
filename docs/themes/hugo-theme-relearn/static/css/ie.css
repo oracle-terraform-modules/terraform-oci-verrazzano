@@ -521,7 +521,7 @@
 	}
 
 	#homelinks a {
-		color: #404040 /* var(--MENU-HOME-LINK-color) */
+		color: #f8f8f8 /* var(--MENU-HOME-LINK-color) */
 	}
 
 	#homelinks a:hover {
