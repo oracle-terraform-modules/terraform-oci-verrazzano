@@ -28,7 +28,7 @@
     --MERMAID-theme: default; /* name of the default Mermaid theme for this variant, can be overridden in config.toml */
     --SWAGGER-theme: light; /* name of the default Swagger theme for this variant, can be overridden in config.toml */
 
-    --MENU-HOME-LINK-color: #404040; /* home button color if configured */
+    --MENU-HOME-LINK-color: #fffae9; /* home button color if configured */
     --MENU-HOME-LINK-HOVER-color: #000000; /* hovered home button color if configured */
 
     --MENU-SEARCH-color: #e0e0e0; /* text and icon color of search box */
