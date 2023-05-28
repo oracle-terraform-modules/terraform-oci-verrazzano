@@ -4,9 +4,8 @@
 
 1. Copy terraform.tfvars.example to terraform.tfvars
 
-```
+```bash, editable
 cp terraform.tfvars.example terraform.tfvars
-
 ```
 2. Provide values for the following input variables: 
    - `api_fingerprint`

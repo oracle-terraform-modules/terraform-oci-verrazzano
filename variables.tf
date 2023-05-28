@@ -217,7 +217,7 @@ variable "oke_control_plane" {
 }
 
 variable "clusters" {
-  description = "map of clusters to enable"
+  description = "A map of OCI regions where managed clusters will be created"
   type        = map(bool)
   default = {
     # Africa
@@ -286,7 +286,7 @@ variable "nodepools" {
 
 variable "cloudinit_nodepool_common" {
   type        = string
-  description = "custom cloud-init"
+  description = "Path to custom cloud init file for OKE workner nodes"
   default     = ""
 }
 
@@ -299,7 +299,7 @@ variable "install_verrazzano" {
 }
 
 variable "verrazzano_version" {
-  default     = "1.5.2"
+  default     = "1.5.3"
   description = "Verrazzano version to install"
   type        = string
 }
@@ -350,19 +350,19 @@ variable "verrazzano_load_balancer" {
 # dns
 variable "configure_dns" {
   default     = false
-  description = "Whether ready to configure DNS"
+  description = "Whether to configure DNS. If not configured, nip.io will be used"
   type        = bool
 }
 
 variable "secret_id" {
   default     = ""
-  description = "ocid of oci secret"
+  description = "OCID of oci secret to be used for OCI DNS authentication."
   type        = string
 }
 
 variable "dns_zone_id" {
   default     = ""
-  description = "DNS Zone ocid in OCI DNS"
+  description = "DNS Zone OCID in OCI DNS"
   type        = string
 }
 

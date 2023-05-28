@@ -14,6 +14,8 @@ This module automates the installation of the [Verrazzano Container Platform][ur
 This module is currently in technical preview. Your ideas and feedback are most welcome.
 ```
 
+## Related Documentation
+
 * [Verrazzano Documentation][uri-verrazzano]
 * [Verrazzano on Medium][uri-verrazzano-medium]
 * [Verrazzano on Slack][uri-verrazzano-slack]
@@ -21,16 +23,13 @@ This module is currently in technical preview. Your ideas and feedback are most 
 * [Terraform module for OKE][uri-terraform-oci-oke]
 
 ## Changelog
-
 View the [CHANGELOG][uri-changelog].
 
 ## Security
-
 Please consult the [security guide](./docs/SECURITY.md) for our responsible security vulnerability disclosure process
 
 
 ## License
-
 Copyright (c) 2019-2023 Oracle and/or its affiliates.
 
 Released under the Universal Permissive License v1.0 as shown at

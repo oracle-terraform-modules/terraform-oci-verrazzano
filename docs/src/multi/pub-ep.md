@@ -8,7 +8,7 @@
 ## Creating the clusters
 1. Copy terraform.tfvars.example to terraform.tfvars
 
-```
+```bash, editable
 cp terraform.tfvars.example terraform.tfvars
 
 ```
@@ -56,7 +56,7 @@ If you change the CIDR values above, it is your responsibility to ensure they do
 ```
 5. To create managed clusters in your preferred regions, set your preferred regions' values to `true` e.g. `ashburn=true` in the `clusters` parameter. Leave those that you do not use to `false` e.g.
 
-```
+```terraform, editable
 clusters = {
   # Africa
   johannesburg = false
@@ -115,7 +115,7 @@ Do not remove those that you are not using.
 
 6. For the regions you enable, uncomment them in `modules\clusters\outputs.tf` for `cluster_ids`, `int_nsg_ids` and `pub_nsg_ids`. For the clusters that you do not use, leave them commented e.g.
 
-```terraform
+```terraform,editable
 output "cluster_ids" {
   value = {
     # "johannesburg" = join(",", module.johannesburg[*].cluster_id)
@@ -162,7 +162,7 @@ output "cluster_ids" {
 ```
 6. Configure the following input variables:
 
-```terraform
+```terraform,editable
 configure_clusters = false
 install_verrazzano = false
 ```
@@ -173,7 +173,7 @@ When provisioning the cluster, the above 2 variables must set to `false`.
 
 7. Create the cluster by running Terraform:
 
-```bash
+```bash,editable
 terraform init
 terraform plan
 terraform apply
@@ -191,14 +191,14 @@ You will now generate the installation script.
 
 1. Configure the following input variables:
 
-```
+```terraform,editable
 configure_clusters = true
 install_verrazzano = true
 ```
 
 2. Configure the Verrazzano profile:
 
-```
+```terraform,editable
 verrazzano_profile = "prod"
 ```
 
@@ -258,7 +258,7 @@ You will now install Verrazzano in all clusters and register the managed cluster
 
 1. Install the Verrazzano Platform Operator:
 
-```
+```bash,editable
 cd /home/opc/vz/operator
 
 for cluster in admin phoenix ; do
@@ -293,7 +293,7 @@ The Admin cluster has more components to install and takes longer, so we install
 4. While the Admin cluster is being installed in the background, you can install the managed clusters in parallel:
 
 ```bash, editable
-for cluster in sydney melbourne ; do
+for cluster in phoenix ; do
   bash install_vz_cluster_$cluster.sh
 done
 ```
