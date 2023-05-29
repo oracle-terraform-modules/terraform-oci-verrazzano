@@ -10,7 +10,6 @@
 
 ```bash, editable
 cp terraform.tfvars.example terraform.tfvars
-
 ```
 
 2. Provide values for the following input variables: 
@@ -113,7 +112,7 @@ clusters = {
 Do not remove those that you are not using.
 ```
 
-6. For the regions you enable, uncomment them in `modules\clusters\outputs.tf` for `cluster_ids`, `int_nsg_ids` and `pub_nsg_ids`. For the clusters that you do not use, leave them commented e.g.
+6. For the managed clusters you enable, uncomment them in `modules\clusters\outputs.tf` for `cluster_ids`, `int_nsg_ids` and `pub_nsg_ids`. For the clusters that you do not use, leave them commented e.g.
 
 ```terraform,editable
 output "cluster_ids" {
@@ -155,6 +154,13 @@ output "cluster_ids" {
   }
 }
 ```
+
+```admonish warning
+In the outputs.tf, you must uncomment only the regions where you are running the managed clusters, not your the region where your admin cluster is running.
+
+Only uncomment the admin region in outputs if you happen to also run a managed cluster in the same region as your admin cluster.
+```
+
 7. Uncomment the respective clusters that you have enabled. The clusters are created in either {country, continent,region}.tf. e.g. Ashburn will be found in `usa.tf` under `modules\clusters`. Leave the clusters that you do not use as commented.
 
 ```admonish info
@@ -171,7 +177,7 @@ install_verrazzano = false
 When provisioning the cluster, the above 2 variables must set to `false`.
 ```
 
-7. Create the cluster by running Terraform:
+7. Create the clusters by running Terraform:
 
 ```bash,editable
 terraform init
@@ -184,6 +190,19 @@ terraform apply
 ```admonish tip
 The operator host is created in the admin region only.
 ```
+
+## Configure connectivity with Remote Peering Connection
+
+1. In OCI console, select your admin region and navigate to Networking > Dynamic Routing Gateway. Click on the admin drg.
+2. Under Resources, click on Remote Peering Connections Attachments.
+3. Under Remote Peering Connections, click on the Remote Peering Connection.
+4. Copy the RPC OCID (in the right column). Do not mistake the RPC OCID for the DRG OCID which is also shown on the left.
+5. If your managed cluster is in another region, select the managed cluster's region. This will change the OCI Console page to Networking > Dynamic Routing Gateway.
+6. Repeat steps 2-3. 
+7. Click on "Establish Connection".
+8. Select the region of the Admin cluster.
+9. Paste the RPC OCID you copied from Step 4 and click on "Establish Connection".
+10. Wait for the Remote Peering to be established.
 
 ## Setting up kubeconfig
 
