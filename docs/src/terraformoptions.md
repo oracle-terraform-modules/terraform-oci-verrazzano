@@ -12,7 +12,7 @@
 | compartment_id | The compartment id where to create all resources. | string | "" |
 | label_prefix | A string that will be prepended to all resources. | string | "" |
 
-### ssh keys
+### SSH keys
 
 | Parameter | Description | Type        | Default |
 | --------- | ----------- | ----------- | ------- |
@@ -27,14 +27,15 @@
 | connectivity_mode | Whether to keep set up connectivity in mesh or star mode. Admin is always connected to everybody | string | star |
 
 
-### clusters
+### Clusters
 
 | Parameter | Description | Type        | Default |
 | --------- | ----------- | ----------- | ------- |
 | admin_region | The region parameters of the Admin cluster. In case a single cluster is created, the Admin region is used for the single cluster. | map(any)| |
+| configure_clusters | Whether to set up access to the clusters. Set to false on cluster creation. | bool | false |
 | kubernetes_version | The version of Kubernetes to use. | string | v1.24.1 |
 | oke_control_plane | Whether to keep all OKE control planes public or private | public/private | public |
-| clusters | A map of OCI regions where managed clusters will be created | map(bool) |  |
+| managed_clusters | A map of OCI regions where managed clusters will be created | map(bool) |  |
 | nodepools | Node pool specification for all clusters | map(bool) |  |
 | cloudinit_nodepool_common | Path to custom cloud init file for OKE workner nodes | string |  |
 
@@ -42,7 +43,6 @@
 
 | Parameter | Description | Type        | Default |
 | --------- | ----------- | ----------- | ------- |
-| configure_clusters | Whether to set up access to the clusters. Set to false on cluster creation. | bool | false |
 | install_verrazzano | Whether ready to install Verrazzano. Set to false on cluster creation | string | false |
 | verrazzano_version | Verrazzano version to install | 1.5.3 | 1.5.3 |
 | verrazzano_profile | Verrazzano profile to install | dev/prod | dev |
@@ -55,7 +55,8 @@
 | Parameter | Description | Type        | Default |
 | --------- | ----------- | ----------- | ------- |
 | configure_dns | Whether to configure DNS. If not configured, nip.io will be used | bool | false |
-| secret_id | OCID of OCI secret to be used for OCI DNS authentication. | string |  |
-| dns_zone_id | DNS Zone OCID in OCI DNS | string |  |
 | dns_compartment_id | DNS Zone's Compartment id | string |  |
+| dns_zone_id | DNS Zone OCID in OCI DNS | string |  |
 | dns_zone_name | DNS Zone Name | string |  |
+| secret_id | OCID of OCI secret to be used for OCI DNS authentication. | string |  |
+

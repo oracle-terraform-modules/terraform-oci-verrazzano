@@ -14,7 +14,7 @@ provider "oci" {
 provider "oci" {
   fingerprint         = var.api_fingerprint
   private_key_path    = var.api_private_key_path
-  region              = var.regions["johannesburg"]
+  region              = local.regions["johannesburg"]
   tenancy_ocid        = var.tenancy_id
   user_ocid           = var.user_id
   alias               = "johannesburg"
@@ -24,7 +24,7 @@ provider "oci" {
 provider "oci" {
   fingerprint         = var.api_fingerprint
   private_key_path    = var.api_private_key_path
-  region              = var.regions["sydney"]
+  region              = local.regions["sydney"]
   tenancy_ocid        = var.tenancy_id
   user_ocid           = var.user_id
   alias               = "sydney"
@@ -34,7 +34,7 @@ provider "oci" {
 provider "oci" {
   fingerprint         = var.api_fingerprint
   private_key_path    = var.api_private_key_path
-  region              = var.regions["melbourne"]
+  region              = local.regions["melbourne"]
   tenancy_ocid        = var.tenancy_id
   user_ocid           = var.user_id
   alias               = "melbourne"
@@ -44,7 +44,7 @@ provider "oci" {
 provider "oci" {
   fingerprint         = var.api_fingerprint
   private_key_path    = var.api_private_key_path
-  region              = var.regions["tokyo"]
+  region              = local.regions["tokyo"]
   tenancy_ocid        = var.tenancy_id
   user_ocid           = var.user_id
   alias               = "tokyo"
@@ -54,7 +54,7 @@ provider "oci" {
 provider "oci" {
   fingerprint         = var.api_fingerprint
   private_key_path    = var.api_private_key_path
-  region              = var.regions["osaka"]
+  region              = local.regions["osaka"]
   tenancy_ocid        = var.tenancy_id
   user_ocid           = var.user_id
   alias               = "osaka"
@@ -64,7 +64,7 @@ provider "oci" {
 provider "oci" {
   fingerprint         = var.api_fingerprint
   private_key_path    = var.api_private_key_path
-  region              = var.regions["mumbai"]
+  region              = local.regions["mumbai"]
   tenancy_ocid        = var.tenancy_id
   user_ocid           = var.user_id
   alias               = "mumbai"
@@ -74,7 +74,7 @@ provider "oci" {
 provider "oci" {
   fingerprint         = var.api_fingerprint
   private_key_path    = var.api_private_key_path
-  region              = var.regions["hyderabad"]
+  region              = local.regions["hyderabad"]
   tenancy_ocid        = var.tenancy_id
   user_ocid           = var.user_id
   alias               = "hyderabad"
@@ -84,7 +84,7 @@ provider "oci" {
 provider "oci" {
   fingerprint         = var.api_fingerprint
   private_key_path    = var.api_private_key_path
-  region              = var.regions["seoul"]
+  region              = local.regions["seoul"]
   tenancy_ocid        = var.tenancy_id
   user_ocid           = var.user_id
   alias               = "seoul"
@@ -94,7 +94,7 @@ provider "oci" {
 provider "oci" {
   fingerprint         = var.api_fingerprint
   private_key_path    = var.api_private_key_path
-  region              = var.regions["chuncheon"]
+  region              = local.regions["chuncheon"]
   tenancy_ocid        = var.tenancy_id
   user_ocid           = var.user_id
   alias               = "chuncheon"
@@ -104,7 +104,7 @@ provider "oci" {
 provider "oci" {
   fingerprint         = var.api_fingerprint
   private_key_path    = var.api_private_key_path
-  region              = var.regions["singapore"]
+  region              = local.regions["singapore"]
   tenancy_ocid        = var.tenancy_id
   user_ocid           = var.user_id
   alias               = "singapore"
@@ -114,7 +114,7 @@ provider "oci" {
 provider "oci" {
   fingerprint         = var.api_fingerprint
   private_key_path    = var.api_private_key_path
-  region              = var.regions["paris"]
+  region              = local.regions["paris"]
   tenancy_ocid        = var.tenancy_id
   user_ocid           = var.user_id
   alias               = "paris"
@@ -124,7 +124,7 @@ provider "oci" {
 provider "oci" {
   fingerprint         = var.api_fingerprint
   private_key_path    = var.api_private_key_path
-  region              = var.regions["marseille"]
+  region              = local.regions["marseille"]
   tenancy_ocid        = var.tenancy_id
   user_ocid           = var.user_id
   alias               = "marseille"
@@ -134,7 +134,7 @@ provider "oci" {
 provider "oci" {
   fingerprint         = var.api_fingerprint
   private_key_path    = var.api_private_key_path
-  region              = var.regions["frankfurt"]
+  region              = local.regions["frankfurt"]
   tenancy_ocid        = var.tenancy_id
   user_ocid           = var.user_id
   alias               = "frankfurt"
@@ -144,7 +144,7 @@ provider "oci" {
 provider "oci" {
   fingerprint         = var.api_fingerprint
   private_key_path    = var.api_private_key_path
-  region              = var.regions["milan"]
+  region              = local.regions["milan"]
   tenancy_ocid        = var.tenancy_id
   user_ocid           = var.user_id
   alias               = "milan"
@@ -154,7 +154,7 @@ provider "oci" {
 provider "oci" {
   fingerprint         = var.api_fingerprint
   private_key_path    = var.api_private_key_path
-  region              = var.regions["amsterdam"]
+  region              = local.regions["amsterdam"]
   tenancy_ocid        = var.tenancy_id
   user_ocid           = var.user_id
   alias               = "amsterdam"
@@ -164,7 +164,7 @@ provider "oci" {
 provider "oci" {
   fingerprint         = var.api_fingerprint
   private_key_path    = var.api_private_key_path
-  region              = var.regions["madrid"]
+  region              = local.regions["madrid"]
   tenancy_ocid        = var.tenancy_id
   user_ocid           = var.user_id
   alias               = "madrid"
@@ -174,7 +174,7 @@ provider "oci" {
 provider "oci" {
   fingerprint         = var.api_fingerprint
   private_key_path    = var.api_private_key_path
-  region              = var.regions["stockholm"]
+  region              = local.regions["stockholm"]
   tenancy_ocid        = var.tenancy_id
   user_ocid           = var.user_id
   alias               = "stockholm"
@@ -184,7 +184,7 @@ provider "oci" {
 provider "oci" {
   fingerprint         = var.api_fingerprint
   private_key_path    = var.api_private_key_path
-  region              = var.regions["zurich"]
+  region              = local.regions["zurich"]
   tenancy_ocid        = var.tenancy_id
   user_ocid           = var.user_id
   alias               = "zurich"
@@ -194,7 +194,7 @@ provider "oci" {
 provider "oci" {
   fingerprint         = var.api_fingerprint
   private_key_path    = var.api_private_key_path
-  region              = var.regions["london"]
+  region              = local.regions["london"]
   tenancy_ocid        = var.tenancy_id
   user_ocid           = var.user_id
   alias               = "london"
@@ -204,7 +204,7 @@ provider "oci" {
 provider "oci" {
   fingerprint         = var.api_fingerprint
   private_key_path    = var.api_private_key_path
-  region              = var.regions["newport"]
+  region              = local.regions["newport"]
   tenancy_ocid        = var.tenancy_id
   user_ocid           = var.user_id
   alias               = "newport"
@@ -214,7 +214,7 @@ provider "oci" {
 provider "oci" {
   fingerprint         = var.api_fingerprint
   private_key_path    = var.api_private_key_path
-  region              = var.regions["jerusalem"]
+  region              = local.regions["jerusalem"]
   tenancy_ocid        = var.tenancy_id
   user_ocid           = var.user_id
   alias               = "jerusalem"
@@ -224,7 +224,7 @@ provider "oci" {
 provider "oci" {
   fingerprint         = var.api_fingerprint
   private_key_path    = var.api_private_key_path
-  region              = var.regions["jeddah"]
+  region              = local.regions["jeddah"]
   tenancy_ocid        = var.tenancy_id
   user_ocid           = var.user_id
   alias               = "jeddah"
@@ -234,7 +234,7 @@ provider "oci" {
 provider "oci" {
   fingerprint         = var.api_fingerprint
   private_key_path    = var.api_private_key_path
-  region              = var.regions["abudhabi"]
+  region              = local.regions["abudhabi"]
   tenancy_ocid        = var.tenancy_id
   user_ocid           = var.user_id
   alias               = "abudhabi"
@@ -244,7 +244,7 @@ provider "oci" {
 provider "oci" {
   fingerprint         = var.api_fingerprint
   private_key_path    = var.api_private_key_path
-  region              = var.regions["dubai"]
+  region              = local.regions["dubai"]
   tenancy_ocid        = var.tenancy_id
   user_ocid           = var.user_id
   alias               = "dubai"
@@ -254,7 +254,7 @@ provider "oci" {
 provider "oci" {
   fingerprint         = var.api_fingerprint
   private_key_path    = var.api_private_key_path
-  region              = var.regions["queretaro"]
+  region              = local.regions["queretaro"]
   tenancy_ocid        = var.tenancy_id
   user_ocid           = var.user_id
   alias               = "queretaro"
@@ -264,7 +264,7 @@ provider "oci" {
 provider "oci" {
   fingerprint         = var.api_fingerprint
   private_key_path    = var.api_private_key_path
-  region              = var.regions["saupaulo"]
+  region              = local.regions["saupaulo"]
   tenancy_ocid        = var.tenancy_id
   user_ocid           = var.user_id
   alias               = "saupaulo"
@@ -274,7 +274,7 @@ provider "oci" {
 provider "oci" {
   fingerprint         = var.api_fingerprint
   private_key_path    = var.api_private_key_path
-  region              = var.regions["vinhedo"]
+  region              = local.regions["vinhedo"]
   tenancy_ocid        = var.tenancy_id
   user_ocid           = var.user_id
   alias               = "vinhedo"
@@ -284,7 +284,7 @@ provider "oci" {
 provider "oci" {
   fingerprint         = var.api_fingerprint
   private_key_path    = var.api_private_key_path
-  region              = var.regions["santiago"]
+  region              = local.regions["santiago"]
   tenancy_ocid        = var.tenancy_id
   user_ocid           = var.user_id
   alias               = "santiago"
@@ -294,7 +294,7 @@ provider "oci" {
 provider "oci" {
   fingerprint         = var.api_fingerprint
   private_key_path    = var.api_private_key_path
-  region              = var.regions["montreal"]
+  region              = local.regions["montreal"]
   tenancy_ocid        = var.tenancy_id
   user_ocid           = var.user_id
   alias               = "montreal"
@@ -304,7 +304,7 @@ provider "oci" {
 provider "oci" {
   fingerprint         = var.api_fingerprint
   private_key_path    = var.api_private_key_path
-  region              = var.regions["toronto"]
+  region              = local.regions["toronto"]
   tenancy_ocid        = var.tenancy_id
   user_ocid           = var.user_id
   alias               = "toronto"
@@ -314,7 +314,7 @@ provider "oci" {
 provider "oci" {
   fingerprint         = var.api_fingerprint
   private_key_path    = var.api_private_key_path
-  region              = var.regions["ashburn"]
+  region              = local.regions["ashburn"]
   tenancy_ocid        = var.tenancy_id
   user_ocid           = var.user_id
   alias               = "ashburn"
@@ -324,7 +324,7 @@ provider "oci" {
 provider "oci" {
   fingerprint         = var.api_fingerprint
   private_key_path    = var.api_private_key_path
-  region              = var.regions["chicago"]
+  region              = local.regions["chicago"]
   tenancy_ocid        = var.tenancy_id
   user_ocid           = var.user_id
   alias               = "chicago"
@@ -334,7 +334,7 @@ provider "oci" {
 provider "oci" {
   fingerprint         = var.api_fingerprint
   private_key_path    = var.api_private_key_path
-  region              = var.regions["phoenix"]
+  region              = local.regions["phoenix"]
   tenancy_ocid        = var.tenancy_id
   user_ocid           = var.user_id
   alias               = "phoenix"
@@ -344,7 +344,7 @@ provider "oci" {
 provider "oci" {
   fingerprint         = var.api_fingerprint
   private_key_path    = var.api_private_key_path
-  region              = var.regions["sanjose"]
+  region              = local.regions["sanjose"]
   tenancy_ocid        = var.tenancy_id
   user_ocid           = var.user_id
   alias               = "sanjose"

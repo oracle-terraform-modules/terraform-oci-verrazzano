@@ -24,28 +24,28 @@ module "admin" {
 
   # admin is always connected to everybody
   remote_peering_connections = {
-    for k, v in var.clusters : "rpc-to-${k}" => {} if tobool(v)
+    for k, v in var.managed_clusters : "rpc-to-${k}" => {} if tobool(v)
   }
 
 
   internet_gateway_route_rules = [
-    for c in keys(var.clusters) :
+    for c in keys(var.managed_clusters) :
     {
       destination       = lookup(lookup(var.cidrs, c), "vcn")
       destination_type  = "CIDR_BLOCK"
       network_entity_id = "drg"
       description       = "Routing to allow ssh to ${title(c)}"
-    } if tobool(lookup(var.clusters, c))
+    } if tobool(lookup(var.managed_clusters, c))
   ]
 
   nat_gateway_route_rules = [
-    for c in keys(var.clusters) :
+    for c in keys(var.managed_clusters) :
     {
       destination       = lookup(lookup(var.cidrs, c), "vcn")
       destination_type  = "CIDR_BLOCK"
       network_entity_id = "drg"
       description       = "Routing to allow connectivity to ${title(c)} cluster"
-    } if tobool(lookup(var.clusters, c))
+    } if tobool(lookup(var.managed_clusters, c))
   ]
 
   vcn_cidrs     = [lookup(var.admin_region, "vcn_cidr")]

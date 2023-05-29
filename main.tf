@@ -23,7 +23,7 @@ module "clusters" {
 
   admin_region = var.admin_region
 
-  clusters = var.clusters
+  clusters = var.managed_clusters
 
   oke_control_plane = var.oke_control_plane
 

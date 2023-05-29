@@ -1,5 +1,6 @@
 # Copyright (c) 2023 Oracle Corporation and/or its affiliates.
 # Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl
+
 # OCI Provider parameters
 variable "api_fingerprint" {
   default     = ""
@@ -11,63 +12,6 @@ variable "api_private_key_path" {
   default     = ""
   description = "The path to the OCI API private key."
   type        = string
-}
-
-variable "regions" {
-  # List of regions: https://docs.cloud.oracle.com/iaas/Content/General/Concepts/regions.htm#ServiceAvailabilityAcrossRegions
-  description = "A map of OCI regions."
-  type        = map(string)
-  default = {
-    # Africa
-    johannesburg = "af-johannesburg-1"
-
-    # Asia
-    chuncheon = "ap-chuncheon-1"
-    hyderabad = "ap-hyderabad-1"
-    mumbai    = "ap-mumbai-1"
-    osaka     = "ap-osaka-1"
-    seoul     = "ap-seoul-1"
-    singapore = "ap-singapore-1"
-    tokyo     = "ap-tokyo-1"
-
-
-    # Europe
-    amsterdam = "eu-amsterdam-1"
-    frankfurt = "eu-frankfurt-1"
-    london    = "uk-london-1"
-    madrid    = "eu-madrid-1"
-    marseille = "eu-marseille-1"
-    milan     = "eu-milan-1"
-    newport   = "uk-cardiff-1"
-    paris     = "eu-paris-1"
-    stockholm = "eu-stockholm-1"
-    zurich    = "eu-zurich-1"
-
-    # Middle East
-    abudhabi  = "me-abudhabi-1"
-    dubai     = "me-dubai-1"
-    jeddah    = "me-jeddah-1"
-    jerusalem = "il-jerusalem-1"
-
-    # Oceania
-    melbourne = "ap-melbourne-1"
-    sydney    = "ap-sydney-1"
-
-
-    # South America
-    santiago = "sa-santiago-1"
-    saupaulo = "sa-saupaulo-1"
-    vinhedo  = "sa-vinhedo-1"
-
-    # North America
-    ashburn   = "us-ashburn-1"
-    chicago   = "us-chicago-1"
-    montreal  = "ca-montreal-1"
-    phoenix   = "us-phoenix-1"
-    queretaro = "mx-queretaro-1"
-    sanjose   = "us-sanjose-1"
-    toronto   = "ca-toronto-1"
-  }
 }
 
 variable "home_region" {
@@ -117,78 +61,64 @@ variable "cidrs" {
   type        = map(any)
   default = {
     # Africa
-    johannesburg = { vcn = "10.1.0.0/16", pods = "10.244.0.0/16", services = "10.96.0.0/16" }
+    johannesburg = { vcn = "10.1.0.0/16", pods = "10.201.0.0/16", services = "10.101.0.0/16" }
 
     # Asia
-    chuncheon = { vcn = "10.2.0.0/16", pods = "10.244.0.0/16", services = "10.96.0.0/16" }
-    hyderabad = { vcn = "10.3.0.0/16", pods = "10.244.0.0/16", services = "10.96.0.0/16" }
-    mumbai    = { vcn = "10.4.0.0/16", pods = "10.244.0.0/16", services = "10.96.0.0/16" }
-    osaka     = { vcn = "10.5.0.0/16", pods = "10.244.0.0/16", services = "10.96.0.0/16" }
-    seoul     = { vcn = "10.6.0.0/16", pods = "10.244.0.0/16", services = "10.96.0.0/16" }
-    singapore = { vcn = "10.7.0.0/16", pods = "10.244.0.0/16", services = "10.96.0.0/16" }
-    tokyo     = { vcn = "10.8.0.0/16", pods = "10.244.0.0/16", services = "10.96.0.0/16" }
+    chuncheon = { vcn = "10.2.0.0/16", pods = "10.202.0.0/16", services = "10.102.0.0/16" }
+    hyderabad = { vcn = "10.3.0.0/16", pods = "10.203.0.0/16", services = "10.103.0.0/16" }
+    mumbai    = { vcn = "10.4.0.0/16", pods = "10.204.0.0/16", services = "10.104.0.0/16" }
+    osaka     = { vcn = "10.5.0.0/16", pods = "10.205.0.0/16", services = "10.105.0.0/16" }
+    seoul     = { vcn = "10.6.0.0/16", pods = "10.206.0.0/16", services = "10.106.0.0/16" }
+    singapore = { vcn = "10.7.0.0/16", pods = "10.207.0.0/16", services = "10.106.0.0/16" }
+    tokyo     = { vcn = "10.8.0.0/16", pods = "10.208.0.0/16", services = "10.108.0.0/16" }
 
     # Europe
-    amsterdam = { vcn = "10.9.0.0/16", pods = "10.244.0.0/16", services = "10.96.0.0/16" }
-    frankfurt = { vcn = "10.10.0.0/16", pods = "10.244.0.0/16", services = "10.96.0.0/16" }
-    london    = { vcn = "10.11.0.0/16", pods = "10.244.0.0/16", services = "10.96.0.0/16" }
-    madrid    = { vcn = "10.12.0.0/16", pods = "10.244.0.0/16", services = "10.96.0.0/16" }
-    marseille = { vcn = "10.13.0.0/16", pods = "10.244.0.0/16", services = "10.96.0.0/16" }
-    milan     = { vcn = "10.14.0.0/16", pods = "10.244.0.0/16", services = "10.96.0.0/16" }
-    newport   = { vcn = "10.15.0.0/16", pods = "10.244.0.0/16", services = "10.96.0.0/16" }
-    paris     = { vcn = "10.16.0.0/16", pods = "10.244.0.0/16", services = "10.96.0.0/16" }
-    stockholm = { vcn = "10.17.0.0/16", pods = "10.244.0.0/16", services = "10.96.0.0/16" }
-    zurich    = { vcn = "10.18.0.0/16", pods = "10.244.0.0/16", services = "10.96.0.0/16" }
+    amsterdam = { vcn = "10.9.0.0/16", pods = "10.209.0.0/16", services = "10.109.0.0/16" }
+    frankfurt = { vcn = "10.10.0.0/16", pods = "10.210.0.0/16", services = "10.110.0.0/16" }
+    london    = { vcn = "10.11.0.0/16", pods = "10.211.0.0/16", services = "10.111.0.0/16" }
+    madrid    = { vcn = "10.12.0.0/16", pods = "10.212.0.0/16", services = "10.112.0.0/16" }
+    marseille = { vcn = "10.13.0.0/16", pods = "10.213.0.0/16", services = "10.113.0.0/16" }
+    milan     = { vcn = "10.14.0.0/16", pods = "10.214.0.0/16", services = "10.114.0.0/16" }
+    newport   = { vcn = "10.15.0.0/16", pods = "10.215.0.0/16", services = "10.115.0.0/16" }
+    paris     = { vcn = "10.16.0.0/16", pods = "10.216.0.0/16", services = "10.116.0.0/16" }
+    stockholm = { vcn = "10.17.0.0/16", pods = "10.217.0.0/16", services = "10.117.0.0/16" }
+    zurich    = { vcn = "10.18.0.0/16", pods = "10.218.0.0/16", services = "10.118.0.0/16" }
 
     # Middle East
-    abudhabi  = { vcn = "10.19.0.0/16", pods = "10.244.0.0/16", services = "10.96.0.0/16" }
-    dubai     = { vcn = "10.20.0.0/16", pods = "10.244.0.0/16", services = "10.96.0.0/16" }
-    jeddah    = { vcn = "10.21.0.0/16", pods = "10.244.0.0/16", services = "10.96.0.0/16" }
-    jerusalem = { vcn = "10.22.0.0/16", pods = "10.244.0.0/16", services = "10.96.0.0/16" }
+    abudhabi  = { vcn = "10.19.0.0/16", pods = "10.219.0.0/16", services = "10.119.0.0/16" }
+    dubai     = { vcn = "10.20.0.0/16", pods = "10.220.0.0/16", services = "10.120.0.0/16" }
+    jeddah    = { vcn = "10.21.0.0/16", pods = "10.221.0.0/16", services = "10.121.0.0/16" }
+    jerusalem = { vcn = "10.22.0.0/16", pods = "10.222.0.0/16", services = "10.122.0.0/16" }
 
     # Oceania
     melbourne = { vcn = "10.23.0.0/16", pods = "10.223.0.0/16", services = "10.123.0.0/16" }
     sydney    = { vcn = "10.24.0.0/16", pods = "10.224.0.0/16", services = "10.124.0.0/16" }
 
     # South America
-    santiago = { vcn = "10.25.0.0/16", pods = "10.244.0.0/16", services = "10.96.0.0/16" }
-    saupaulo = { vcn = "10.26.0.0/16", pods = "10.244.0.0/16", services = "10.96.0.0/16" }
-    vinhedo  = { vcn = "10.27.0.0/16", pods = "10.244.0.0/16", services = "10.96.0.0/16" }
+    santiago = { vcn = "10.25.0.0/16", pods = "10.225.0.0/16", services = "10.125.0.0/16" }
+    saupaulo = { vcn = "10.26.0.0/16", pods = "10.226.0.0/16", services = "10.126.0.0/16" }
+    vinhedo  = { vcn = "10.27.0.0/16", pods = "10.227.0.0/16", services = "10.127.0.0/16" }
 
     # North America
-    ashburn   = { vcn = "10.28.0.0/16", pods = "10.244.0.0/16", services = "10.96.0.0/16" }
-    chicago   = { vcn = "10.29.0.0/16", pods = "10.244.0.0/16", services = "10.96.0.0/16" }
-    montreal  = { vcn = "10.30.0.0/16", pods = "10.244.0.0/16", services = "10.96.0.0/16" }
-    phoenix   = { vcn = "10.31.0.0/16", pods = "10.244.0.0/16", services = "10.96.0.0/16" }
-    queretaro = { vcn = "10.32.0.0/16", pods = "10.244.0.0/16", services = "10.96.0.0/16" }
-    sanjose   = { vcn = "10.33.0.0/16", pods = "10.244.0.0/16", services = "10.96.0.0/16" }
-    toronto   = { vcn = "10.34.0.0/16", pods = "10.244.0.0/16", services = "10.96.0.0/16" }
+    ashburn   = { vcn = "10.28.0.0/16", pods = "10.228.0.0/16", services = "10.128.0.0/16" }
+    chicago   = { vcn = "10.29.0.0/16", pods = "10.229.0.0/16", services = "10.129.0.0/16" }
+    montreal  = { vcn = "10.30.0.0/16", pods = "10.230.0.0/16", services = "10.130.0.0/16" }
+    phoenix   = { vcn = "10.31.0.0/16", pods = "10.231.0.0/16", services = "10.131.0.0/16" }
+    queretaro = { vcn = "10.32.0.0/16", pods = "10.232.0.0/16", services = "10.132.0.0/16" }
+    sanjose   = { vcn = "10.33.0.0/16", pods = "10.233.0.0/16", services = "10.133.0.0/16" }
+    toronto   = { vcn = "10.34.0.0/16", pods = "10.234.0.0/16", services = "10.134.0.0/16" }
   }
 }
 
 variable "connectivity_mode" {
   default     = "star"
-  description = "Whether to keep set up connectivity in mesh or star mode. Admin is always connected to everybody"
+  description = "Whether to keep set up connectivity in mesh or star mode. Admin is always connected to every managed cluster. In star mode, managed clusters are only connected with admin; in mesh mode, all clusters are connected as peers."
   type        = string
 
   validation {
     condition     = contains(["mesh", "star"], lower(var.connectivity_mode))
     error_message = "Accepted values are 'mesh' or 'star'."
   }
-}
-
-# kubernetes
-
-variable "configure_clusters" {
-  default     = true
-  description = "Whether to set up access to the clusters."
-  type        = bool
-}
-
-variable "kubernetes_version" {
-  default     = "v1.24.1"
-  description = "The version of Kubernetes to use."
-  type        = string
 }
 
 # clusters
@@ -205,9 +135,21 @@ variable "admin_region" {
   }
 }
 
+variable "configure_clusters" {
+  default     = true
+  description = "Whether to set up access to the clusters."
+  type        = bool
+}
+
+variable "kubernetes_version" {
+  default     = "v1.24.1"
+  description = "The version of Kubernetes to use."
+  type        = string
+}
+
 variable "oke_control_plane" {
   default     = "public"
-  description = "Whether to keep all OKE control planes public or private"
+  description = "Whether to keep all OKE control planes public or private."
   type        = string
 
   validation {
@@ -216,8 +158,8 @@ variable "oke_control_plane" {
   }
 }
 
-variable "clusters" {
-  description = "A map of OCI regions where managed clusters will be created"
+variable "managed_clusters" {
+  description = "A map of OCI regions where managed clusters will be created."
   type        = map(bool)
   default = {
     # Africa
@@ -270,6 +212,7 @@ variable "clusters" {
   }
 }
 
+# node pools
 variable "nodepools" {
   type        = any
   description = "Node pools for all clusters"
@@ -317,7 +260,7 @@ variable "verrazzano_profile" {
 
 variable "verrazzano_control_plane" {
   default     = "public"
-  description = "Whether to keep all Verrazzano control planes public or private"
+  description = "Whether to keep all Verrazzano control planes (nginx) public or private"
   type        = string
 
   validation {
@@ -328,7 +271,7 @@ variable "verrazzano_control_plane" {
 
 variable "verrazzano_data_plane" {
   default     = "public"
-  description = "Whether to keep all Verrazzano data planes public or private"
+  description = "Whether to keep all Verrazzano data planes (Istio Ingress Gateway) public or private"
   type        = string
 
   validation {
