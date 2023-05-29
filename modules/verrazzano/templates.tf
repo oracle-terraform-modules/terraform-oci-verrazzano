@@ -8,9 +8,10 @@ locals {
     c => templatefile("${path.module}/scripts/generate_kubeconfig.template.sh",
       {
         cluster-id = lookup(var.cluster_ids, c)
+        endpoint   = var.oke_control_plane == "public" ? "PUBLIC_ENDPOINT" : "PRIVATE_ENDPOINT"
         region     = c == "admin" ? local.admin_region : lookup(local.regions, c)
-      }
-    )
+      } 
+    ) if (c != "admin")
   }
 
   set_credentials_templates = {
@@ -21,7 +22,7 @@ locals {
         cluster-id-11 = substr(lookup(var.cluster_ids, c), (length(lookup(var.cluster_ids, c)) - 11), length(lookup(var.cluster_ids, c)))
         region        = c == "admin" ? local.admin_region : lookup(local.regions, c)
       }
-    )
+    ) if (c != "admin")
   }
 
   set_alias_templates = {
@@ -31,7 +32,7 @@ locals {
         cluster       = c
         cluster-id-11 = substr(lookup(var.cluster_ids, c), (length(lookup(var.cluster_ids, c)) - 11), length(lookup(var.cluster_ids, c)))
       }
-    )
+    ) if (c != "admin")
   }
 
   setup_vz_env_template = templatefile("${path.module}/scripts/setup_vz_env.template.sh", {})

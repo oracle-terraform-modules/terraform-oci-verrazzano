@@ -191,19 +191,6 @@ terraform apply
 The operator host is created in the admin region only.
 ```
 
-## Configure connectivity with Remote Peering Connection
-
-1. In OCI console, select your admin region and navigate to Networking > Dynamic Routing Gateway. Click on the admin drg.
-2. Under Resources, click on Remote Peering Connections Attachments.
-3. Under Remote Peering Connections, click on the Remote Peering Connection.
-4. Copy the RPC OCID (in the right column). Do not mistake the RPC OCID for the DRG OCID which is also shown on the left.
-5. If your managed cluster is in another region, select the managed cluster's region. This will change the OCI Console page to Networking > Dynamic Routing Gateway.
-6. Repeat steps 2-3. 
-7. Click on "Establish Connection".
-8. Select the region of the Admin cluster.
-9. Paste the RPC OCID you copied from Step 4 and click on "Establish Connection".
-10. Wait for the Remote Peering to be established.
-
 ## Setting up kubeconfig
 
 You will now generate the installation script.

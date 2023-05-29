@@ -79,6 +79,8 @@ module "verrazzano" {
 
   ssh_private_key_path = var.ssh_private_key_path
 
+  oke_control_plane = var.oke_control_plane
+
   verrazzano_version = var.verrazzano_version
 
   install_verrazzano = var.install_verrazzano

@@ -12,6 +12,10 @@ variable "ssh_private_key_path" {
   type = string
 }
 
+variable "oke_control_plane" {
+  type        = string
+}
+
 variable "install_verrazzano" {
   type = bool
 }
