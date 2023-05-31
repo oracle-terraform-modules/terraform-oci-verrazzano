@@ -1,5 +1,7 @@
 # Single Development Cluster
 
+![Single Cluster](../images/singlecluster.svg)
+
 ### Create the OKE cluster
 
 1. Copy terraform.tfvars.example to terraform.tfvars
