@@ -39,8 +39,8 @@ spec:
           spec:
             components:
               ingressGateways:
-                - enabled: true
-                  name: istio-ingressgateway
+                - name: istio-ingressgateway
+                  enabled: true
                   k8s:
                     serviceAnnotations:
                       service.beta.kubernetes.io/oci-load-balancer-internal: "${data_plane}"

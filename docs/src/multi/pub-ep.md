@@ -286,7 +286,23 @@ for cluster in admin phoenix; do
 done
 ```
 
-3. Install the Verrazzano Admin cluster:
+3. Obtain the manifest for DNS:
+
+```bash
+cd /home/opc/vz/oci
+bash  get_oci_secret.sh
+echo >> oci.yaml
+```
+
+4. Create the secret in each cluster:
+
+```bash, editable
+for cluster in admin phoenix ; do
+  bash create_oci_secret_$cluster.sh
+done
+```
+
+5. Install the Verrazzano Admin cluster:
 
 ```
 cd /home/opc/vz/clusters
@@ -296,15 +312,16 @@ bash install_vz_cluster_admin.sh
 The Admin cluster has more components to install and takes longer, so we install it separately. This allows us to install the managed clusters in parallel.
 ```
 
-4. While the Admin cluster is being installed in the background, you can install the managed clusters in parallel:
+6. While the Admin cluster is being installed in the background, you can install the managed clusters in parallel:
 
 ```bash, editable
+cd /home/opc/vz/clusters
 for cluster in phoenix ; do
   bash install_vz_cluster_$cluster.sh
 done
 ```
 
-5. Wait for Verrazzano to be installed in all clusters:
+7. Wait for Verrazzano to be installed in all clusters:
 
 ```
 # check managed clusters' status
@@ -315,7 +332,7 @@ kubectx admin
 kubectl wait --timeout=20m --for=condition=InstallComplete verrazzano/admin
 ```
 
-6. Create the certificates secrets for each managed cluster:
+8. Create the certificates secrets for each managed cluster:
 
 ```bash, editable
 cd /home/opc/vz/certs
@@ -324,14 +341,14 @@ for cluster in phoenix; do
 done
 ```
 
-7. Create the ConfigMap for the API Server:
+9. Create the ConfigMap for the API Server:
 
 ```
 cd /home/opc/vz/cm
 bash create_api_cm.sh
 ```
 
-8. Create the Verrazzano managed cluster objects for each managed cluster:    
+10. Create the Verrazzano managed cluster objects for each managed cluster:    
 
 ```bash, editable
 cd /home/opc/vz/clusters
@@ -340,7 +357,7 @@ for cluster in phoenix; do
 done
 ```
 
-9. Register all the managed clusters:
+11. Register all the managed clusters:
 
 ```bash, editable
 for cluster in phoenix; do
