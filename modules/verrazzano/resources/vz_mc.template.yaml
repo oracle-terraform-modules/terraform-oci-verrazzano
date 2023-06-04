@@ -6,6 +6,8 @@ spec:
   profile: managed-cluster
   environmentName: ${cluster}
   components:
+    coherenceOperator:
+      enabled: false
     dns:
       oci:
         ociConfigSecret: oci
@@ -35,7 +37,7 @@ spec:
               global:
                 meshID: ${mesh_id}
                 multiCluster:
-                  clusterName: ${mesh_name}
+                  clusterName: ${cluster_name}
                 network: ${mesh_network}
             components:
               ingressGateways:
@@ -80,3 +82,11 @@ spec:
                     app: istio-eastwestgateway
                     istio: eastwestgateway
                     topology.istio.io/network: ${mesh_network}
+    kiali:
+      enabled: true
+    kubeStateMetrics:
+      enabled: false
+    velero:
+      enabled: false
+    weblogicOperator:
+      enabled: false

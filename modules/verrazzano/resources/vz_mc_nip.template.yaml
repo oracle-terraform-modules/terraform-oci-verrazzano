@@ -6,6 +6,9 @@ spec:
   profile: managed-cluster
   environmentName: ${cluster}
   components:
+    dns:
+      wildcard:
+        domain: nip.io  
     ingressNGINX:
       type: LoadBalancer
       overrides:
@@ -37,3 +40,11 @@ spec:
                       service.beta.kubernetes.io/oci-load-balancer-shape-flex-max: "${flex_max}"
                       service.beta.kubernetes.io/oci-load-balancer-security-list-management-mode: "None"
                       oci.oraclecloud.com/oci-network-security-groups: "${data_plane_nsg}"
+    kiali:
+      enabled: true
+    kubeStateMetrics:
+      enabled: false
+    velero:
+      enabled: false
+    weblogicOperator:
+      enabled: false                      

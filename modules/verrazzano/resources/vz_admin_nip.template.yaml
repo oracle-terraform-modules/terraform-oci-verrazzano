@@ -18,6 +18,13 @@ spec:
               - key: vz
                 operator: In
                 values: [verrazzano]
+    coherenceOperator:
+      enabled: false
+    console:
+      enabled: true
+    dns:
+      wildcard:
+        domain: nip.io            
     ingressNGINX:
       type: LoadBalancer
       overrides:
@@ -49,3 +56,21 @@ spec:
                       service.beta.kubernetes.io/oci-load-balancer-shape-flex-max: "${flex_max}"
                       service.beta.kubernetes.io/oci-load-balancer-security-list-management-mode: "None"
                       oci.oraclecloud.com/oci-network-security-groups: "${data_plane_nsg}"
+    kiali:
+      enabled: true
+    kubeStateMetrics:
+      enabled: false                          
+    opensearch:
+      enabled: true
+    opensearchDashboards:
+      enabled: true
+    prometheus:
+      enabled: true
+    prometheusOperator:
+      enabled: true
+    rancher:
+      enabled: true
+    velero:
+      enabled: false
+    weblogicOperator:
+      enabled: false                      

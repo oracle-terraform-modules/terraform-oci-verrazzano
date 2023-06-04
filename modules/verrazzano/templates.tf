@@ -85,11 +85,15 @@ locals {
     profile           = var.verrazzano_profile
     control_plane     = var.verrazzano_control_plane == "public" ? false : true
     data_plane        = var.verrazzano_data_plane == "public" ? false : true
+    data_plane_id     = var.verrazzano_data_plane_id
     control_plane_nsg = var.verrazzano_control_plane == "public" ? lookup(var.pub_nsg_ids, "admin") : lookup(var.int_nsg_ids, "admin")
     data_plane_nsg    = var.verrazzano_data_plane == "public" ? lookup(var.pub_nsg_ids, "admin") : lookup(var.int_nsg_ids, "admin")
     lb_shape          = lookup(var.verrazzano_load_balancer, "shape")
     flex_min          = lookup(var.verrazzano_load_balancer, "flex_min")
     flex_max          = lookup(var.verrazzano_load_balancer, "flex_max")
+    mesh_id           = var.verrazzano_data_plane_id
+    cluster_name      = "admin"
+    mesh_network      = "admin"
     int-nsg-id        = lookup(var.int_nsg_ids, "admin")
     }
     ) : templatefile("${path.module}/resources/vz_admin_nip.template.yaml", {
@@ -133,8 +137,8 @@ locals {
         lb_shape          = lookup(var.verrazzano_load_balancer, "shape")
         flex_min          = lookup(var.verrazzano_load_balancer, "flex_min")
         flex_max          = lookup(var.verrazzano_load_balancer, "flex_max")
-        mesh_id           = k
-        mesh_name         = k
+        mesh_id           = var.verrazzano_data_plane_id
+        cluster_name      = k
         mesh_network      = k
         int-nsg-id        = lookup(var.int_nsg_ids, k)
       }
@@ -203,4 +207,6 @@ locals {
       cluster = k
     }) if(var.install_verrazzano == true)
   }
+
+  vz_access_template = templatefile("${path.module}/scripts/get_vz_access.template.sh", {})
 }

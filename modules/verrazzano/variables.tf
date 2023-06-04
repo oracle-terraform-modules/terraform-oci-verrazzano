@@ -13,7 +13,7 @@ variable "ssh_private_key_path" {
 }
 
 variable "oke_control_plane" {
-  type        = string
+  type = string
 }
 
 variable "install_verrazzano" {
@@ -33,13 +33,18 @@ variable "verrazzano_profile" {
 }
 
 variable "verrazzano_control_plane" {
+  type = string
 }
 
 variable "verrazzano_data_plane" {
+  type = string
 }
 
+variable "verrazzano_data_plane_id" {
+  type = string
+}
 variable "verrazzano_load_balancer" {
-  type        = map(string)
+  type = map(string)
 }
 
 variable "cluster_ids" {

@@ -280,6 +280,12 @@ variable "verrazzano_data_plane" {
   }
 }
 
+variable "verrazzano_data_plane_id" {
+  default     = "vz"
+  description = "The name of the mesh to use"
+  type        = string
+}
+
 variable "verrazzano_load_balancer" {
   description = "Load Balancer Shape"
   type        = map(string)

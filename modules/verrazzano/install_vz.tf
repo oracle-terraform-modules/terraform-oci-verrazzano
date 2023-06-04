@@ -24,6 +24,11 @@ resource "null_resource" "install_vz_admin" {
     destination = "/home/opc/vz/clusters/install_vz_cluster_admin.sh"
   }
 
+  provisioner "file" {
+    content     = local.vz_access_template
+    destination = "/home/opc/bin/vz_access.sh"
+  }  
+
   # provisioner "remote-exec" {
   #   inline = [
   #     "if [ -f \"$HOME/opc/vz/operator/install_vz_admin.sh\" ]; then bash \"$HOME/opc/vz/operator/install_vz_admin.sh\";fi",

@@ -18,12 +18,20 @@ spec:
               - key: vz
                 operator: In
                 values: [oci]
+    coherenceOperator:
+      enabled: false
+    console:
+      enabled: true
     dns:
       oci:
         ociConfigSecret: oci
         dnsZoneCompartmentOCID: ${compartment_id}
         dnsZoneOCID: ${dns_zone_id}
         dnsZoneName: ${dns_zone_name}
+    fluentd:
+      enabled: true
+    grafana:
+      enabled: true        
     ingressNGINX:
       type: LoadBalancer
       overrides:
@@ -45,10 +53,10 @@ spec:
           spec:
             values:
               global:
-                meshID: admin
+                meshID: ${mesh_id}
                 multiCluster:
-                  clusterName: admin
-                network: admin
+                  clusterName: ${cluster_name}
+                network: ${mesh_network}
             components:
               ingressGateways:
                 - name: istio-ingressgateway
@@ -92,3 +100,21 @@ spec:
                     app: istio-eastwestgateway
                     istio: eastwestgateway
                     topology.istio.io/network: admin
+    kiali:
+      enabled: true
+    kubeStateMetrics:
+      enabled: false                          
+    opensearch:
+      enabled: true
+    opensearchDashboards:
+      enabled: true
+    prometheus:
+      enabled: true
+    prometheusOperator:
+      enabled: true
+    rancher:
+      enabled: true
+    velero:
+      enabled: false
+    weblogicOperator:
+      enabled: false
