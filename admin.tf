@@ -72,6 +72,7 @@ module "admin" {
 
 
   # node pools
+  kubeproxy_mode = "ipvs"
   node_pools = var.nodepools
 
   cloudinit_nodepool_common = var.cloudinit_nodepool_common

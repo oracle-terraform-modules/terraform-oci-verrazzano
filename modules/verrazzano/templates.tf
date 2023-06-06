@@ -10,8 +10,8 @@ locals {
         cluster-id = lookup(var.cluster_ids, c)
         endpoint   = var.oke_control_plane == "public" ? "PUBLIC_ENDPOINT" : "PRIVATE_ENDPOINT"
         region     = c == "admin" ? local.admin_region : lookup(local.regions, c)
-      } 
-    ) if (c != "admin")
+      }
+    ) if(c != "admin")
   }
 
   set_credentials_templates = {
@@ -22,7 +22,7 @@ locals {
         cluster-id-11 = substr(lookup(var.cluster_ids, c), (length(lookup(var.cluster_ids, c)) - 11), length(lookup(var.cluster_ids, c)))
         region        = c == "admin" ? local.admin_region : lookup(local.regions, c)
       }
-    ) if (c != "admin")
+    ) if(c != "admin")
   }
 
   set_alias_templates = {
@@ -32,7 +32,7 @@ locals {
         cluster       = c
         cluster-id-11 = substr(lookup(var.cluster_ids, c), (length(lookup(var.cluster_ids, c)) - 11), length(lookup(var.cluster_ids, c)))
       }
-    ) if (c != "admin")
+    ) if(c != "admin")
   }
 
   setup_vz_env_template = templatefile("${path.module}/scripts/setup_vz_env.template.sh", {})
@@ -85,11 +85,16 @@ locals {
     profile           = var.verrazzano_profile
     control_plane     = var.verrazzano_control_plane == "public" ? false : true
     data_plane        = var.verrazzano_data_plane == "public" ? false : true
+    data_plane_id     = var.verrazzano_data_plane_id
     control_plane_nsg = var.verrazzano_control_plane == "public" ? lookup(var.pub_nsg_ids, "admin") : lookup(var.int_nsg_ids, "admin")
     data_plane_nsg    = var.verrazzano_data_plane == "public" ? lookup(var.pub_nsg_ids, "admin") : lookup(var.int_nsg_ids, "admin")
     lb_shape          = lookup(var.verrazzano_load_balancer, "shape")
     flex_min          = lookup(var.verrazzano_load_balancer, "flex_min")
     flex_max          = lookup(var.verrazzano_load_balancer, "flex_max")
+    mesh_id           = var.verrazzano_data_plane_id
+    cluster_name      = "admin"
+    mesh_network      = "admin"
+    int-nsg-id        = lookup(var.int_nsg_ids, "admin")
     }
     ) : templatefile("${path.module}/resources/vz_admin_nip.template.yaml", {
       compartment_id = var.dns_compartment_id
@@ -132,7 +137,10 @@ locals {
         lb_shape          = lookup(var.verrazzano_load_balancer, "shape")
         flex_min          = lookup(var.verrazzano_load_balancer, "flex_min")
         flex_max          = lookup(var.verrazzano_load_balancer, "flex_max")
-
+        mesh_id           = var.verrazzano_data_plane_id
+        cluster_name      = k
+        mesh_network      = k
+        int-nsg-id        = lookup(var.int_nsg_ids, k)
       }
     ) if(var.install_verrazzano == true)
     } : {
@@ -199,4 +207,6 @@ locals {
       cluster = k
     }) if(var.install_verrazzano == true)
   }
+
+  vz_access_template = templatefile("${path.module}/scripts/get_vz_access.template.sh", {})
 }

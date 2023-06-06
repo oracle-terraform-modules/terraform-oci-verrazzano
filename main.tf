@@ -93,6 +93,8 @@ module "verrazzano" {
 
   verrazzano_data_plane = var.verrazzano_data_plane
 
+  verrazzano_data_plane_id = var.verrazzano_data_plane_id
+  
   verrazzano_load_balancer = var.verrazzano_load_balancer
 
   cluster_ids = merge({ "admin" = module.admin.cluster_id }, module.clusters.cluster_ids)

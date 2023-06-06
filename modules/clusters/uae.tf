@@ -63,6 +63,7 @@
 
 
 #   # node pools
+#   kubeproxy_mode = "ipvs"
 #   node_pools = local.managed_nodepools
 
 #   node_pool_image_type = "oke"
@@ -146,6 +147,7 @@
 
 
 #   # node pools
+#   kubeproxy_mode = "ipvs"
 #   node_pools = local.managed_nodepools
 #   cloudinit_nodepool_common = var.cloudinit_nodepool_common
 

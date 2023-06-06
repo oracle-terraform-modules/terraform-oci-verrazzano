@@ -69,7 +69,7 @@ variable "cidrs" {
     mumbai    = { vcn = "10.4.0.0/16", pods = "10.204.0.0/16", services = "10.104.0.0/16" }
     osaka     = { vcn = "10.5.0.0/16", pods = "10.205.0.0/16", services = "10.105.0.0/16" }
     seoul     = { vcn = "10.6.0.0/16", pods = "10.206.0.0/16", services = "10.106.0.0/16" }
-    singapore = { vcn = "10.7.0.0/16", pods = "10.207.0.0/16", services = "10.106.0.0/16" }
+    singapore = { vcn = "10.7.0.0/16", pods = "10.207.0.0/16", services = "10.107.0.0/16" }
     tokyo     = { vcn = "10.8.0.0/16", pods = "10.208.0.0/16", services = "10.108.0.0/16" }
 
     # Europe
@@ -278,6 +278,12 @@ variable "verrazzano_data_plane" {
     condition     = contains(["public", "private"], lower(var.verrazzano_data_plane))
     error_message = "Accepted values are 'public' or 'private'."
   }
+}
+
+variable "verrazzano_data_plane_id" {
+  default     = "vz"
+  description = "The name of the mesh to use"
+  type        = string
 }
 
 variable "verrazzano_load_balancer" {
