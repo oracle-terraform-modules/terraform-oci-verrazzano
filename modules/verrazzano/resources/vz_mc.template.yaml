@@ -40,6 +40,9 @@ spec:
                   clusterName: ${cluster_name}
                 network: ${mesh_network}
             components:
+              egressGateways:
+                - name: istio-egressgateway
+                  enabled: true
               ingressGateways:
                 - name: istio-ingressgateway
                   enabled: true

@@ -45,6 +45,9 @@ spec:
           kind: IstioOperator
           spec:
             components:
+              egressGateways:
+                - name: istio-egressgateway
+                  enabled: true            
               ingressGateways:
                 - name: istio-ingressgateway
                   enabled: true
