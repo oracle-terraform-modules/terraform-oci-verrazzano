@@ -82,7 +82,7 @@
 #     oci.home = oci.home
 #   }
 
-#   count = lookup(var.clusters, "frankfurt") == true ? 1 : 0
+#   count = tobool(lookup(var.clusters, "frankfurt")) ? 1 : 0
 
 # }
 
@@ -168,7 +168,7 @@
 #     oci.home = oci.home
 #   }
 
-#   count = lookup(var.clusters, "amsterdam") == true ? 1 : 0
+#   count = tobool(lookup(var.clusters, "amsterdam")) ? 1 : 0
 
 # }
 
@@ -254,7 +254,7 @@
 #     oci.home = oci.home
 #   }
 
-#   count = lookup(var.clusters, "madrid") == true ? 1 : 0
+#   count = tobool(lookup(var.clusters, "madrid")) ? 1 : 0
 
 # }
 
@@ -339,7 +339,7 @@
 #     oci.home = oci.home
 #   }
 
-#   count = lookup(var.clusters, "milan") == true ? 1 : 0
+#   count = tobool(lookup(var.clusters, "milan")) ? 1 : 0
 
 # }
 
@@ -424,7 +424,7 @@
 #     oci.home = oci.home
 #   }
 
-#   count = lookup(var.clusters, "stockholm") == true ? 1 : 0
+#   count = tobool(lookup(var.clusters, "stockholm")) ? 1 : 0
 
 # }
 
@@ -509,7 +509,7 @@
 #     oci.home = oci.home
 #   }
 
-#   count = lookup(var.clusters, "zurich") == true ? 1 : 0
+#   count = tobool(lookup(var.clusters, "zurich")) ? 1 : 0
 
 # }
 

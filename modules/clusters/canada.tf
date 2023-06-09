@@ -82,7 +82,7 @@
 #     oci.home = oci.home
 #   }
 
-#   count = lookup(var.clusters, "toronto") == true ? 1 : 0
+#   count = tobool(lookup(var.clusters, "toronto")) ? 1 : 0
 
 # }
 
@@ -167,7 +167,7 @@
 #     oci.home = oci.home
 #   }
 
-#   count = lookup(var.clusters, "montreal") == true ? 1 : 0
+#   count = tobool(lookup(var.clusters, "montreal")) ? 1 : 0
 
 # }
 

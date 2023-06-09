@@ -7,13 +7,15 @@ spec:
   environmentName: ${cluster}
   components:
     coherenceOperator:
-      enabled: false
+      enabled: ${coherence}
     dns:
       oci:
         ociConfigSecret: oci
         dnsZoneCompartmentOCID: ${compartment_id}
         dnsZoneOCID: ${dns_zone_id}
         dnsZoneName: ${dns_zone_name}
+    fluentd:
+      enabled: ${fluentd}
     ingressNGINX:
       type: LoadBalancer
       overrides:
@@ -66,7 +68,7 @@ spec:
                       oci.oraclecloud.com/oci-network-security-groups: "${int-nsg-id}"
                     env:
                     - name: ISTIO_META_REQUESTED_NETWORK_VIEW
-                      value: ${mesh_network}
+                      value: admin
                     service:
                       ports:
                       - name: status-port
@@ -85,11 +87,17 @@ spec:
                     app: istio-eastwestgateway
                     istio: eastwestgateway
                     topology.istio.io/network: ${mesh_network}
+    jaegerOperator:
+      enabled: ${jaeger}
     kiali:
-      enabled: true
+      enabled: ${kiali}
     kubeStateMetrics:
-      enabled: false
+      enabled: ${kube_state_metrics}
+    prometheus:
+      enabled: ${prometheus}
+    prometheusOperator:
+      enabled: ${prometheus_operator}
     velero:
-      enabled: false
+      enabled: ${velero}
     weblogicOperator:
-      enabled: false
+      enabled: ${weblogic_operator}

@@ -79,43 +79,54 @@ module "verrazzano" {
 
   ssh_private_key_path = var.ssh_private_key_path
 
-  oke_control_plane = var.oke_control_plane
-
+  # verrazzano
+  install_verrazzano = var.install_verrazzano
   verrazzano_version = var.verrazzano_version
 
-  install_verrazzano = var.install_verrazzano
-
-  admin_region = var.admin_region
-
-  verrazzano_profile = var.verrazzano_profile
-
+  # verrazzano infrastructure
+  admin_region             = var.admin_region
+  oke_control_plane        = var.oke_control_plane
+  verrazzano_profile       = var.verrazzano_profile
   verrazzano_control_plane = var.verrazzano_control_plane
-
-  verrazzano_data_plane = var.verrazzano_data_plane
-
-  verrazzano_data_plane_id = var.verrazzano_data_plane_id
-  
+  verrazzano_data_plane    = var.verrazzano_data_plane
   verrazzano_load_balancer = var.verrazzano_load_balancer
+  cluster_ids              = merge({ "admin" = module.admin.cluster_id }, module.clusters.cluster_ids)
+  int_nsg_ids              = merge({ "admin" = lookup(module.admin.nsg_ids, "int_lb") }, module.clusters.int_nsg_ids)
+  pub_nsg_ids              = merge({ "admin" = lookup(module.admin.nsg_ids, "pub_lb") }, module.clusters.pub_nsg_ids)
 
-  cluster_ids = merge({ "admin" = module.admin.cluster_id }, module.clusters.cluster_ids)
+  # verrazzano components
+  argocd                = var.argocd
+  coherence             = var.coherence
+  configure_dns         = var.configure_dns
+  console               = var.console
+  fluentd               = var.fluentd
+  grafana               = var.grafana
+  jaeger                = var.jaeger
+  kiali                 = var.kiali
+  kube_state_metrics    = var.kube_state_metrics
+  opensearch            = var.opensearch
+  opensearch_dashboards = var.opensearch_dashboards
+  prometheus            = var.prometheus
+  prometheus_operator   = var.prometheus_operator
+  rancher               = var.rancher
+  velero                = var.velero
+  weblogic_operator     = var.weblogic_operator
 
-  int_nsg_ids = merge({ "admin" = lookup(module.admin.nsg_ids, "int_lb") }, module.clusters.int_nsg_ids)
-
-  pub_nsg_ids = merge({ "admin" = lookup(module.admin.nsg_ids, "pub_lb") }, module.clusters.pub_nsg_ids)
-
-  configure_dns = var.configure_dns
-
-  secret_id = var.secret_id
-
-  dns_zone_id = var.dns_zone_id
-
+  # dns
+  secret_id          = var.secret_id
+  dns_zone_id        = var.dns_zone_id
   dns_compartment_id = var.dns_compartment_id
+  dns_zone_name      = var.dns_zone_name
 
-  dns_zone_name = var.dns_zone_name
+  # istio
+  mesh_id     = var.mesh_id
+  istio_model = var.istio_model
+
 
   depends_on = [
     module.clusters
   ]
 
-  count = var.configure_clusters == true ? 1 : 0
+  count = tobool(var.configure_clusters) ? 1 : 0
 }
+

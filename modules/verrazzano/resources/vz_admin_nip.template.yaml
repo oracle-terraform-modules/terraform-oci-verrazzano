@@ -7,7 +7,7 @@ spec:
   environmentName: admin
   components:
     argoCD:
-      enabled: true
+      enabled: ${argocd}
     clusterOperator:
       overrides:
       - values:
@@ -17,14 +17,18 @@ spec:
               matchExpressions:
               - key: vz
                 operator: In
-                values: [verrazzano]
+                values: [oci]
     coherenceOperator:
-      enabled: false
+      enabled: ${coherence}
     console:
       enabled: true
     dns:
       wildcard:
-        domain: nip.io            
+        domain: nip.io
+    fluentd:
+      enabled: ${fluentd}
+    grafana:
+      enabled: ${grafana}        
     ingressNGINX:
       type: LoadBalancer
       overrides:
@@ -44,36 +48,75 @@ spec:
           apiVersion: install.istio.io/v1alpha1
           kind: IstioOperator
           spec:
+            values:
+              global:
+                meshID: ${mesh_id}
+                multiCluster:
+                  clusterName: ${cluster_name}
+                network: ${mesh_network}
             components:
               egressGateways:
                 - name: istio-egressgateway
-                  enabled: true            
+                  enabled: true
               ingressGateways:
                 - name: istio-ingressgateway
                   enabled: true
                   k8s:
                     serviceAnnotations:
-                      service.beta.kubernetes.io/oci-load-balancer-internal: "${data_plane}"
+                      service.beta.kubernetes.io/oci-load-balancer-internal: "${data_plane}"                    
                       service.beta.kubernetes.io/oci-load-balancer-shape: "${lb_shape}"
                       service.beta.kubernetes.io/oci-load-balancer-shape-flex-min: "${flex_min}"
                       service.beta.kubernetes.io/oci-load-balancer-shape-flex-max: "${flex_max}"
                       service.beta.kubernetes.io/oci-load-balancer-security-list-management-mode: "None"
                       oci.oraclecloud.com/oci-network-security-groups: "${data_plane_nsg}"
+                - name: istio-eastwestgateway
+                  enabled: true
+                  k8s:
+                    serviceAnnotations:
+                      service.beta.kubernetes.io/oci-load-balancer-internal: "true"
+                      service.beta.kubernetes.io/oci-load-balancer-shape: "10Mbps"
+                      service.beta.kubernetes.io/oci-load-balancer-shape-flex-min: "50"
+                      service.beta.kubernetes.io/oci-load-balancer-shape-flex-max: "100"
+                      service.beta.kubernetes.io/oci-load-balancer-security-list-management-mode: "None"
+                      oci.oraclecloud.com/oci-network-security-groups: "${int-nsg-id}"
+                    env:
+                    - name: ISTIO_META_REQUESTED_NETWORK_VIEW
+                      value: admin
+                    service:
+                      ports:
+                      - name: status-port
+                        port: 15021
+                        targetPort: 15021
+                      - name: tls
+                        port: 15443
+                        targetPort: 15443
+                      - name: tls-istiod
+                        port: 15012
+                        targetPort: 15012
+                      - name: tls-webhook
+                        port: 15017
+                        targetPort: 15017
+                  label:
+                    app: istio-eastwestgateway
+                    istio: eastwestgateway
+                    topology.istio.io/network: admin
+    jaegerOperator:
+      enabled: ${jaeger}
     kiali:
-      enabled: true
+      enabled: ${kiali}
     kubeStateMetrics:
-      enabled: false                          
+      enabled: ${kube_state_metrics}                          
     opensearch:
-      enabled: true
+      enabled: ${opensearch}
     opensearchDashboards:
-      enabled: true
+      enabled: ${opensearch_dashboards}
     prometheus:
-      enabled: true
+      enabled: ${prometheus}
     prometheusOperator:
-      enabled: true
+      enabled: ${prometheus_operator}
     rancher:
-      enabled: true
+      enabled: ${rancher}
     velero:
-      enabled: false
+      enabled: ${velero}
     weblogicOperator:
-      enabled: false                      
+      enabled: ${weblogic_operator}

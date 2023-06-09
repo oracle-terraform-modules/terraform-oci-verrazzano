@@ -82,7 +82,7 @@
 #     oci.home = oci.home
 #   }
 
-#   count = lookup(var.clusters, "ashburn") == true ? 1 : 0
+#   count = tobool(lookup(var.clusters, "ashburn")) ? 1 : 0
 
 # }
 
@@ -167,7 +167,7 @@
 #     oci.home = oci.home
 #   }
 
-#   count = lookup(var.clusters, "phoenix") == true ? 1 : 0
+#   count = tobool(lookup(var.clusters, "phoenix")) ? 1 : 0
 
 # }
 
@@ -252,7 +252,7 @@
 #     oci.home = oci.home
 #   }
 
-#   count = lookup(var.clusters, "sanjose") == true ? 1 : 0
+#   count = tobool(lookup(var.clusters, "sanjose")) ? 1 : 0
 
 # }
 
@@ -337,6 +337,6 @@
 #     oci.home = oci.home
 #   }
 
-#   count = lookup(var.clusters, "chicago") == true ? 1 : 0
+#   count = tobool(lookup(var.clusters, "chicaco")) ? 1 : 0
 
 # }

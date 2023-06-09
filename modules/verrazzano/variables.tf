@@ -12,10 +12,7 @@ variable "ssh_private_key_path" {
   type = string
 }
 
-variable "oke_control_plane" {
-  type = string
-}
-
+# verrazzano
 variable "install_verrazzano" {
   type = bool
 }
@@ -24,8 +21,13 @@ variable "verrazzano_version" {
   type = string
 }
 
+# verrazzano infrastructure
 variable "admin_region" {
   type = map(any)
+}
+
+variable "oke_control_plane" {
+  type = string
 }
 
 variable "verrazzano_profile" {
@@ -40,9 +42,6 @@ variable "verrazzano_data_plane" {
   type = string
 }
 
-variable "verrazzano_data_plane_id" {
-  type = string
-}
 variable "verrazzano_load_balancer" {
   type = map(string)
 }
@@ -58,11 +57,105 @@ variable "int_nsg_ids" {
 variable "pub_nsg_ids" {
   type = map(any)
 }
-# dns
-variable "configure_dns" {
-  type = bool
+
+# verrazzano
+variable "argocd" {
+  default     = true
+  description = "Whether to install ArgoCD"
+  type        = bool
 }
 
+variable "coherence" {
+  default     = false
+  description = "Whether to install coherence"
+  type        = bool
+}
+
+variable "configure_dns" {
+  default     = false
+  description = "Whether to configure DNS. If not configured, nip.io will be used"
+  type        = bool
+}
+
+variable "console" {
+  default     = false
+  description = "Whether to install Verrazzano console"
+  type        = bool
+}
+
+variable "fluentd" {
+  default     = true
+  description = "Whether to install fluentd"
+  type        = bool
+}
+
+variable "grafana" {
+  default     = true
+  description = "Whether to install fluentd"
+  type        = bool
+}
+
+variable "jaeger" {
+  default     = true
+  description = "Whether to install Jaeger"
+  type        = bool
+}
+
+variable "kiali" {
+  default     = true
+  description = "Whether to install Jaeger"
+  type        = bool
+}
+
+variable "kube_state_metrics" {
+  default     = true
+  description = "Whether to install kubeStateMetrics"
+  type        = bool
+}
+
+variable "opensearch" {
+  default     = true
+  description = "Whether to install kubeStateMetrics"
+  type        = bool
+}
+
+variable "opensearch_dashboards" {
+  default     = true
+  description = "Whether to install OpenSearch Dashboards"
+  type        = bool
+}
+
+variable "prometheus" {
+  default     = true
+  description = "Whether to create an instance of Prometheus"
+  type        = bool
+}
+
+variable "prometheus_operator" {
+  default     = true
+  description = "Whether to install Prometheus Operator"
+  type        = bool
+}
+
+variable "rancher" {
+  default     = true
+  description = "Whether to install Rancher"
+  type        = bool
+}
+
+variable "velero" {
+  default     = false
+  description = "Whether to install velero"
+  type        = bool
+}
+
+variable "weblogic_operator" {
+  default     = false
+  description = "Whether to install WebLogic Operator"
+  type        = bool
+}
+
+# dns
 variable "secret_id" {
   type = string
 }
@@ -77,4 +170,16 @@ variable "dns_compartment_id" {
 
 variable "dns_zone_name" {
   type = string
+}
+
+# istio
+
+variable "mesh_id" {
+  type = string
+}
+
+variable "istio_model" {
+  default     = "single"
+  description = "The deployment model of Istio to use when deploying multiple clusters"
+  type        = string  
 }
