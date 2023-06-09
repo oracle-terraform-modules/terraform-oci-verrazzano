@@ -1,11 +1,13 @@
 # With Public Endpoints
 
+<!-- toc -->
+
 ```admonish tip
 1. Edit the code in-place below to reflect your values.
 2. Then click the "Copy to clipboard" icon.
 ```
 
-## Creating the clusters
+### Create the clusters
 1. Copy terraform.tfvars.example to terraform.tfvars
 
 ```bash, editable
@@ -191,7 +193,7 @@ terraform apply
 The operator host is created in the admin region only.
 ```
 
-## Setting up kubeconfig
+### Set up kubeconfig
 
 You will now generate the installation script.
 
@@ -258,7 +260,7 @@ NAME            STATUS   ROLES   AGE   VERSION
 10.31.84.171    Ready    node    89m   v1.24.1
 
 ```
-## Install Verrrazzano
+### Install Verrrazzano
 
 You will now install Verrazzano in all clusters and register the managed clusters with the Admin cluster.
 

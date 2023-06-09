@@ -14,6 +14,25 @@ This module automates the installation of the [Verrazzano Container Platform][ur
 This module is currently in technical preview. Your ideas and feedback are most welcome.
 ```
 
+## News
+
+***
+### June 9 2023: Announcing release v0.0.5
+
+- Configurable Verrazzano components
+- Multi-cluster mesh support
+- Configurable DNS
+
+***
+
+### May 29 2023: Announcing release v0.0.4
+
+- Input variable name changes
+- Removed regions input variable
+- Updated Terraform options in docs
+- Updated terraform.tfvars.example file
+- Updated services and pods CIDRs so there's no overlap
+
 ## Related Documentation
 
 * [Verrazzano Documentation][uri-verrazzano]

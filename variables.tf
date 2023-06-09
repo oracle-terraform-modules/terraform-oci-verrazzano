@@ -300,7 +300,7 @@ variable "argocd" {
 
 variable "coherence" {
   default     = false
-  description = "Whether to install coherence"
+  description = "Whether to install Coherence Operator"
   type        = bool
 }
 
@@ -324,7 +324,7 @@ variable "fluentd" {
 
 variable "grafana" {
   default     = true
-  description = "Whether to install fluentd"
+  description = "Whether to install Grafana"
   type        = bool
 }
 
@@ -341,14 +341,14 @@ variable "kiali" {
 }
 
 variable "kube_state_metrics" {
-  default     = true
-  description = "Whether to install kubeStateMetrics"
+  default     = false
+  description = "Whether to capture Kube State Metrics"
   type        = bool
 }
 
 variable "opensearch" {
   default     = true
-  description = "Whether to install kubeStateMetrics"
+  description = "Whether to install OpenSearch"
   type        = bool
 }
 
@@ -422,6 +422,6 @@ variable "mesh_id" {
 
 variable "istio_model" {
   default     = "single"
-  description = "The deployment model of Istio to use when deploying multiple clusters"
+  description = "The deployment model of Istio to use when using multiple clusters"
   type        = string  
 }
