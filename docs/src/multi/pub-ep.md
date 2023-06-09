@@ -169,7 +169,7 @@ Only uncomment the admin region in outputs if you happen to also run a managed c
 6. Configure the following input variables:
 
 ```terraform,editable
-configure_clusters = false
+get_kubeconfigs = false
 install_verrazzano = false
 ```
 
@@ -198,7 +198,7 @@ You will now generate the installation script.
 1. Configure the following input variables:
 
 ```terraform,editable
-configure_clusters = true
+get_kubeconfigs = true
 install_verrazzano = true
 ```
 

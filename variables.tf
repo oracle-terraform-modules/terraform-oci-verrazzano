@@ -135,12 +135,6 @@ variable "admin_region" {
   }
 }
 
-variable "configure_clusters" {
-  default     = true
-  description = "Whether to set up access to the clusters."
-  type        = bool
-}
-
 variable "kubernetes_version" {
   default     = "v1.24.1"
   description = "The version of Kubernetes to use."
@@ -235,6 +229,12 @@ variable "cloudinit_nodepool_common" {
 
 # verrazzano
 
+variable "get_kubeconfigs" {
+  default     = true
+  description = "Whether to set up access to the clusters."
+  type        = bool
+}
+
 variable "install_verrazzano" {
   default     = false
   description = "Whether ready to install Verrazzano"
@@ -247,6 +247,7 @@ variable "verrazzano_version" {
   type        = string
 }
 
+# verrazzano infrastructure
 variable "verrazzano_profile" {
   default     = "dev"
   description = "Verrazzano profile to install"
@@ -280,12 +281,6 @@ variable "verrazzano_data_plane" {
   }
 }
 
-variable "verrazzano_data_plane_id" {
-  default     = "vz"
-  description = "The name of the mesh to use"
-  type        = string
-}
-
 variable "verrazzano_load_balancer" {
   description = "Load Balancer Shape"
   type        = map(string)
@@ -296,19 +291,104 @@ variable "verrazzano_load_balancer" {
   }
 }
 
-# dns
+# Verrazzano components
+variable "argocd" {
+  default     = true
+  description = "Whether to install ArgoCD"
+  type        = bool
+}
+
+variable "coherence" {
+  default     = false
+  description = "Whether to install coherence"
+  type        = bool
+}
+
 variable "configure_dns" {
   default     = false
   description = "Whether to configure DNS. If not configured, nip.io will be used"
   type        = bool
 }
 
-variable "secret_id" {
-  default     = ""
-  description = "OCID of oci secret to be used for OCI DNS authentication."
-  type        = string
+variable "console" {
+  default     = false
+  description = "Whether to install Verrazzano console"
+  type        = bool
 }
 
+variable "fluentd" {
+  default     = true
+  description = "Whether to install fluentd"
+  type        = bool
+}
+
+variable "grafana" {
+  default     = true
+  description = "Whether to install fluentd"
+  type        = bool
+}
+
+variable "jaeger" {
+  default     = true
+  description = "Whether to install Jaeger"
+  type        = bool
+}
+
+variable "kiali" {
+  default     = true
+  description = "Whether to install Jaeger"
+  type        = bool
+}
+
+variable "kube_state_metrics" {
+  default     = true
+  description = "Whether to install kubeStateMetrics"
+  type        = bool
+}
+
+variable "opensearch" {
+  default     = true
+  description = "Whether to install kubeStateMetrics"
+  type        = bool
+}
+
+variable "opensearch_dashboards" {
+  default     = true
+  description = "Whether to install OpenSearch Dashboards"
+  type        = bool
+}
+
+variable "prometheus" {
+  default     = true
+  description = "Whether to create an instance of Prometheus"
+  type        = bool
+}
+
+variable "prometheus_operator" {
+  default     = true
+  description = "Whether to install Prometheus Operator"
+  type        = bool
+}
+
+variable "rancher" {
+  default     = true
+  description = "Whether to install Rancher"
+  type        = bool
+}
+
+variable "velero" {
+  default     = false
+  description = "Whether to install velero"
+  type        = bool
+}
+
+variable "weblogic_operator" {
+  default     = false
+  description = "Whether to install WebLogic Operator"
+  type        = bool
+}
+
+# dns
 variable "dns_zone_id" {
   default     = ""
   description = "DNS Zone OCID in OCI DNS"
@@ -325,4 +405,23 @@ variable "dns_zone_name" {
   default     = ""
   description = "DNS Zone Name"
   type        = string
+}
+
+variable "secret_id" {
+  default     = ""
+  description = "OCID of oci secret to be used for OCI DNS authentication."
+  type        = string
+}
+
+# istio
+variable "mesh_id" {
+  default     = "vz"
+  description = "The name of the mesh to use"
+  type        = string
+}
+
+variable "istio_model" {
+  default     = "single"
+  description = "The deployment model of Istio to use when deploying multiple clusters"
+  type        = string  
 }

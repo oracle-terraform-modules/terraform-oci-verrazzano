@@ -7,7 +7,7 @@ spec:
   environmentName: admin
   components:
     argoCD:
-      enabled: true
+      enabled: ${argocd}
     clusterOperator:
       overrides:
       - values:
@@ -19,7 +19,7 @@ spec:
                 operator: In
                 values: [oci]
     coherenceOperator:
-      enabled: false
+      enabled: ${coherence}
     console:
       enabled: true
     dns:
@@ -29,9 +29,9 @@ spec:
         dnsZoneOCID: ${dns_zone_id}
         dnsZoneName: ${dns_zone_name}
     fluentd:
-      enabled: true
+      enabled: ${fluentd}
     grafana:
-      enabled: true        
+      enabled: ${grafana}        
     ingressNGINX:
       type: LoadBalancer
       overrides:
@@ -66,7 +66,7 @@ spec:
                   enabled: true
                   k8s:
                     serviceAnnotations:
-                      service.beta.kubernetes.io/oci-load-balancer-internal: "${data_plane}"                    
+                      service.beta.kubernetes.io/oci-load-balancer-internal: "${data_plane}"
                       service.beta.kubernetes.io/oci-load-balancer-shape: "${lb_shape}"
                       service.beta.kubernetes.io/oci-load-balancer-shape-flex-min: "${flex_min}"
                       service.beta.kubernetes.io/oci-load-balancer-shape-flex-max: "${flex_max}"
@@ -103,21 +103,23 @@ spec:
                     app: istio-eastwestgateway
                     istio: eastwestgateway
                     topology.istio.io/network: admin
+    jaegerOperator:
+      enabled: ${jaeger}
     kiali:
-      enabled: true
+      enabled: ${kiali}
     kubeStateMetrics:
-      enabled: false                          
+      enabled: ${kube_state_metrics}
     opensearch:
-      enabled: true
+      enabled: ${opensearch}
     opensearchDashboards:
-      enabled: true
+      enabled: ${opensearch_dashboards}
     prometheus:
-      enabled: true
+      enabled: ${prometheus}
     prometheusOperator:
-      enabled: true
+      enabled: ${prometheus_operator}
     rancher:
-      enabled: true
+      enabled: ${rancher}
     velero:
-      enabled: false
+      enabled: ${velero}
     weblogicOperator:
-      enabled: false
+      enabled: ${weblogic_operator}

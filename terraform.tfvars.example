@@ -28,7 +28,7 @@ admin_region = {
   services   = "10.100.0.0/16"
 }
 
-configure_clusters = false
+get_kubeconfigs = false
 
 kubernetes_version = "v1.24.1"
 
@@ -114,10 +114,30 @@ verrazzano_load_balancer = {
   flex_max = "100"
 }
 
-# dns
+# verrazzano components
+argocd = true
+coherence = false
 configure_dns = false
+console = false
+fluentd = true
+grafana = true
+jaeger = true
+kiali = true
+kube_state_metrics = true
+opensearch = true
+opensearch_dashboards = true
+prometheus = true
+prometheus_operator = true
+rancher = true
+velero = false
+weblogic_operator = false
 
+# dns
 dns_compartment_id = ""
 dns_zone_id        = ""
 dns_zone_name      = ""
 secret_id          = ""
+
+# istio
+mesh_id = "yggdrasil"
+istio_model = ""
