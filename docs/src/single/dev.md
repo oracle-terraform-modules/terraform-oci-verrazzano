@@ -46,7 +46,7 @@ admin_region = {
 6. Configure the following input variables:
 
 ```
-configure_clusters = false
+get_kubeconfigs = false
 install_verrazzano = false
 ```
 ```admonish important
@@ -70,7 +70,7 @@ You will now generate the installation script.
 1. Configure the following input variables:
 
 ```
-configure_clusters = true
+get_kubeconfigs = true
 install_verrazzano = true
 ```
 

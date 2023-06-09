@@ -39,7 +39,7 @@ spec:
               global:
                 meshID: ${mesh_id}
                 multiCluster:
-                  clusterName: ${cluster_name}
+                  clusterName: ${cluster}
                 network: ${mesh_network}
             components:
               egressGateways:
@@ -68,7 +68,7 @@ spec:
                       oci.oraclecloud.com/oci-network-security-groups: "${int-nsg-id}"
                     env:
                     - name: ISTIO_META_REQUESTED_NETWORK_VIEW
-                      value: admin
+                      value: ${mesh_network}
                     service:
                       ports:
                       - name: status-port
@@ -88,7 +88,7 @@ spec:
                     istio: eastwestgateway
                     topology.istio.io/network: ${mesh_network}
     jaegerOperator:
-      enabled: ${jaeger}
+      enabled: ${jaeger}                    
     kiali:
       enabled: ${kiali}
     kubeStateMetrics:

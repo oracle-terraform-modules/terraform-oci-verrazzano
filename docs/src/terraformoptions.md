@@ -32,7 +32,7 @@
 | Parameter | Description | Type        | Default |
 | --------- | ----------- | ----------- | ------- |
 | admin_region | The region parameters of the Admin cluster. In case a single cluster is created, the Admin region is used for the single cluster. | map(any)| |
-| configure_clusters | Whether to set up access to the clusters. Set to false on cluster creation. | bool | false |
+| get_kubeconfigs | Whether to set up access to the clusters. Set to false on cluster creation. | bool | false |
 | kubernetes_version | The version of Kubernetes to use. | string | v1.24.1 |
 | oke_control_plane | Whether to keep all OKE control planes public or private | public/private | public |
 | managed_clusters | A map of OCI regions where managed clusters will be created | map(bool) |  |

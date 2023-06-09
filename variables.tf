@@ -135,12 +135,6 @@ variable "admin_region" {
   }
 }
 
-variable "configure_clusters" {
-  default     = true
-  description = "Whether to set up access to the clusters."
-  type        = bool
-}
-
 variable "kubernetes_version" {
   default     = "v1.24.1"
   description = "The version of Kubernetes to use."
@@ -234,6 +228,13 @@ variable "cloudinit_nodepool_common" {
 }
 
 # verrazzano
+
+variable "get_kubeconfigs" {
+  default     = true
+  description = "Whether to set up access to the clusters."
+  type        = bool
+}
+
 variable "install_verrazzano" {
   default     = false
   description = "Whether ready to install Verrazzano"

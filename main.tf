@@ -127,6 +127,6 @@ module "verrazzano" {
     module.clusters
   ]
 
-  count = tobool(var.configure_clusters) ? 1 : 0
+  count = tobool(var.get_kubeconfigs) ? 1 : 0
 }
 

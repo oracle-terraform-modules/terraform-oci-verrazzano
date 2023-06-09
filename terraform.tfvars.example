@@ -28,7 +28,7 @@ admin_region = {
   services   = "10.100.0.0/16"
 }
 
-configure_clusters = false
+get_kubeconfigs = false
 
 kubernetes_version = "v1.24.1"
 
