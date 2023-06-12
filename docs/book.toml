@@ -5,6 +5,20 @@ multilingual = false
 src = "src"
 title = "Terraform module for Verrazzano"
 
+[output.html]
+curly-quotes = false
+git-repository-url = "https://github.com/oracle-terraform-modules/terraform-oci-verrazzano"
+additional-css = ["./src/css/mdbook-admonish.css", "././mdbook-admonish.css", "theme/pagetoc.css"]
+additional-js  = ["theme/pagetoc.js"]
+default-theme = "light"
+
+[output.html.playground]
+editable = true
+line-numbers = true
+
+[output.html.print]
+enable = false
+
 [preprocessor.admonish]
 command = "mdbook-admonish"
 assets_version = "2.0.0" # do not edit: managed by `mdbook-admonish install`
@@ -13,11 +27,3 @@ assets_version = "2.0.0" # do not edit: managed by `mdbook-admonish install`
 max-level = 3
 
 [preprocessor.pagetoc]
-[output.html]
-curly-quotes = false
-git-repository-url = "https://github.com/oracle-terraform-modules/terraform-oci-verrazzano"
-additional-css = ["./src/css/mdbook-admonish.css", "././mdbook-admonish.css", "theme/pagetoc.css"]
-additional-js  = ["theme/pagetoc.js"]
-
-[output.html.playground]
-editable = true

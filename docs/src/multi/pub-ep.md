@@ -1,5 +1,6 @@
 # With Public Endpoints
 
+Use this configuration when you want the API endpoints of your OKE clusters to be public.
 <!-- toc -->
 
 ```admonish tip
@@ -8,13 +9,14 @@
 ```
 
 ### Create the clusters
-1. Copy terraform.tfvars.example to terraform.tfvars
+1. Copy terraform.tfvars.example to terraform.tfvars:
 
 ```bash, editable
 cp terraform.tfvars.example terraform.tfvars
 ```
 
-2. Provide values for the following input variables: 
+#### Provider
+1. Provide values for the following input variables in terraform.tfvars: 
    - `api_fingerprint`
    - `api_private_key_path`
    - `tenancy_id`
@@ -23,31 +25,33 @@ cp terraform.tfvars.example terraform.tfvars
    - `ssh_public_key_path`
    - `ssh_private_key_path`
 
-3. Set your tenancy's home region using `home_region` e.g.
+2. Set your tenancy's home region using `home_region` in terraform.tfvars e.g.
 
 ```terraform, editable
 home_region = "us-ashburn-1"
 ```
 
-4. Configure the admin region:
-   1. Set the Admin region for where you want to place the Verrazzano multi-cluster. This should be the region name only e.g. `Sydney`. This should not be the region identifier `ap-sydney-1` e.g.
+#### Admin Cluster
+1. Set the Admin region for where you want to place the Verrazzano Admin cluster. This should be the region name only e.g. `Sydney`. This should ***not*** be the region identifier `ap-sydney-1` e.g.
 
-```terraform,editable
-admin_region = {
-  admin_name = "admin"
-  region     = "Sydney" # must match the provider's region in step 4
-  vcn_cidr   = "10.0.0.0/16"
-  pods       = "10.200.0.0/16"
-  services   = "10.100.0.0/16"
-}
-```
+      ```terraform,editable
+      admin_region = {
+        admin_name = "admin"
+        region     = "Sydney" # must match the provider's region in step 4
+        vcn_cidr   = "10.0.0.0/16"
+        pods       = "10.200.0.0/16"
+        services   = "10.100.0.0/16"
+      }
+      ```
+
 ```admonish warning
 If you change the CIDR values above, it is your responsibility to ensure they do not overlap:
 1. with each other
 2. with other clusters' CIDRs
 3. with existing network in your environment if you are establishing connectivity
 ```
-   2. Also change the provider to its corresponding alias. The aliases can be found in providers.tf e.g. if you want to place your admin cluster in Ashburn, you must change the provider from `oci.sydney` to `oci.ashburn`. This should be configured in `admin.tf` in the root module e.g.
+
+2. Change the provider of the Admin cluster  to its corresponding alias. The aliases can be found in providers.tf e.g. if you want to place your Admin cluster in Ashburn, you must change the provider from `oci.sydney` to `oci.ashburn`. This should be configured in `admin.tf` in the root module e.g.
 
 ```terraform,editable
   providers = {
@@ -55,7 +59,9 @@ If you change the CIDR values above, it is your responsibility to ensure they do
     oci.home = oci.home
   }
 ```
-5. To create managed clusters in your preferred regions, set your preferred regions' values to `true` e.g. `ashburn=true` in the `clusters` parameter. Leave those that you do not use to `false` e.g.
+
+#### Managed Clusters
+1. To create managed clusters in your preferred regions, set your preferred regions' values to `true` e.g. `ashburn=true` in the `clusters` parameter. Leave those that you do not use to `false` e.g.
 
 ```terraform, editable
 clusters = {
@@ -70,7 +76,6 @@ clusters = {
   seoul     = false
   singapore = false
   tokyo     = false
-
 
   # Europe
   amsterdam = false
@@ -114,7 +119,7 @@ clusters = {
 Do not remove those that you are not using.
 ```
 
-6. For the managed clusters you enable, uncomment them in `modules\clusters\outputs.tf` for `cluster_ids`, `int_nsg_ids` and `pub_nsg_ids`. For the clusters that you do not use, leave them commented e.g.
+2. For the managed clusters you enable, uncomment them in `modules\clusters\outputs.tf` for `cluster_ids`, `int_nsg_ids` and `pub_nsg_ids`. For the clusters that you do not use, leave them commented e.g.
 
 ```terraform,editable
 output "cluster_ids" {
@@ -163,12 +168,19 @@ In the outputs.tf, you must uncomment only the regions where you are running the
 Only uncomment the admin region in outputs if you happen to also run a managed cluster in the same region as your admin cluster.
 ```
 
-7. Uncomment the respective clusters that you have enabled. The clusters are created in either {country, continent,region}.tf. e.g. Ashburn will be found in `usa.tf` under `modules\clusters`. Leave the clusters that you do not use as commented.
+3. Uncomment the respective clusters that you have enabled. The clusters are created in either {country, continent,region}.tf. e.g. Ashburn will be found in `usa.tf` under `modules\clusters`. Leave the clusters that you do not use as commented.
 
 ```admonish info
-> We pre-create aliased providers. But in doing so, Terraform then wants to check all configured regions and this can take some time. Instead, we want Terraform apply to happen as quickly as possible. That's why the need to comment/uncomment. We will look for a way to improve this in the future.
+We pre-create aliased providers. But in doing so, Terraform then wants to check all configured regions and this can take some time. Instead, we want Terraform apply to happen as quickly as possible. That's why the need to comment/uncomment. We will look for a way to improve this in the future.
 ```
-6. Configure the following input variables:
+
+4. Configure the API endpoints for public access in terraform.tfvars:
+
+```
+oke_control_plane = "public"
+```
+
+5. When initially creating the clusters, configure the following input variables to be `false`:
 
 ```terraform,editable
 get_kubeconfigs = false
@@ -179,7 +191,7 @@ install_verrazzano = false
 When provisioning the cluster, the above 2 variables must set to `false`.
 ```
 
-7. Create the clusters by running Terraform:
+6. Create the clusters by running Terraform:
 
 ```bash,editable
 terraform init
@@ -187,10 +199,10 @@ terraform plan
 terraform apply
 ```
 
-8. After Terraform has finished the apply operation, it will output a convenient SSH command you can copy. This command will allow you to ssh to the operator host. 
+7. After Terraform has finished the apply operation, it will output a convenient SSH command you can copy. This command will allow you to ssh to the operator host. 
 
 ```admonish tip
-The operator host is created in the admin region only.
+The operator host is created in the Admin region only.
 ```
 
 ### Set up kubeconfig
@@ -250,16 +262,19 @@ To change context to your desired cluster, use the `kubectx` command e.g.
 
 7. You should be able to see something like the following:
 
+```admonish success
 ```
-✔ Switched to context "admin".
-NAME          STATUS   ROLES   AGE   VERSION
-10.0.123.29   Ready    node    91m   v1.24.1
-✔ Switched to context "phoenix".
-NAME            STATUS   ROLES   AGE   VERSION
-10.31.101.163   Ready    node    89m   v1.24.1
-10.31.84.171    Ready    node    89m   v1.24.1
 
+```bash
+    ✔ Switched to context "admin".
+    NAME          STATUS   ROLES   AGE   VERSION
+    10.0.123.29   Ready    node    91m   v1.24.1
+    ✔ Switched to context "phoenix".
+    NAME            STATUS   ROLES   AGE   VERSION
+    10.31.101.163   Ready    node    89m   v1.24.1
+    10.31.84.171    Ready    node    89m   v1.24.1
 ```
+
 ### Install Verrrazzano
 
 You will now install Verrazzano in all clusters and register the managed clusters with the Admin cluster.
