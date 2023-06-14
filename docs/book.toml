@@ -14,7 +14,6 @@ default-theme = "light"
 
 [output.html.playground]
 editable = true
-line-numbers = true
 
 [output.html.print]
 enable = false

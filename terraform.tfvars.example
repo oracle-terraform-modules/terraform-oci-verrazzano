@@ -134,9 +134,10 @@ weblogic_operator = false
 
 # dns
 dns_compartment_id = ""
+dns_secret_id      = ""
 dns_zone_id        = ""
 dns_zone_name      = ""
-secret_id          = ""
+
 
 # istio
 mesh_id = "yggdrasil"

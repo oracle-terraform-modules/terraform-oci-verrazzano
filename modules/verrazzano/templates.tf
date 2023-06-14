@@ -63,7 +63,7 @@ locals {
   }
 
   get_oci_secret_template = templatefile("${path.module}/scripts/get_oci_secret.template.sh", {
-    secret_id = var.secret_id
+    dns_secret_id = var.dns_secret_id
     }
   )
 

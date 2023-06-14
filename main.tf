@@ -113,9 +113,9 @@ module "verrazzano" {
   weblogic_operator     = var.weblogic_operator
 
   # dns
-  secret_id          = var.secret_id
-  dns_zone_id        = var.dns_zone_id
   dns_compartment_id = var.dns_compartment_id
+  dns_secret_id      = var.dns_secret_id
+  dns_zone_id        = var.dns_zone_id
   dns_zone_name      = var.dns_zone_name
 
   # istio

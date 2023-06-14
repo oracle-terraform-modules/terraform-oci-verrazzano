@@ -15,5 +15,5 @@
   - [With Public Load Balancers]())
   - [With Private Load Balancers]()
 - [Advanced Customizations](./advanced/advanced.md)
-  - [Customize DNS]()
+  - [Customize DNS](./advanced/customizedns.md)
 - [Terraform Options](./terraformoptions.md)
