@@ -1,0 +1,623 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>With Public Endpoints - Terraform module for Verrazzano</title>
+        <!-- Custom HTML head -->
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href=".././src/css/mdbook-admonish.css">
+        <link rel="stylesheet" href="../././mdbook-admonish.css">
+        <link rel="stylesheet" href="../theme/pagetoc.css">
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = null;
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../introduction.html">Introduction</a></li><li class="chapter-item expanded affix "><a href="../prerequisites.html">Pre-requisites</a></li><li class="chapter-item expanded "><a href="../single/single.html"><strong aria-hidden="true">1.</strong> Single Cluster</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../single/dev.html"><strong aria-hidden="true">1.1.</strong> Single Development Cluster</a></li><li class="chapter-item expanded "><a href="../single/production.html"><strong aria-hidden="true">1.2.</strong> Single Production Cluster</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">1.3.</strong> Single Customized Cluster</div></li></ol></li><li class="chapter-item expanded "><a href="../multi/multi.html"><strong aria-hidden="true">2.</strong> Multi Cluster</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../multi/pub-ep.html" class="active"><strong aria-hidden="true">2.1.</strong> With Public Endpoints</a></li><li class="chapter-item expanded "><a href="../multi/pri-ep.html"><strong aria-hidden="true">2.2.</strong> With Private Endpoints</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.3.</strong> With Public Load Balancers</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.4.</strong> With Private Load Balancers</div></li></ol></li><li class="chapter-item expanded "><a href="../advanced/advanced.html"><strong aria-hidden="true">3.</strong> Advanced Customizations</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../advanced/customizedns.html"><strong aria-hidden="true">3.1.</strong> Customize DNS</a></li></ol></li><li class="chapter-item expanded "><a href="../terraformoptions.html"><strong aria-hidden="true">4.</strong> Terraform Options</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Terraform module for Verrazzano</h1>
+
+                    <div class="right-buttons">
+                        <a href="https://github.com/oracle-terraform-modules/terraform-oci-verrazzano" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main><div class="sidetoc"><nav class="pagetoc"></nav></div>
+                        <h1 id="with-public-endpoints"><a class="header" href="#with-public-endpoints">With Public Endpoints</a></h1>
+<p>Use this configuration when you want the API endpoints of your OKE clusters to be public.</p>
+<ul>
+<li><a href="#create-the-clusters">Create the clusters</a></li>
+<li><a href="#set-up-kubeconfig">Set up kubeconfig</a></li>
+<li><a href="#install-verrrazzano">Install Verrrazzano</a></li>
+</ul>
+<div id="admonition-tip" class="admonition tip">
+<div class="admonition-title">
+<p>Tip</p>
+<p><a class="admonition-anchor-link" href="#admonition-tip"></a></p>
+</div>
+<div>
+<ol>
+<li>Edit the code in-place below to reflect your values.</li>
+<li>Then click the &quot;Copy to clipboard&quot; icon.</li>
+</ol>
+</div>
+</div>
+<h3 id="create-the-clusters"><a class="header" href="#create-the-clusters">Create the clusters</a></h3>
+<ol>
+<li>Copy terraform.tfvars.example to terraform.tfvars:</li>
+</ol>
+<pre><code class="language-bash  editable">cp terraform.tfvars.example terraform.tfvars
+</code></pre>
+<h4 id="provider"><a class="header" href="#provider">Provider</a></h4>
+<ol>
+<li>
+<p>Provide values for the following input variables in terraform.tfvars: </p>
+<ul>
+<li><code>api_fingerprint</code></li>
+<li><code>api_private_key_path</code></li>
+<li><code>tenancy_id</code></li>
+<li><code>user_id</code></li>
+<li><code>compartment_id</code></li>
+<li><code>ssh_public_key_path</code></li>
+<li><code>ssh_private_key_path</code></li>
+</ul>
+</li>
+<li>
+<p>Set your tenancy's home region using <code>home_region</code> in terraform.tfvars e.g.</p>
+</li>
+</ol>
+<pre><code class="language-terraform  editable">home_region = &quot;us-ashburn-1&quot;
+</code></pre>
+<h4 id="admin-cluster"><a class="header" href="#admin-cluster">Admin Cluster</a></h4>
+<ol>
+<li>
+<p>Set the Admin region for where you want to place the Verrazzano Admin cluster. This should be the region name only e.g. <code>Sydney</code>. This should <em><strong>not</strong></em> be the region identifier <code>ap-sydney-1</code> e.g.</p>
+<pre><code class="language-terraform editable">admin_region = {
+  admin_name = &quot;admin&quot;
+  region     = &quot;Sydney&quot; # must match the provider's region in step 4
+  vcn_cidr   = &quot;10.0.0.0/16&quot;
+  pods       = &quot;10.200.0.0/16&quot;
+  services   = &quot;10.100.0.0/16&quot;
+}
+</code></pre>
+</li>
+</ol>
+<div id="admonition-warning" class="admonition warning">
+<div class="admonition-title">
+<p>Warning</p>
+<p><a class="admonition-anchor-link" href="#admonition-warning"></a></p>
+</div>
+<div>
+<p>If you change the CIDR values above, it is your responsibility to ensure they do not overlap:</p>
+<ol>
+<li>with each other</li>
+<li>with other clusters' CIDRs</li>
+<li>with existing network in your environment if you are establishing connectivity</li>
+</ol>
+</div>
+</div>
+<ol start="2">
+<li>Change the provider of the Admin cluster  to its corresponding alias. The aliases can be found in providers.tf e.g. if you want to place your Admin cluster in Ashburn, you must change the provider from <code>oci.sydney</code> to <code>oci.ashburn</code>. This should be configured in <code>admin.tf</code> in the root module e.g.</li>
+</ol>
+<pre><code class="language-terraform editable">  providers = {
+    oci      = oci.ashburn
+    oci.home = oci.home
+  }
+</code></pre>
+<h4 id="managed-clusters"><a class="header" href="#managed-clusters">Managed Clusters</a></h4>
+<ol>
+<li>To create managed clusters in your preferred regions, set your preferred regions' values to <code>true</code> e.g. <code>ashburn=true</code> in the <code>clusters</code> parameter. Leave those that you do not use to <code>false</code> e.g.</li>
+</ol>
+<pre><code class="language-terraform  editable">clusters = {
+  # Africa
+  johannesburg = false
+
+  # Asia
+  chuncheon = false
+  hyderabad = false
+  mumbai    = false
+  osaka     = false
+  seoul     = false
+  singapore = false
+  tokyo     = false
+
+  # Europe
+  amsterdam = false
+  frankfurt = false
+  london    = false
+  madrid    = false
+  marseille = false
+  milan     = false
+  newport   = false
+  paris     = false
+  stockholm = false
+  zurich    = false
+
+  # Middle East
+  abudhabi  = false
+  dubai     = false
+  jeddah    = false
+  jerusalem = false
+
+  # Oceania
+  melbourne = false
+  sydney    = false
+
+  # South America
+  santiago = false
+  saupaulo = false
+  vinhedo  = false
+
+  # North America
+  ashburn   = false
+  chicago   = false
+  montreal  = false
+  phoenix   = true
+  queretaro = false
+  sanjose   = false
+  toronto   = false
+}
+</code></pre>
+<div id="admonition-warning-1" class="admonition warning">
+<div class="admonition-title">
+<p>Warning</p>
+<p><a class="admonition-anchor-link" href="#admonition-warning-1"></a></p>
+</div>
+<div>
+<p>Do not remove those that you are not using.</p>
+</div>
+</div>
+<ol start="2">
+<li>For the managed clusters you enable, uncomment them in <code>modules\clusters\outputs.tf</code> for <code>cluster_ids</code>, <code>int_nsg_ids</code> and <code>pub_nsg_ids</code>. For the clusters that you do not use, leave them commented e.g.</li>
+</ol>
+<pre><code class="language-terraform editable">output &quot;cluster_ids&quot; {
+  value = {
+    # &quot;johannesburg&quot; = join(&quot;,&quot;, module.johannesburg[*].cluster_id)
+    # &quot;chuncheon&quot;    = join(&quot;,&quot;, module.chuncheon[*].cluster_id)
+    # &quot;hyderabad&quot;    = join(&quot;,&quot;, module.hyderabad[*].cluster_id)
+    # &quot;mumbai&quot;       = join(&quot;,&quot;, module.mumbai[*].cluster_id)
+    # &quot;osaka&quot;        = join(&quot;,&quot;, module.osaka[*].cluster_id)
+    # &quot;seoul&quot;        = join(&quot;,&quot;, module.seoul[*].cluster_id)
+    # &quot;singapore&quot;    = join(&quot;,&quot;, module.singapore[*].cluster_id)
+    # &quot;tokyo&quot;        = join(&quot;,&quot;, module.tokyo[*].cluster_id)
+    # &quot;amsterdam&quot;    = join(&quot;,&quot;, module.amsterdam[*].cluster_id)
+    # &quot;frankfurt&quot;    = join(&quot;,&quot;, module.frankfurt[*].cluster_id)
+    # &quot;london&quot;       = join(&quot;,&quot;, module.london[*].cluster_id)
+    # &quot;madrid&quot;       = join(&quot;,&quot;, module.madrid[*].cluster_id)
+    # &quot;marseille&quot;    = join(&quot;,&quot;, module.marseille[*].cluster_id)
+    # &quot;milan&quot;        = join(&quot;,&quot;, module.milan[*].cluster_id)
+    # &quot;newport&quot;      = join(&quot;,&quot;, module.newport[*].cluster_id)
+    # &quot;paris&quot;        = join(&quot;,&quot;, module.paris[*].cluster_id)
+    # &quot;stockholm&quot;    = join(&quot;,&quot;, module.stockholm[*].cluster_id)
+    # &quot;zurich&quot;       = join(&quot;,&quot;, module.zurich[*].cluster_id)
+    # &quot;abudhabi&quot;     = join(&quot;,&quot;, module.abudhabi[*].cluster_id)
+    # &quot;dubai&quot;        = join(&quot;,&quot;, module.dubai[*].cluster_id)
+    # &quot;jeddah&quot;       = join(&quot;,&quot;, module.jeddah[*].cluster_id)
+    # &quot;jerusalem&quot;    = join(&quot;,&quot;, module.jerusalem[*].cluster_id)
+    #&quot;melbourne&quot;    = join(&quot;,&quot;, module.melbourne[*].cluster_id)
+    # &quot;sydney&quot;       = join(&quot;,&quot;, module.sydney[*].cluster_id)
+    # &quot;santiago&quot;     = join(&quot;,&quot;, module.santiago[*].cluster_id)
+    # &quot;saupaulo&quot;     = join(&quot;,&quot;, module.saupaulo[*].cluster_id)
+    # &quot;vinhedo&quot;      = join(&quot;,&quot;, module.vinhedo[*].cluster_id)
+    # &quot;ashburn&quot;      = join(&quot;,&quot;, module.ashburn[*].cluster_id)
+    # &quot;chicago&quot;      = join(&quot;,&quot;, module.chicago[*].cluster_id)
+    # &quot;montreal&quot;     = join(&quot;,&quot;, module.montreal[*].cluster_id)
+    &quot;phoenix&quot;      = join(&quot;,&quot;, module.phoenix[*].cluster_id)
+    # &quot;queretaro&quot;    = join(&quot;,&quot;, module.queretaro[*].cluster_id)
+    # &quot;sanjose&quot;      = join(&quot;,&quot;, module.sanjose[*].cluster_id)
+    # &quot;toronto&quot;      = join(&quot;,&quot;, module.toronto[*].cluster_id)
+  }
+}
+</code></pre>
+<div id="admonition-warning-2" class="admonition warning">
+<div class="admonition-title">
+<p>Warning</p>
+<p><a class="admonition-anchor-link" href="#admonition-warning-2"></a></p>
+</div>
+<div>
+<p>In the outputs.tf, you must uncomment only the regions where you are running the managed clusters, not your the region where your admin cluster is running.</p>
+<p>Only uncomment the admin region in outputs if you happen to also run a managed cluster in the same region as your admin cluster.</p>
+</div>
+</div>
+<ol start="3">
+<li>Uncomment the respective clusters that you have enabled. The clusters are created in either {country, continent,region}.tf. e.g. Ashburn will be found in <code>usa.tf</code> under <code>modules\clusters</code>. Leave the clusters that you do not use as commented.</li>
+</ol>
+<div id="admonition-info" class="admonition info">
+<div class="admonition-title">
+<p>Info</p>
+<p><a class="admonition-anchor-link" href="#admonition-info"></a></p>
+</div>
+<div>
+<p>We pre-create aliased providers. But in doing so, Terraform then wants to check all configured regions and this can take some time. Instead, we want Terraform apply to happen as quickly as possible. That's why the need to comment/uncomment. We will look for a way to improve this in the future.</p>
+</div>
+</div>
+<ol start="4">
+<li>Configure the API endpoints for public access in terraform.tfvars:</li>
+</ol>
+<pre><code>oke_control_plane = &quot;public&quot;
+</code></pre>
+<ol start="5">
+<li>When initially creating the clusters, configure the following input variables to be <code>false</code>:</li>
+</ol>
+<pre><code class="language-terraform editable">get_kubeconfigs = false
+install_verrazzano = false
+</code></pre>
+<div id="admonition-important" class="admonition tip">
+<div class="admonition-title">
+<p>Important</p>
+<p><a class="admonition-anchor-link" href="#admonition-important"></a></p>
+</div>
+<div>
+<p>When provisioning the cluster, the above 2 variables must set to <code>false</code>.</p>
+</div>
+</div>
+<ol start="6">
+<li>Create the clusters by running Terraform:</li>
+</ol>
+<pre><code class="language-bash editable">terraform init
+terraform plan
+terraform apply
+</code></pre>
+<ol start="7">
+<li>After Terraform has finished the apply operation, it will output a convenient SSH command you can copy. This command will allow you to ssh to the operator host. </li>
+</ol>
+<div id="admonition-tip-1" class="admonition tip">
+<div class="admonition-title">
+<p>Tip</p>
+<p><a class="admonition-anchor-link" href="#admonition-tip-1"></a></p>
+</div>
+<div>
+<p>The operator host is created in the Admin region only.</p>
+</div>
+</div>
+<h3 id="set-up-kubeconfig"><a class="header" href="#set-up-kubeconfig">Set up kubeconfig</a></h3>
+<p>You will now generate the installation script.</p>
+<ol>
+<li>Configure the following input variables:</li>
+</ol>
+<pre><code class="language-terraform editable">get_kubeconfigs = true
+install_verrazzano = true
+</code></pre>
+<ol start="2">
+<li>Configure the Verrazzano profile:</li>
+</ol>
+<pre><code class="language-terraform editable">verrazzano_profile = &quot;prod&quot;
+</code></pre>
+<div id="admonition-note" class="admonition note">
+<div class="admonition-title">
+<p>Note</p>
+<p><a class="admonition-anchor-link" href="#admonition-note"></a></p>
+</div>
+<div>
+<p>Regardless of what you set the profile value to be, the profile of managed servers will always be <code>managed-cluster</code>.</p>
+</div>
+</div>
+<ol start="3">
+<li>
+<p>If you need to use your own DNS, you need to configure DNS before you run Terraform and the installation scripts. Else, the installation scripts will use nip.io.</p>
+</li>
+<li>
+<p>Run Terraform again:</p>
+</li>
+</ol>
+<pre><code>terraform init
+terraform plan
+terraform apply
+</code></pre>
+<div id="admonition-tip-2" class="admonition tip">
+<div class="admonition-title">
+<p>Tip</p>
+<p><a class="admonition-anchor-link" href="#admonition-tip-2"></a></p>
+</div>
+<div>
+<p>Running <code>terraform apply</code> again will configure access to the clusters, give them a friendly name and upload the installation scripts to the operator host.</p>
+</div>
+</div>
+<ol start="5">
+<li>ssh to the operator host using the convenience command printed by Terraform.</li>
+</ol>
+<p><code>ssh -i /path/to/ssh_private_key -J opc@xyz.xyz.xyz.xyz opc@abc.abc.abc.abc&quot;</code></p>
+<ol start="6">
+<li>Verify you can reach the clusters e.g.</li>
+</ol>
+<pre><code class="language-bash  editable">for cluster in admin phoenix ; do
+  kubectx $cluster
+  kubectl get nodes
+done
+</code></pre>
+<div id="admonition-tip-3" class="admonition tip">
+<div class="admonition-title">
+<p>Tip</p>
+<p><a class="admonition-anchor-link" href="#admonition-tip-3"></a></p>
+</div>
+<div>
+<p>Each cluster's context are renamed to a friendlier format, usually the name of the region except for the Admin cluster which is &quot;admin&quot;.</p>
+<p>To change context to your desired cluster, use the <code>kubectx</code> command e.g.</p>
+<p><code>kubectx phoenix</code></p>
+</div>
+</div>
+<ol start="7">
+<li>You should be able to see something like the following:</li>
+</ol>
+<div id="admonition-success" class="admonition success">
+<div class="admonition-title">
+<p>Success</p>
+<p><a class="admonition-anchor-link" href="#admonition-success"></a></p>
+</div>
+<div>
+</div>
+</div>
+<pre><code class="language-bash">    ✔ Switched to context &quot;admin&quot;.
+    NAME          STATUS   ROLES   AGE   VERSION
+    10.0.123.29   Ready    node    91m   v1.24.1
+    ✔ Switched to context &quot;phoenix&quot;.
+    NAME            STATUS   ROLES   AGE   VERSION
+    10.31.101.163   Ready    node    89m   v1.24.1
+    10.31.84.171    Ready    node    89m   v1.24.1
+</code></pre>
+<h3 id="install-verrrazzano"><a class="header" href="#install-verrrazzano">Install Verrrazzano</a></h3>
+<p>You will now install Verrazzano in all clusters and register the managed clusters with the Admin cluster.</p>
+<ol>
+<li>Install the Verrazzano Platform Operator:</li>
+</ol>
+<pre><code class="language-bash editable">cd /home/opc/vz/operator
+
+for cluster in admin phoenix ; do
+  bash install_vz_operator_$cluster.sh
+done
+</code></pre>
+<div id="admonition-tip-4" class="admonition tip">
+<div class="admonition-title">
+<p>Tip</p>
+<p><a class="admonition-anchor-link" href="#admonition-tip-4"></a></p>
+</div>
+<div>
+<p>Replace phoenix with a list of your clusters e.g.</p>
+<p><code>for cluster in admin sanjose chicago ;...</code></p>
+</div>
+</div>
+<ol start="2">
+<li>Check if the operator has installed sucessfully in all clusters:</li>
+</ol>
+<pre><code class="language-bash  editable">for cluster in admin phoenix; do
+  bash check_vz_operator_$cluster.sh
+done
+</code></pre>
+<ol start="3">
+<li>Obtain the manifest for DNS:</li>
+</ol>
+<pre><code class="language-bash">cd /home/opc/vz/oci
+bash  get_oci_secret.sh
+echo &gt;&gt; oci.yaml
+</code></pre>
+<ol start="4">
+<li>Create the secret in each cluster:</li>
+</ol>
+<pre><code class="language-bash  editable">for cluster in admin phoenix ; do
+  bash create_oci_secret_$cluster.sh
+done
+</code></pre>
+<ol start="5">
+<li>Install the Verrazzano Admin cluster:</li>
+</ol>
+<pre><code>cd /home/opc/vz/clusters
+bash install_vz_cluster_admin.sh
+</code></pre>
+<div id="admonition-info-1" class="admonition info">
+<div class="admonition-title">
+<p>Info</p>
+<p><a class="admonition-anchor-link" href="#admonition-info-1"></a></p>
+</div>
+<div>
+<p>The Admin cluster has more components to install and takes longer, so we install it separately. This allows us to install the managed clusters in parallel.</p>
+</div>
+</div>
+<ol start="6">
+<li>While the Admin cluster is being installed in the background, you can install the managed clusters in parallel:</li>
+</ol>
+<pre><code class="language-bash  editable">cd /home/opc/vz/clusters
+for cluster in phoenix ; do
+  bash install_vz_cluster_$cluster.sh
+done
+</code></pre>
+<ol start="7">
+<li>Wait for Verrazzano to be installed in all clusters:</li>
+</ol>
+<pre><code># check managed clusters' status
+bash vz_status.sh
+
+# Admin cluster takes longer, check separately
+kubectx admin
+kubectl wait --timeout=20m --for=condition=InstallComplete verrazzano/admin
+</code></pre>
+<ol start="8">
+<li>Create the certificates secrets for each managed cluster:</li>
+</ol>
+<pre><code class="language-bash  editable">cd /home/opc/vz/certs
+for cluster in phoenix; do
+  bash create_cert_secret_$cluster.sh
+done
+</code></pre>
+<ol start="9">
+<li>Create the ConfigMap for the API Server:</li>
+</ol>
+<pre><code>cd /home/opc/vz/cm
+bash create_api_cm.sh
+</code></pre>
+<ol start="10">
+<li>Create the Verrazzano managed cluster objects for each managed cluster:</li>
+</ol>
+<pre><code class="language-bash  editable">cd /home/opc/vz/clusters
+for cluster in phoenix; do
+  bash create_vmc_$cluster.sh
+done
+</code></pre>
+<ol start="11">
+<li>Register all the managed clusters:</li>
+</ol>
+<pre><code class="language-bash  editable">for cluster in phoenix; do
+  bash register_vmc_$cluster.sh
+done
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../multi/multi.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                            <a rel="next" href="../multi/pri-ep.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../multi/multi.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a rel="next" href="../multi/pri-ep.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+        <script src="../ace.js"></script>
+        <script src="../editor.js"></script>
+        <script src="../mode-rust.js"></script>
+        <script src="../theme-dawn.js"></script>
+        <script src="../theme-tomorrow_night.js"></script>
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../theme/pagetoc.js"></script>
+    </div>
+    </body>
+</html>

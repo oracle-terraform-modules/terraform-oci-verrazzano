@@ -1,0 +1,273 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Terraform Options - Terraform module for Verrazzano</title>
+        <!-- Custom HTML head -->
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="./src/css/mdbook-admonish.css">
+        <link rel="stylesheet" href="././mdbook-admonish.css">
+        <link rel="stylesheet" href="theme/pagetoc.css">
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = null;
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">Introduction</a></li><li class="chapter-item expanded affix "><a href="prerequisites.html">Pre-requisites</a></li><li class="chapter-item expanded "><a href="single/single.html"><strong aria-hidden="true">1.</strong> Single Cluster</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="single/dev.html"><strong aria-hidden="true">1.1.</strong> Single Development Cluster</a></li><li class="chapter-item expanded "><a href="single/production.html"><strong aria-hidden="true">1.2.</strong> Single Production Cluster</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">1.3.</strong> Single Customized Cluster</div></li></ol></li><li class="chapter-item expanded "><a href="multi/multi.html"><strong aria-hidden="true">2.</strong> Multi Cluster</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="multi/pub-ep.html"><strong aria-hidden="true">2.1.</strong> With Public Endpoints</a></li><li class="chapter-item expanded "><a href="multi/pri-ep.html"><strong aria-hidden="true">2.2.</strong> With Private Endpoints</a></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.3.</strong> With Public Load Balancers</div></li><li class="chapter-item expanded "><div><strong aria-hidden="true">2.4.</strong> With Private Load Balancers</div></li></ol></li><li class="chapter-item expanded "><a href="advanced/advanced.html"><strong aria-hidden="true">3.</strong> Advanced Customizations</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="advanced/customizedns.html"><strong aria-hidden="true">3.1.</strong> Customize DNS</a></li></ol></li><li class="chapter-item expanded "><a href="terraformoptions.html" class="active"><strong aria-hidden="true">4.</strong> Terraform Options</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Terraform module for Verrazzano</h1>
+
+                    <div class="right-buttons">
+                        <a href="https://github.com/oracle-terraform-modules/terraform-oci-verrazzano" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main><div class="sidetoc"><nav class="pagetoc"></nav></div>
+                        <h1 id="terraform-options"><a class="header" href="#terraform-options">Terraform Options</a></h1>
+<ul>
+<li><a href="#provider">Provider</a></li>
+<li><a href="#general-oci-parameters">General OCI Parameters</a></li>
+<li><a href="#ssh-keys">SSH keys</a></li>
+<li><a href="#networking">Networking</a></li>
+<li><a href="#kubernetes-clusters">Kubernetes Clusters</a></li>
+<li><a href="#verrazzano">Verrazzano</a></li>
+<li><a href="#verrazzano-components">Verrazzano Components</a></li>
+<li><a href="#dns">DNS</a></li>
+<li><a href="#service-mesh">Service mesh</a></li>
+</ul>
+<h3 id="provider"><a class="header" href="#provider">Provider</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>Parameter</th><th>Description</th><th>Type</th><th>Default</th></tr></thead><tbody>
+<tr><td>api_fingerprint</td><td>Fingerprint of the API private key to use with OCI API.</td><td>string</td><td>&quot;&quot;</td></tr>
+<tr><td>api_private_key_path</td><td>The path to the OCI API private key.</td><td>string</td><td>&quot;&quot;</td></tr>
+<tr><td>home_region</td><td>The tenancy's home region.</td><td>string</td><td>&quot;&quot;</td></tr>
+<tr><td>tenancy_id</td><td>The tenancy id of the OCI Cloud Account in which to create the resources.</td><td>string</td><td>&quot;&quot;</td></tr>
+<tr><td>user_id</td><td>The id of the user that terraform will use to create the resources.</td><td>string</td><td>&quot;&quot;</td></tr>
+</tbody></table>
+</div>
+<h3 id="general-oci-parameters"><a class="header" href="#general-oci-parameters">General OCI Parameters</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>Parameter</th><th>Description</th><th>Type</th><th>Default</th></tr></thead><tbody>
+<tr><td>compartment_id</td><td>The compartment id where to create all resources.</td><td>string</td><td>&quot;&quot;</td></tr>
+<tr><td>label_prefix</td><td>A string that will be prepended to all resources.</td><td>string</td><td>&quot;&quot;</td></tr>
+</tbody></table>
+</div>
+<h3 id="ssh-keys"><a class="header" href="#ssh-keys">SSH keys</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>Parameter</th><th>Description</th><th>Type</th><th>Default</th></tr></thead><tbody>
+<tr><td>ssh_private_key_path</td><td>The path to ssh private key.</td><td>string</td><td>&quot;none&quot;</td></tr>
+<tr><td>ssh_public_key_path</td><td>The path to ssh public key.</td><td>string</td><td>&quot;none&quot;</td></tr>
+</tbody></table>
+</div>
+<h3 id="networking"><a class="header" href="#networking">Networking</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>Parameter</th><th>Description</th><th>Type</th><th>Default</th></tr></thead><tbody>
+<tr><td>cidrs</td><td>A map of cidrs for vcns, pods and services for each region</td><td>map(any)</td><td></td></tr>
+<tr><td>connectivity_mode</td><td>Whether to keep set up connectivity in mesh or star mode. Admin is always connected to everybody</td><td>string</td><td>star</td></tr>
+</tbody></table>
+</div>
+<h3 id="kubernetes-clusters"><a class="header" href="#kubernetes-clusters">Kubernetes Clusters</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>Parameter</th><th>Description</th><th>Type</th><th>Default</th></tr></thead><tbody>
+<tr><td>admin_region</td><td>The region parameters of the Admin cluster. In case a single cluster is created, the Admin region is used for the single cluster.</td><td>map(any)</td><td></td></tr>
+<tr><td>kubernetes_version</td><td>The version of Kubernetes to use.</td><td>string</td><td>v1.24.1</td></tr>
+<tr><td>oke_control_plane</td><td>Whether to keep all OKE control planes public or private</td><td>public/private</td><td>public</td></tr>
+<tr><td>managed_clusters</td><td>A map of OCI regions where managed clusters will be created</td><td>map(bool)</td><td></td></tr>
+<tr><td>nodepools</td><td>Node pool specification for all clusters</td><td>map(bool)</td><td></td></tr>
+<tr><td>cloudinit_nodepool_common</td><td>Path to custom cloud init file for OKE workner nodes</td><td>string</td><td></td></tr>
+</tbody></table>
+</div>
+<h3 id="verrazzano"><a class="header" href="#verrazzano">Verrazzano</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>Parameter</th><th>Description</th><th>Type</th><th>Default</th></tr></thead><tbody>
+<tr><td>get_kubeconfigs</td><td>Whether to set up access to the clusters. Set to false on cluster creation.</td><td>bool</td><td>false</td></tr>
+<tr><td>install_verrazzano</td><td>Whether ready to install Verrazzano. Set to false on cluster creation</td><td>string</td><td>false</td></tr>
+<tr><td>verrazzano_version</td><td>Verrazzano version to install</td><td>1.5.3</td><td>1.5.3</td></tr>
+<tr><td>verrazzano_profile</td><td>Verrazzano profile to install</td><td>dev/prod</td><td>dev</td></tr>
+<tr><td>verrazzano_control_plane</td><td>Whether to keep all Verrazzano control planes public or private</td><td>public/private</td><td>public</td></tr>
+<tr><td>verrazzano_data_plane</td><td>Whether to keep all Verrazzano data planes public or private</td><td>public/private</td><td>public</td></tr>
+<tr><td>verrazzano_load_balancer</td><td>OCI Load Balancer Shape</td><td>map(string)</td><td></td></tr>
+</tbody></table>
+</div>
+<h3 id="verrazzano-components"><a class="header" href="#verrazzano-components">Verrazzano Components</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>Parameter</th><th>Description</th><th>Type</th><th>Default</th></tr></thead><tbody>
+<tr><td>argocd</td><td>Whether to install ArgoCD</td><td>bool</td><td>true</td></tr>
+<tr><td>coherence</td><td>Whether to install Coherence Operator</td><td>bool</td><td>false</td></tr>
+<tr><td>configure_dns</td><td>Whether to configure DNS. If not configured, nip.io will be used</td><td>bool</td><td>false</td></tr>
+<tr><td>console</td><td>Whether to install Verrazzano console</td><td>bool</td><td>false</td></tr>
+<tr><td>fluentd</td><td>Whether to install fluentd</td><td>bool</td><td>true</td></tr>
+<tr><td>grafana</td><td>Whether to install Grafana</td><td>bool</td><td>true</td></tr>
+<tr><td>jaeger</td><td>Whether to install Jaeger</td><td>bool</td><td>true</td></tr>
+<tr><td>kiali</td><td>Whether to install Kiali</td><td>bool</td><td>true</td></tr>
+<tr><td>kube_state_metrics</td><td>Whether to capture Kube State Metrics</td><td>bool</td><td>false</td></tr>
+<tr><td>opensearch</td><td>Whether to install OpenSearch</td><td>bool</td><td>true</td></tr>
+<tr><td>opensearch_dashboards</td><td>Whether to install OpenSearch Dashboards</td><td>bool</td><td>true</td></tr>
+<tr><td>prometheus</td><td>Whether to create an instance of Prometheus</td><td>bool</td><td>true</td></tr>
+<tr><td>prometheus_operator</td><td>Whether to install the Prometheus Operator</td><td>bool</td><td>true</td></tr>
+<tr><td>rancher</td><td>Whether to install Rancher</td><td>bool</td><td>true</td></tr>
+<tr><td>velero</td><td>Whether to install Velero</td><td>bool</td><td>false</td></tr>
+<tr><td>weblogic_operator</td><td>Whether to install WebLogic Operator</td><td>bool</td><td>false</td></tr>
+</tbody></table>
+</div>
+<h3 id="dns"><a class="header" href="#dns">DNS</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>Parameter</th><th>Description</th><th>Type</th><th>Default</th></tr></thead><tbody>
+<tr><td>dns_compartment_id</td><td>DNS Zone's Compartment id</td><td>string</td><td></td></tr>
+<tr><td>dns_zone_id</td><td>DNS Zone OCID in OCI DNS</td><td>string</td><td></td></tr>
+<tr><td>dns_zone_name</td><td>DNS Zone Name</td><td>string</td><td></td></tr>
+<tr><td>dns_secret_id</td><td>OCID of OCI secret to be used for OCI DNS authentication.</td><td>string</td><td></td></tr>
+</tbody></table>
+</div>
+<h3 id="service-mesh"><a class="header" href="#service-mesh">Service mesh</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>Parameter</th><th>Description</th><th>Type</th><th>Default</th></tr></thead><tbody>
+<tr><td>mesh_id</td><td>The name of the mesh to use</td><td>string</td><td></td></tr>
+</tbody></table>
+</div>
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="advanced/customizedns.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="advanced/customizedns.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+        <script src="ace.js"></script>
+        <script src="editor.js"></script>
+        <script src="mode-rust.js"></script>
+        <script src="theme-dawn.js"></script>
+        <script src="theme-tomorrow_night.js"></script>
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="theme/pagetoc.js"></script>
+    </div>
+    </body>
+</html>
