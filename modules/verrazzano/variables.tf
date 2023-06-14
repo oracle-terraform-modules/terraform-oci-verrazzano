@@ -156,15 +156,15 @@ variable "weblogic_operator" {
 }
 
 # dns
-variable "secret_id" {
+variable "dns_compartment_id" {
+  type = string
+}
+
+variable "dns_secret_id" {
   type = string
 }
 
 variable "dns_zone_id" {
-  type = string
-}
-
-variable "dns_compartment_id" {
   type = string
 }
 

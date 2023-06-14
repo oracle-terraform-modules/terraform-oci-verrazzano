@@ -83,7 +83,7 @@
 | dns_compartment_id | DNS Zone's Compartment id | string |  |
 | dns_zone_id | DNS Zone OCID in OCI DNS | string |  |
 | dns_zone_name | DNS Zone Name | string |  |
-| secret_id | OCID of OCI secret to be used for OCI DNS authentication. | string |  |
+| dns_secret_id | OCID of OCI secret to be used for OCI DNS authentication. | string |  |
 
 ### Service mesh
 

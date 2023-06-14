@@ -389,15 +389,21 @@ variable "weblogic_operator" {
 }
 
 # dns
-variable "dns_zone_id" {
-  default     = ""
-  description = "DNS Zone OCID in OCI DNS"
-  type        = string
-}
-
 variable "dns_compartment_id" {
   default     = ""
   description = "DNS Zone's Compartment id"
+  type        = string
+}
+
+variable "dns_secret_id" {
+  default     = ""
+  description = "OCID of oci secret to be used for OCI DNS authentication."
+  type        = string
+}
+
+variable "dns_zone_id" {
+  default     = ""
+  description = "DNS Zone OCID in OCI DNS"
   type        = string
 }
 
@@ -407,11 +413,7 @@ variable "dns_zone_name" {
   type        = string
 }
 
-variable "secret_id" {
-  default     = ""
-  description = "OCID of oci secret to be used for OCI DNS authentication."
-  type        = string
-}
+
 
 # istio
 variable "mesh_id" {
