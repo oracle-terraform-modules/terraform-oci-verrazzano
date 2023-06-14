@@ -43,7 +43,7 @@ jobs:
           CARGO_HOME: ./cargo
         run: |
           export PATH=`pwd`/cargo/bin:${PATH}
-          make mdbuild
+          mdbook build docs
           touch ./docs/book/.nojekyll
 
       - uses: actions/configure-pages@v3
