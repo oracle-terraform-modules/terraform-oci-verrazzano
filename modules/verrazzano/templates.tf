@@ -86,6 +86,7 @@ locals {
     compartment_id        = var.dns_compartment_id
     dns_zone_id           = var.dns_zone_id
     dns_zone_name         = var.dns_zone_name
+    environment           = "${var.label_prefix}-admin"
     fluentd               = var.fluentd
     grafana               = var.grafana
     control_plane         = var.verrazzano_control_plane == "public" ? false : true
@@ -111,25 +112,32 @@ locals {
     weblogic_operator     = var.weblogic_operator
     }
     ) : templatefile("${path.module}/resources/vz_admin_nip.template.yaml", {
-      compartment_id      = var.dns_compartment_id
-      profile             = var.verrazzano_profile
-      control_plane       = var.verrazzano_control_plane == "public" ? false : true
-      control_plane_nsg   = var.verrazzano_control_plane == "public" ? lookup(var.pub_nsg_ids, "admin") : lookup(var.int_nsg_ids, "admin")
-      data_plane          = var.verrazzano_data_plane == "public" ? false : true
-      data_plane_nsg      = var.verrazzano_data_plane == "public" ? lookup(var.pub_nsg_ids, "admin") : lookup(var.int_nsg_ids, "admin")
-      lb_shape            = lookup(var.verrazzano_load_balancer, "shape")
-      flex_min            = lookup(var.verrazzano_load_balancer, "flex_min")
-      flex_max            = lookup(var.verrazzano_load_balancer, "flex_max")
-      int-nsg-id          = lookup(var.int_nsg_ids, "admin")
-      jaeger              = var.jaeger
-      kiali               = var.kiali
-      kube_state_metrics  = var.kube_state_metrics
-      mesh_id             = var.mesh_id
-      mesh_network        = "admin"
-      prometheus          = var.prometheus
-      prometheus_operator = var.prometheus_operator
-      velero              = var.velero
-      weblogic_operator   = var.weblogic_operator
+      profile               = var.verrazzano_profile
+      argocd                = var.argocd
+      coherence             = var.coherence
+      console               = var.console
+      environment           = "${var.label_prefix}-admin"
+      fluentd               = var.fluentd
+      grafana               = var.grafana
+      control_plane         = var.verrazzano_control_plane == "public" ? false : true
+      control_plane_nsg     = var.verrazzano_control_plane == "public" ? lookup(var.pub_nsg_ids, "admin") : lookup(var.int_nsg_ids, "admin")
+      data_plane            = var.verrazzano_data_plane == "public" ? false : true
+      data_plane_nsg        = var.verrazzano_data_plane == "public" ? lookup(var.pub_nsg_ids, "admin") : lookup(var.int_nsg_ids, "admin")
+      lb_shape              = lookup(var.verrazzano_load_balancer, "shape")
+      flex_min              = lookup(var.verrazzano_load_balancer, "flex_min")
+      flex_max              = lookup(var.verrazzano_load_balancer, "flex_max")
+      int-nsg-id            = lookup(var.int_nsg_ids, "admin")
+      jaeger                = var.jaeger
+      kiali                 = var.kiali
+      kube_state_metrics    = var.kube_state_metrics
+      mesh_id               = var.mesh_id
+      mesh_network          = "admin"
+      opensearch            = var.opensearch
+      opensearch_dashboards = var.opensearch_dashboards
+      prometheus            = var.prometheus
+      prometheus_operator   = var.prometheus_operator
+      velero                = var.velero
+      weblogic_operator     = var.weblogic_operator
     }
   )
 
@@ -177,7 +185,8 @@ locals {
     k => templatefile("${path.module}/resources/vz_mc_nip.template.yaml",
       {
         cluster             = k
-        compartment_id      = var.dns_compartment_id
+        coherence           = var.coherence
+        fluentd = var.fluentd
         control_plane       = var.verrazzano_control_plane == "public" ? false : true
         control_plane_nsg   = var.verrazzano_control_plane == "public" ? lookup(var.pub_nsg_ids, k) : lookup(var.int_nsg_ids, k)
         data_plane          = var.verrazzano_data_plane == "public" ? false : true

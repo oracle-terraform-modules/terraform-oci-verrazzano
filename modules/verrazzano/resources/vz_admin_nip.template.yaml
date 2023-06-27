@@ -4,7 +4,7 @@ metadata:
   name: admin
 spec:
   profile: ${profile}
-  environmentName: admin
+  environmentName: ${environment}
   components:
     argoCD:
       enabled: ${argocd}
@@ -69,37 +69,7 @@ spec:
                       service.beta.kubernetes.io/oci-load-balancer-shape-flex-max: "${flex_max}"
                       service.beta.kubernetes.io/oci-load-balancer-security-list-management-mode: "None"
                       oci.oraclecloud.com/oci-network-security-groups: "${data_plane_nsg}"
-                - name: istio-eastwestgateway
-                  enabled: true
-                  k8s:
-                    serviceAnnotations:
-                      service.beta.kubernetes.io/oci-load-balancer-internal: "true"
-                      service.beta.kubernetes.io/oci-load-balancer-shape: "10Mbps"
-                      service.beta.kubernetes.io/oci-load-balancer-shape-flex-min: "50"
-                      service.beta.kubernetes.io/oci-load-balancer-shape-flex-max: "100"
-                      service.beta.kubernetes.io/oci-load-balancer-security-list-management-mode: "None"
-                      oci.oraclecloud.com/oci-network-security-groups: "${int-nsg-id}"
-                    env:
-                    - name: ISTIO_META_REQUESTED_NETWORK_VIEW
-                      value: admin
-                    service:
-                      ports:
-                      - name: status-port
-                        port: 15021
-                        targetPort: 15021
-                      - name: tls
-                        port: 15443
-                        targetPort: 15443
-                      - name: tls-istiod
-                        port: 15012
-                        targetPort: 15012
-                      - name: tls-webhook
-                        port: 15017
-                        targetPort: 15017
-                  label:
-                    app: istio-eastwestgateway
-                    istio: eastwestgateway
-                    topology.istio.io/network: admin
+
     jaegerOperator:
       enabled: ${jaeger}
     kiali:

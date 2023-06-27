@@ -73,6 +73,8 @@ module "clusters" {
 module "verrazzano" {
   source = "./modules/verrazzano"
 
+  label_prefix = var.label_prefix
+  
   bastion_ip = module.admin.bastion_public_ip
 
   operator_ip = module.admin.operator_private_ip
