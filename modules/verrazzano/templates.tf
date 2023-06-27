@@ -81,6 +81,7 @@ locals {
   vz_admin_template = tobool(var.configure_dns) ? templatefile("${path.module}/resources/vz_admin.template.yaml", {
     profile               = var.verrazzano_profile
     argocd                = var.argocd
+    cluster               = "admin"
     coherence             = var.coherence
     console               = var.console
     compartment_id        = var.dns_compartment_id
@@ -95,7 +96,6 @@ locals {
     flex_max              = lookup(var.verrazzano_load_balancer, "flex_max")
     control_plane_nsg     = var.verrazzano_control_plane == "public" ? lookup(var.pub_nsg_ids, "admin") : lookup(var.int_nsg_ids, "admin")
     mesh_id               = var.mesh_id
-    cluster_name          = "admin"
     mesh_network          = "admin"
     data_plane            = var.verrazzano_data_plane == "public" ? false : true
     data_plane_nsg        = var.verrazzano_data_plane == "public" ? lookup(var.pub_nsg_ids, "admin") : lookup(var.int_nsg_ids, "admin")
@@ -114,6 +114,7 @@ locals {
     ) : templatefile("${path.module}/resources/vz_admin_nip.template.yaml", {
       profile               = var.verrazzano_profile
       argocd                = var.argocd
+      cluster               = "admin"
       coherence             = var.coherence
       console               = var.console
       environment           = "${var.label_prefix}-admin"
@@ -136,6 +137,7 @@ locals {
       opensearch_dashboards = var.opensearch_dashboards
       prometheus            = var.prometheus
       prometheus_operator   = var.prometheus_operator
+      rancher               = var.rancher
       velero                = var.velero
       weblogic_operator     = var.weblogic_operator
     }
@@ -186,7 +188,7 @@ locals {
       {
         cluster             = k
         coherence           = var.coherence
-        fluentd = var.fluentd
+        fluentd             = var.fluentd
         control_plane       = var.verrazzano_control_plane == "public" ? false : true
         control_plane_nsg   = var.verrazzano_control_plane == "public" ? lookup(var.pub_nsg_ids, k) : lookup(var.int_nsg_ids, k)
         data_plane          = var.verrazzano_data_plane == "public" ? false : true

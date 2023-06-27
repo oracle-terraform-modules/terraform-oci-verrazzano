@@ -52,7 +52,7 @@ spec:
               global:
                 meshID: ${mesh_id}
                 multiCluster:
-                  clusterName: ${cluster_name}
+                  clusterName: ${cluster}
                 network: ${mesh_network}
             components:
               egressGateways:
