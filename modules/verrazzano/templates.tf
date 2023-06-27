@@ -114,6 +114,7 @@ locals {
     ) : templatefile("${path.module}/resources/vz_admin_nip.template.yaml", {
       profile               = var.verrazzano_profile
       argocd                = var.argocd
+      cluster               = "admin"      
       coherence             = var.coherence
       console               = var.console
       environment           = "${var.label_prefix}-admin"
@@ -136,6 +137,7 @@ locals {
       opensearch_dashboards = var.opensearch_dashboards
       prometheus            = var.prometheus
       prometheus_operator   = var.prometheus_operator
+      rancher               = var.rancher
       velero                = var.velero
       weblogic_operator     = var.weblogic_operator
     }
