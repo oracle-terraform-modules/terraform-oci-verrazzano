@@ -81,6 +81,7 @@ locals {
   vz_admin_template = tobool(var.configure_dns) ? templatefile("${path.module}/resources/vz_admin.template.yaml", {
     profile               = var.verrazzano_profile
     argocd                = var.argocd
+    cluster               = "admin"
     coherence             = var.coherence
     console               = var.console
     compartment_id        = var.dns_compartment_id
@@ -95,7 +96,6 @@ locals {
     flex_max              = lookup(var.verrazzano_load_balancer, "flex_max")
     control_plane_nsg     = var.verrazzano_control_plane == "public" ? lookup(var.pub_nsg_ids, "admin") : lookup(var.int_nsg_ids, "admin")
     mesh_id               = var.mesh_id
-    cluster_name          = "admin"
     mesh_network          = "admin"
     data_plane            = var.verrazzano_data_plane == "public" ? false : true
     data_plane_nsg        = var.verrazzano_data_plane == "public" ? lookup(var.pub_nsg_ids, "admin") : lookup(var.int_nsg_ids, "admin")
