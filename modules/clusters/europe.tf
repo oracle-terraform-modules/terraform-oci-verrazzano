@@ -56,6 +56,7 @@
 #   allow_worker_ssh_access     = false
 #   cluster_name                = "frankfurt"
 #   control_plane_type          = var.oke_control_plane
+#   cni_type                           = var.preferred_cni
 #   control_plane_allowed_cidrs = ["0.0.0.0/0"]
 #   kubernetes_version          = var.kubernetes_version
 #   pods_cidr                   = lookup(lookup(var.cidrs, lower("frankfurt")), "pods")
@@ -142,6 +143,7 @@
 #   allow_worker_ssh_access     = false
 #   cluster_name                = "amsterdam"
 #   control_plane_type          = var.oke_control_plane
+#   cni_type                           = var.preferred_cni
 #   control_plane_allowed_cidrs = ["0.0.0.0/0"]
 #   kubernetes_version          = var.kubernetes_version
 #   pods_cidr                   = lookup(lookup(var.cidrs, lower("amsterdam")), "pods")
@@ -228,6 +230,7 @@
 #   allow_worker_ssh_access     = false
 #   cluster_name                = "madrid"
 #   control_plane_type          = var.oke_control_plane
+#   cni_type                           = var.preferred_cni
 #   control_plane_allowed_cidrs = ["0.0.0.0/0"]
 #   kubernetes_version          = var.kubernetes_version
 #   pods_cidr                   = lookup(lookup(var.cidrs, lower("madrid")), "pods")
@@ -313,6 +316,7 @@
 #   allow_worker_ssh_access     = false
 #   cluster_name                = "milan"
 #   control_plane_type          = var.oke_control_plane
+#   cni_type                           = var.preferred_cni
 #   control_plane_allowed_cidrs = ["0.0.0.0/0"]
 #   kubernetes_version          = var.kubernetes_version
 #   pods_cidr                   = lookup(lookup(var.cidrs, lower("milan")), "pods")
@@ -398,6 +402,7 @@
 #   allow_worker_ssh_access     = false
 #   cluster_name                = "stockholm"
 #   control_plane_type          = var.oke_control_plane
+#   cni_type                           = var.preferred_cni
 #   control_plane_allowed_cidrs = ["0.0.0.0/0"]
 #   kubernetes_version          = var.kubernetes_version
 #   pods_cidr                   = lookup(lookup(var.cidrs, lower("stockholm")), "pods")
@@ -483,6 +488,7 @@
 #   allow_worker_ssh_access     = false
 #   cluster_name                = "zurich"
 #   control_plane_type          = var.oke_control_plane
+#   cni_type                           = var.preferred_cni
 #   control_plane_allowed_cidrs = ["0.0.0.0/0"]
 #   kubernetes_version          = var.kubernetes_version
 #   pods_cidr                   = lookup(lookup(var.cidrs, lower("zurich")), "pods")

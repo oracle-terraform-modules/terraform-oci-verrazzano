@@ -55,6 +55,7 @@
 #   # oke cluster options
 #   allow_worker_ssh_access     = false
 #   cluster_name                = "toronto"
+#   cni_type                    = var.preferred_cni
 #   control_plane_type          = var.oke_control_plane
 #   control_plane_allowed_cidrs = ["0.0.0.0/0"]
 #   kubernetes_version          = var.kubernetes_version
@@ -140,6 +141,7 @@
 #   # oke cluster options
 #   allow_worker_ssh_access     = false
 #   cluster_name                = "montreal"
+#   cni_type                    = var.preferred_cni
 #   control_plane_type          = var.oke_control_plane
 #   control_plane_allowed_cidrs = ["0.0.0.0/0"]
 #   kubernetes_version          = var.kubernetes_version

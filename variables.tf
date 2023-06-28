@@ -152,6 +152,17 @@ variable "oke_control_plane" {
   }
 }
 
+variable "preferred_cni" {
+  default ="flannel"  
+  description = "Whether to use flannel or NPN"
+  type = string
+
+  validation {
+    condition     = contains(["flannel", "npn"], lower(var.preferred_cni))
+    error_message = "Accepted values are 'flannel' or 'npn'."
+  }  
+}
+
 variable "managed_clusters" {
   description = "A map of OCI regions where managed clusters will be created."
   type        = map(bool)

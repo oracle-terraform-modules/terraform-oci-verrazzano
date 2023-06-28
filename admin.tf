@@ -64,6 +64,7 @@ module "admin" {
 
   # oke cluster options
   cluster_name                = lookup(var.admin_region, "admin_name")
+  cni_type                    = var.preferred_cni
   control_plane_type          = var.oke_control_plane
   control_plane_allowed_cidrs = ["0.0.0.0/0"]
   kubernetes_version          = var.kubernetes_version
@@ -73,7 +74,7 @@ module "admin" {
 
   # node pools
   kubeproxy_mode = "ipvs"
-  node_pools = var.nodepools
+  node_pools     = var.nodepools
 
   cloudinit_nodepool_common = var.cloudinit_nodepool_common
 
