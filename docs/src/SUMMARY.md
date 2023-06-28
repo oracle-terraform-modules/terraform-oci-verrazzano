@@ -14,6 +14,6 @@
   - [With Private Endpoints](./multi/pri-ep.md)
 - [Advanced Customizations](./advanced/advanced.md)
   - [Control plane](./advanced/controlplane.md)
-  - [Data plane]()
+  - [Data plane](./advanced/dataplane.md)
   - [DNS](./advanced/dns.md)
 - [Terraform Options](./terraformoptions.md)
