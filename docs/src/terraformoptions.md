@@ -40,6 +40,7 @@
 | admin_region | The region parameters of the Admin cluster. In case a single cluster is created, the Admin region is used for the single cluster. | map(any)| |
 | kubernetes_version | The version of Kubernetes to use. | string | v1.24.1 |
 | oke_control_plane | Whether to keep all OKE control planes public or private | public/private | public |
+| cni_type | Whether to use flannel or NPN | flannel/npn | flannel |
 | managed_clusters | A map of OCI regions where managed clusters will be created | map(bool) |  |
 | nodepools | Node pool specification for all clusters | map(bool) |  |
 | cloudinit_nodepool_common | Path to custom cloud init file for OKE workner nodes | string |  |
