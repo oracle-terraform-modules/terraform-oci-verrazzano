@@ -25,8 +25,8 @@ module "clusters" {
 
   clusters = var.managed_clusters
 
-  oke_control_plane = var.oke_control_plane
-
+  oke_control_plane         = var.oke_control_plane
+  preferred_cni             = var.preferred_cni
   cloudinit_nodepool_common = var.cloudinit_nodepool_common
 
   nodepools = var.nodepools
@@ -74,7 +74,7 @@ module "verrazzano" {
   source = "./modules/verrazzano"
 
   label_prefix = var.label_prefix
-  
+
   bastion_ip = module.admin.bastion_public_ip
 
   operator_ip = module.admin.operator_private_ip

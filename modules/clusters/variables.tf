@@ -51,6 +51,10 @@ variable "oke_control_plane" {
   type = string
 }
 
+variable "preferred_cni" {
+  type = string
+}
+
 variable "nodepools" {
   type = any
 }
