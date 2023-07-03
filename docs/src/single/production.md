@@ -130,7 +130,7 @@ bash create_oci_secret_admin.sh
 
 ```
 cd /home/opc/vz/clusters
-bash install_vz_admin_cluster.sh
+bash install_vz_cluster_admin.sh
 ```
 
 6. Wait for Verrazzano to be installed:
