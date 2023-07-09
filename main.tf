@@ -94,6 +94,7 @@ module "verrazzano" {
   verrazzano_load_balancer = var.verrazzano_load_balancer
   cluster_ids              = merge({ "admin" = module.admin.cluster_id }, module.clusters.cluster_ids)
   int_nsg_ids              = merge({ "admin" = lookup(module.admin.nsg_ids, "int_lb") }, module.clusters.int_nsg_ids)
+  int_lb_subnet_ids        = merge({ "admin" = lookup(module.admin.subnet_ids, "int_lb") }, module.clusters.int_lb_subnet_ids)
   pub_nsg_ids              = merge({ "admin" = lookup(module.admin.nsg_ids, "pub_lb") }, module.clusters.pub_nsg_ids)
 
   # verrazzano components

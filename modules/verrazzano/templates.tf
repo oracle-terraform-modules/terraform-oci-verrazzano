@@ -99,7 +99,8 @@ locals {
     mesh_network          = "admin"
     data_plane            = var.verrazzano_data_plane == "public" ? false : true
     data_plane_nsg        = var.verrazzano_data_plane == "public" ? lookup(var.pub_nsg_ids, "admin") : lookup(var.int_nsg_ids, "admin")
-    int-nsg-id            = lookup(var.int_nsg_ids, "admin")
+    int_nsg_id            = lookup(var.int_nsg_ids, "admin")
+    int_lb_subnet_id      = lookup(var.int_lb_subnet_ids, "admin")
     jaeger                = var.jaeger
     kiali                 = var.kiali
     kube_state_metrics    = var.kube_state_metrics
@@ -114,7 +115,7 @@ locals {
     ) : templatefile("${path.module}/resources/vz_admin_nip.template.yaml", {
       profile               = var.verrazzano_profile
       argocd                = var.argocd
-      cluster               = "admin"      
+      cluster               = "admin"
       coherence             = var.coherence
       console               = var.console
       environment           = "${var.label_prefix}-admin"
@@ -127,7 +128,8 @@ locals {
       lb_shape              = lookup(var.verrazzano_load_balancer, "shape")
       flex_min              = lookup(var.verrazzano_load_balancer, "flex_min")
       flex_max              = lookup(var.verrazzano_load_balancer, "flex_max")
-      int-nsg-id            = lookup(var.int_nsg_ids, "admin")
+      int_nsg_id            = lookup(var.int_nsg_ids, "admin")
+      int_lb_subnet_id      = lookup(var.int_lb_subnet_ids, "admin")
       jaeger                = var.jaeger
       kiali                 = var.kiali
       kube_state_metrics    = var.kube_state_metrics
@@ -170,7 +172,8 @@ locals {
         lb_shape            = lookup(var.verrazzano_load_balancer, "shape")
         flex_min            = lookup(var.verrazzano_load_balancer, "flex_min")
         flex_max            = lookup(var.verrazzano_load_balancer, "flex_max")
-        int-nsg-id          = lookup(var.int_nsg_ids, k)
+        int_nsg_id          = coalesce(lookup(var.int_nsg_ids, k))
+        int_lb_subnet_id    = coalesce(lookup(var.int_lb_subnet_ids, k))
         jaeger              = var.jaeger
         kiali               = var.kiali
         kube_state_metrics  = var.kube_state_metrics
@@ -188,7 +191,7 @@ locals {
       {
         cluster             = k
         coherence           = var.coherence
-        fluentd = var.fluentd
+        fluentd             = var.fluentd
         control_plane       = var.verrazzano_control_plane == "public" ? false : true
         control_plane_nsg   = var.verrazzano_control_plane == "public" ? lookup(var.pub_nsg_ids, k) : lookup(var.int_nsg_ids, k)
         data_plane          = var.verrazzano_data_plane == "public" ? false : true
@@ -196,7 +199,8 @@ locals {
         lb_shape            = lookup(var.verrazzano_load_balancer, "shape")
         flex_min            = lookup(var.verrazzano_load_balancer, "flex_min")
         flex_max            = lookup(var.verrazzano_load_balancer, "flex_max")
-        int-nsg-id          = lookup(var.int_nsg_ids, k)
+        int_nsg_id          = coalesce(lookup(var.int_nsg_ids, k))
+        int_lb_subnet_id    = coalesce(lookup(var.int_lb_subnet_ids, k))
         jaeger              = var.jaeger
         kiali               = var.kiali
         kube_state_metrics  = var.kube_state_metrics

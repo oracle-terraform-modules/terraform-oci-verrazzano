@@ -58,6 +58,10 @@ variable "int_nsg_ids" {
   type = map(any)
 }
 
+variable "int_lb_subnet_ids" {
+  type = map(any)
+}
+
 variable "pub_nsg_ids" {
   type = map(any)
 }

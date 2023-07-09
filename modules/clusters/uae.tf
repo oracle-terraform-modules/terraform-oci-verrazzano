@@ -73,7 +73,7 @@
 #   load_balancers            = "both"
 #   preferred_load_balancer   = "public"
 #   internal_lb_allowed_cidrs = [lookup(var.admin_region, "vcn_cidr")]
-#   internal_lb_allowed_ports = var.connectivity_mode == "mesh" ? [80, 443, 15012, 15017, 15021, 15443] : [80, 443]
+#   internal_lb_allowed_ports = [80, 443, 15012, 15017, 15021, 15443]
 #   public_lb_allowed_cidrs   = ["0.0.0.0/0"]
 #   public_lb_allowed_ports   = [80, 443]
 
@@ -159,7 +159,7 @@
 #   load_balancers            = "both"
 #   preferred_load_balancer   = "public"
 #   internal_lb_allowed_cidrs = [lookup(var.admin_region, "vcn_cidr")]
-#   internal_lb_allowed_ports = var.connectivity_mode == "mesh" ? [80, 443, 15012, 15017, 15021, 15443] : [80, 443]
+#   internal_lb_allowed_ports = [80, 443, 15012, 15017, 15021, 15443]
 #   public_lb_allowed_cidrs   = ["0.0.0.0/0"]
 #   public_lb_allowed_ports   = [80, 443]
 
