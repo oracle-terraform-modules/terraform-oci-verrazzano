@@ -51,7 +51,7 @@
 | --------- | ----------- | ----------- | ------- |
 | get_kubeconfigs | Whether to set up access to the clusters. Set to false on cluster creation. | bool | false |
 | install_verrazzano | Whether ready to install Verrazzano. Set to false on cluster creation | string | false |
-| verrazzano_version | Verrazzano version to install | 1.5.3 | 1.5.3 |
+| verrazzano_version | Verrazzano version to install | 1.6.0 | 1.6.0 |
 | verrazzano_profile | Verrazzano profile to install | dev/prod | dev |
 | verrazzano_control_plane | Whether to keep all Verrazzano control planes public or private | public/private | public |
 | verrazzano_data_plane | Whether to keep all Verrazzano data planes public or private | public/private | public |
@@ -74,6 +74,7 @@
 | prometheus    | Whether to create an instance of Prometheus | bool | true |
 | prometheus_operator    | Whether to install the Prometheus Operator | bool | true |
 | rancher    | Whether to install Rancher | bool | true |
+| thanos    | Whether to enable Thanos  | map (string) |  |
 | velero    | Whether to install Velero | bool | false |
 | weblogic_operator    | Whether to install WebLogic Operator | bool | false |
 
