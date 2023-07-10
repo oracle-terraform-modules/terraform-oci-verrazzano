@@ -101,7 +101,7 @@ cloudinit_nodepool_common = "./cloudinit.sh"
 
 # verrazzano
 install_verrazzano = false
-verrazzano_version = "1.5.3"
+verrazzano_version = "1.6.0"
 verrazzano_profile = "prod"
 
 # ingress-nginx

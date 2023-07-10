@@ -253,7 +253,7 @@ variable "install_verrazzano" {
 }
 
 variable "verrazzano_version" {
-  default     = "1.5.3"
+  default     = "1.6.0"
   description = "Verrazzano version to install"
   type        = string
 }
