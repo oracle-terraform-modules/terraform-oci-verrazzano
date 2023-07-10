@@ -31,6 +31,8 @@ module "clusters" {
 
   nodepools = var.nodepools
 
+  thanos = var.thanos
+
   providers = {
     oci.home         = oci.home,
     oci.johannesburg = oci.johannesburg,
@@ -92,13 +94,14 @@ module "verrazzano" {
   verrazzano_control_plane = var.verrazzano_control_plane
   verrazzano_data_plane    = var.verrazzano_data_plane
   verrazzano_load_balancer = var.verrazzano_load_balancer
-  cluster_ids              = merge({ "admin" = module.admin.cluster_id }, module.clusters.cluster_ids)
-  int_nsg_ids              = merge({ "admin" = lookup(module.admin.nsg_ids, "int_lb") }, module.clusters.int_nsg_ids)
-  int_lb_subnet_ids        = merge({ "admin" = lookup(module.admin.subnet_ids, "int_lb") }, module.clusters.int_lb_subnet_ids)
-  pub_nsg_ids              = merge({ "admin" = lookup(module.admin.nsg_ids, "pub_lb") }, module.clusters.pub_nsg_ids)
+  cluster_ids              = merge({ lookup(var.admin_region, "admin_name", "admin") = module.admin.cluster_id }, module.clusters.cluster_ids)
+  int_nsg_ids              = merge({ lookup(var.admin_region, "admin_name", "admin") = lookup(module.admin.nsg_ids, "int_lb") }, module.clusters.int_nsg_ids)
+  int_lb_subnet_ids        = merge({ lookup(var.admin_region, "admin_name", "admin") = lookup(module.admin.subnet_ids, "int_lb") }, module.clusters.int_lb_subnet_ids)
+  pub_nsg_ids              = merge({ lookup(var.admin_region, "admin_name", "admin") = lookup(module.admin.nsg_ids, "pub_lb") }, module.clusters.pub_nsg_ids)
 
   # verrazzano components
   argocd                = var.argocd
+  cluster_api           = var.cluster_api
   coherence             = var.coherence
   configure_dns         = var.configure_dns
   console               = var.console
@@ -112,6 +115,7 @@ module "verrazzano" {
   prometheus            = var.prometheus
   prometheus_operator   = var.prometheus_operator
   rancher               = var.rancher
+  thanos                = var.thanos
   velero                = var.velero
   weblogic_operator     = var.weblogic_operator
 

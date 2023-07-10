@@ -153,14 +153,14 @@ variable "oke_control_plane" {
 }
 
 variable "preferred_cni" {
-  default ="flannel"  
+  default     = "flannel"
   description = "Whether to use flannel or NPN"
-  type = string
+  type        = string
 
   validation {
     condition     = contains(["flannel", "npn"], lower(var.preferred_cni))
     error_message = "Accepted values are 'flannel' or 'npn'."
-  }  
+  }
 }
 
 variable "managed_clusters" {
@@ -309,6 +309,12 @@ variable "argocd" {
   type        = bool
 }
 
+variable "cluster_api" {
+  default     = true
+  description = "Whether to enable Cluster API"
+  type        = bool
+}
+
 variable "coherence" {
   default     = false
   description = "Whether to install Coherence Operator"
@@ -381,6 +387,11 @@ variable "prometheus_operator" {
   type        = bool
 }
 
+variable "thanos" {
+  description = "Thanos configuration"
+  type        = map(string)
+}
+
 variable "rancher" {
   default     = true
   description = "Whether to install Rancher"
@@ -436,5 +447,5 @@ variable "mesh_id" {
 variable "istio_model" {
   default     = "single"
   description = "The deployment model of Istio to use when using multiple clusters"
-  type        = string  
+  type        = string
 }

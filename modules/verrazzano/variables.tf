@@ -73,6 +73,12 @@ variable "argocd" {
   type        = bool
 }
 
+variable "cluster_api" {
+  default     = true
+  description = "Whether to enable Cluster API"
+  type        = bool
+}
+
 variable "coherence" {
   default     = false
   description = "Whether to install coherence"
@@ -149,6 +155,11 @@ variable "rancher" {
   default     = true
   description = "Whether to install Rancher"
   type        = bool
+}
+
+variable "thanos" {
+  description = "Thanos configuration"
+  type        = map(string)
 }
 
 variable "velero" {

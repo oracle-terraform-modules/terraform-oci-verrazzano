@@ -95,3 +95,13 @@ module "admin" {
     oci.home = oci.home
   }
 }
+
+resource "oci_objectstorage_bucket" "thanos_admin" {
+  compartment_id = var.compartment_id
+  name           = "${lookup(var.admin_region, "admin_name")}-${lookup(var.thanos, "bucket_name", "thanos")}"
+  namespace      = lookup(var.thanos, "bucket_namespace")
+
+  provider = oci.sydney
+
+  count = lookup(var.thanos, "enabled", "false") ? 1 : 0
+}

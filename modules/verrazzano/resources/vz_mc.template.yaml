@@ -100,6 +100,23 @@ spec:
       enabled: ${prometheus}
     prometheusOperator:
       enabled: ${prometheus_operator}
+      overrides:
+      - values:
+          prometheus:
+            thanos:
+              integration: ${thanos_integration}
+            prometheusSpec:
+              thanos:
+                objectStorageConfig:
+                  name: objstore-config
+                  key: objstore.yml
+    thanos:
+      enabled: ${thanos_enabled}
+      overrides:
+      - values:
+          existingObjstoreSecret: objstore-config
+          storagegateway:
+            enabled: ${storage_gateway}
     velero:
       enabled: ${velero}
     weblogicOperator:

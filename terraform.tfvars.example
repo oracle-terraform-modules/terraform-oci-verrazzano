@@ -118,6 +118,7 @@ verrazzano_load_balancer = {
 
 # verrazzano components
 argocd = true
+cluster_api = false
 coherence = false
 configure_dns = false
 console = false
@@ -131,6 +132,13 @@ opensearch_dashboards = true
 prometheus = true
 prometheus_operator = true
 rancher = true
+thanos = {
+  bucket           = "thanos"
+  bucket_namespace = ""
+  enabled          = "false"
+  integration      = "sidecar"
+  storage_gateway  = "false"
+}
 velero = false
 weblogic_operator = false
 

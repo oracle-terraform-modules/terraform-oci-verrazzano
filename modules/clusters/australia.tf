@@ -87,6 +87,16 @@ module "melbourne" {
 
 }
 
+resource "oci_objectstorage_bucket" "thanos_melbourne" {
+  compartment_id = var.compartment_id
+  name           = "mel-${lookup(var.thanos, "bucket_name", "thanos")}"
+  namespace      = lookup(var.thanos, "bucket_namespace")
+
+  provider = oci.melbourne
+
+  count = tobool(lookup(var.clusters, "melbourne")) && lookup(var.thanos, "enabled", "false") ? 1 : 0
+}
+
 module "sydney" {
   source  = "oracle-terraform-modules/oke/oci"
   version = "4.5.9"
@@ -152,9 +162,9 @@ module "sydney" {
 
 
   # node pools
-  kubeproxy_mode = "ipvs"  
-  node_pools = local.managed_nodepools
-  cloudinit_nodepool_common = var.cloudinit_nodepool_common  
+  kubeproxy_mode            = "ipvs"
+  node_pools                = local.managed_nodepools
+  cloudinit_nodepool_common = var.cloudinit_nodepool_common
 
   node_pool_image_type = "oke"
 

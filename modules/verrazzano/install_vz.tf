@@ -16,12 +16,12 @@ resource "null_resource" "install_vz_admin" {
 
   provisioner "file" {
     content     = local.vz_admin_template
-    destination = "/home/opc/vz/clusters/vz_admin.yaml"
+    destination = "/home/opc/vz/clusters/vz_${local.admin_region_name}.yaml"
   }
 
   provisioner "file" {
     content     = local.install_admin_script
-    destination = "/home/opc/vz/clusters/install_vz_cluster_admin.sh"
+    destination = "/home/opc/vz/clusters/install_vz_cluster_${local.admin_region_name}.sh"
   }
 
   provisioner "file" {

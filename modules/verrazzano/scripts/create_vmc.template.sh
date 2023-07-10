@@ -4,7 +4,7 @@
 
 if [ ! -f $HOME/vz/clusters/vmc_${cluster}.completed ]; then
   echo "Creating VMC in admin for ${cluster}"
-  kubectx admin
+  kubectx ${admin_ctx}
   sed -i -e "s?CLUSTER?${cluster}?g" $HOME/vz/clusters/vmc_${cluster}.yaml
   kubectl apply -f $HOME/vz/clusters/vmc_${cluster}.yaml
   kubectl wait --for=condition=Ready vmc ${cluster} -n verrazzano-mc
