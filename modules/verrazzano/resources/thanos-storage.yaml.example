@@ -1,0 +1,13 @@
+type: OCI
+config:
+  provider: "raw"
+  bucket: "thanos"
+  compartment_ocid: "ocid1.compartment.oc1....."
+  region: "us-ashburn-1"
+  tenancy_ocid: "ocid1.tenancy.oc1....."
+  user_ocid: "ocid1.user.oc1....."
+  fingerprint: "12:d3:4c:..."
+  privatekey: |
+    -----BEGIN RSA PRIVATE KEY-----
+    ...
+    -----END RSA PRIVATE KEY-----

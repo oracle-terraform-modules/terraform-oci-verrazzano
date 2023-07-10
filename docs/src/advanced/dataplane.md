@@ -1,11 +1,11 @@
 # Data plane
 
-The data plane is where the workload are run. This is usually done as part of the service mesh (Istio). 
+The data plane is where the workloads are run. This is usually done as part of the service mesh (Istio). 
 
 Istio usually has an ingress gateway that allows incoming traffic into the mesh.
 
 On OCI, the service mesh is front-ended by an OCI Load Balancer and Istio's ingress gateway.
-the ingress gateway is front-ended by an OCI Load Balancer. As such a number of configuration options are possible depending on the use case:
+As such a number of configuration options are possible depending on the use case:
 
 1. access: the control plane can be made public or private. By default, it is public.
 2. shape: the load balancer shape can be configured including the bandwidth, security posture

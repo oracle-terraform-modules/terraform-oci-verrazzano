@@ -1,13 +1,15 @@
 apiVersion: install.verrazzano.io/v1beta1
 kind: Verrazzano
 metadata:
-  name: admin
+  name: ${cluster}
 spec:
   profile: ${profile}
   environmentName: ${environment}
   components:
     argoCD:
       enabled: ${argocd}
+    clusterAPI:
+      enabled: ${cluster_api}  
     clusterOperator:
       overrides:
       - values:
@@ -21,7 +23,7 @@ spec:
     coherenceOperator:
       enabled: ${coherence}
     console:
-      enabled: true
+      enabled: false
     dns:
       oci:
         ociConfigSecret: oci
@@ -120,6 +122,23 @@ spec:
       enabled: ${prometheus}
     prometheusOperator:
       enabled: ${prometheus_operator}
+      overrides:
+      - values:
+          prometheus:
+            thanos:
+              integration: ${thanos_integration}
+            prometheusSpec:
+              thanos:
+                objectStorageConfig:
+                  name: objstore-config
+                  key: objstore.yml
+    thanos:
+      enabled: ${thanos_enabled}
+      overrides:
+      - values:
+          existingObjstoreSecret: objstore-config
+          storagegateway:
+            enabled: ${storage_gateway}      
     rancher:
       enabled: ${rancher}
     velero:

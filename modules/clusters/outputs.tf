@@ -143,7 +143,7 @@ output "int_lb_subnet_ids" {
     # "jeddah"       = coalesce(lookup(module.jeddah[0].subnet_ids,"int_lb"))
     # "jerusalem"    = coalesce(lookup(module.jerusalem[0].subnet_ids,"int_lb"))
     "melbourne"    = coalesce(lookup(module.melbourne[0].subnet_ids,"int_lb"))
-    "sydney"       = coalesce(lookup(module.sydney[0].subnet_ids,"int_lb"))
+    # "sydney"       = coalesce(lookup(module.sydney[0].subnet_ids,"int_lb"))
     # "santiago"     = coalesce(lookup(module.santiago[0].subnet_ids,"int_lb"))
     # "saupaulo"     = coalesce(lookup(module.saupaulo[0].subnet_ids,"int_lb"))
     # "vinhedo"      = coalesce(lookup(module.vinhedo[0].subnet_ids,"int_lb"))

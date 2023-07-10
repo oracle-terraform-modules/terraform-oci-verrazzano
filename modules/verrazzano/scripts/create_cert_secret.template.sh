@@ -16,7 +16,7 @@ if [ ! -f $HOME/vz/certs/vz_cert_${cluster}.completed ]; then
   --from-literal=cacrt="$CA_CERT" \
   --dry-run=client -o yaml > $HOME/vz/certs/${cluster}-secret.yaml
 
-  kubectx admin
+  kubectx ${admin_ctx}
   kubectl apply -f $HOME/vz/certs/${cluster}-secret.yaml  
 else
   echo "Cert secret already created in ${cluster}"

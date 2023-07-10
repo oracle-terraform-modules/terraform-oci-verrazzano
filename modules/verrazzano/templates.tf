@@ -3,15 +3,18 @@
 
 locals {
 
+  admin_region_name = lookup(var.admin_region, "admin_name", "admin")
+
   kubeconfig_templates = {
     for c in keys(var.cluster_ids) :
     c => templatefile("${path.module}/scripts/generate_kubeconfig.template.sh",
       {
         cluster-id = lookup(var.cluster_ids, c)
         endpoint   = var.oke_control_plane == "public" ? "PUBLIC_ENDPOINT" : "PRIVATE_ENDPOINT"
-        region     = c == "admin" ? local.admin_region : lookup(local.regions, c)
+        # region     = c == "admin" ? local.admin_region : lookup(local.regions, c)
+        region = lookup(local.regions, c)
       }
-    ) if(c != "admin")
+    ) if(c != local.admin_region_name)
   }
 
   set_credentials_templates = {
@@ -20,9 +23,10 @@ locals {
       {
         cluster-id    = lookup(var.cluster_ids, c)
         cluster-id-11 = substr(lookup(var.cluster_ids, c), (length(lookup(var.cluster_ids, c)) - 11), length(lookup(var.cluster_ids, c)))
-        region        = c == "admin" ? local.admin_region : lookup(local.regions, c)
+        # region        = c == "admin" ? local.admin_region : lookup(local.regions, c)
+        region = lookup(local.regions, c)
       }
-    ) if(c != "admin")
+    ) if(c != local.admin_region_name)
   }
 
   set_alias_templates = {
@@ -32,7 +36,7 @@ locals {
         cluster       = c
         cluster-id-11 = substr(lookup(var.cluster_ids, c), (length(lookup(var.cluster_ids, c)) - 11), length(lookup(var.cluster_ids, c)))
       }
-    ) if(c != "admin")
+    ) if(c != local.admin_region_name)
   }
 
   setup_vz_env_template = templatefile("${path.module}/scripts/setup_vz_env.template.sh", {})
@@ -76,31 +80,34 @@ locals {
     ) if v != ""
   }
 
-  install_admin_script = templatefile("${path.module}/scripts/install_vz_admin.template.sh", {})
+  install_admin_script = templatefile("${path.module}/scripts/install_vz_admin.template.sh", {
+    admin_ctx = local.admin_region_name
+  })
 
   vz_admin_template = tobool(var.configure_dns) ? templatefile("${path.module}/resources/vz_admin.template.yaml", {
     profile               = var.verrazzano_profile
     argocd                = var.argocd
-    cluster               = "admin"
+    cluster               = local.admin_region_name
+    cluster_api           = var.cluster_api
     coherence             = var.coherence
     console               = var.console
     compartment_id        = var.dns_compartment_id
     dns_zone_id           = var.dns_zone_id
     dns_zone_name         = var.dns_zone_name
-    environment           = "${var.label_prefix}-admin"
+    environment           = "${var.label_prefix}-${local.admin_region_name}"
     fluentd               = var.fluentd
     grafana               = var.grafana
     control_plane         = var.verrazzano_control_plane == "public" ? false : true
     lb_shape              = lookup(var.verrazzano_load_balancer, "shape")
     flex_min              = lookup(var.verrazzano_load_balancer, "flex_min")
     flex_max              = lookup(var.verrazzano_load_balancer, "flex_max")
-    control_plane_nsg     = var.verrazzano_control_plane == "public" ? lookup(var.pub_nsg_ids, "admin") : lookup(var.int_nsg_ids, "admin")
+    control_plane_nsg     = var.verrazzano_control_plane == "public" ? lookup(var.pub_nsg_ids, local.admin_region_name) : lookup(var.int_nsg_ids, local.admin_region_name)
     mesh_id               = var.mesh_id
-    mesh_network          = "admin"
+    mesh_network          = local.admin_region_name
     data_plane            = var.verrazzano_data_plane == "public" ? false : true
-    data_plane_nsg        = var.verrazzano_data_plane == "public" ? lookup(var.pub_nsg_ids, "admin") : lookup(var.int_nsg_ids, "admin")
-    int_nsg_id            = lookup(var.int_nsg_ids, "admin")
-    int_lb_subnet_id      = lookup(var.int_lb_subnet_ids, "admin")
+    data_plane_nsg        = var.verrazzano_data_plane == "public" ? lookup(var.pub_nsg_ids, local.admin_region_name) : lookup(var.int_nsg_ids, local.admin_region_name)
+    int_nsg_id            = lookup(var.int_nsg_ids, local.admin_region_name)
+    int_lb_subnet_id      = lookup(var.int_lb_subnet_ids, local.admin_region_name)
     jaeger                = var.jaeger
     kiali                 = var.kiali
     kube_state_metrics    = var.kube_state_metrics
@@ -109,32 +116,35 @@ locals {
     prometheus            = var.prometheus
     prometheus_operator   = var.prometheus_operator
     rancher               = var.rancher
+    thanos_enabled        = tobool(lookup(var.thanos, "thanos_enabled", "false"))
+    thanos_integration    = lookup(var.thanos, "integration", "sidecar")
+    storage_gateway       = tobool(lookup(var.thanos, "storage_gateway", "false"))
     velero                = var.velero
     weblogic_operator     = var.weblogic_operator
     }
     ) : templatefile("${path.module}/resources/vz_admin_nip.template.yaml", {
       profile               = var.verrazzano_profile
       argocd                = var.argocd
-      cluster               = "admin"
+      cluster               = local.admin_region_name
       coherence             = var.coherence
       console               = var.console
-      environment           = "${var.label_prefix}-admin"
+      environment           = "${var.label_prefix}-${local.admin_region_name}"
       fluentd               = var.fluentd
       grafana               = var.grafana
       control_plane         = var.verrazzano_control_plane == "public" ? false : true
-      control_plane_nsg     = var.verrazzano_control_plane == "public" ? lookup(var.pub_nsg_ids, "admin") : lookup(var.int_nsg_ids, "admin")
+      control_plane_nsg     = var.verrazzano_control_plane == "public" ? lookup(var.pub_nsg_ids, local.admin_region_name) : lookup(var.int_nsg_ids, local.admin_region_name)
       data_plane            = var.verrazzano_data_plane == "public" ? false : true
-      data_plane_nsg        = var.verrazzano_data_plane == "public" ? lookup(var.pub_nsg_ids, "admin") : lookup(var.int_nsg_ids, "admin")
+      data_plane_nsg        = var.verrazzano_data_plane == "public" ? lookup(var.pub_nsg_ids, local.admin_region_name) : lookup(var.int_nsg_ids, local.admin_region_name)
       lb_shape              = lookup(var.verrazzano_load_balancer, "shape")
       flex_min              = lookup(var.verrazzano_load_balancer, "flex_min")
       flex_max              = lookup(var.verrazzano_load_balancer, "flex_max")
-      int_nsg_id            = lookup(var.int_nsg_ids, "admin")
-      int_lb_subnet_id      = lookup(var.int_lb_subnet_ids, "admin")
+      int_nsg_id            = lookup(var.int_nsg_ids, local.admin_region_name)
+      int_lb_subnet_id      = lookup(var.int_lb_subnet_ids, local.admin_region_name)
       jaeger                = var.jaeger
       kiali                 = var.kiali
       kube_state_metrics    = var.kube_state_metrics
       mesh_id               = var.mesh_id
-      mesh_network          = "admin"
+      mesh_network          = local.admin_region_name
       opensearch            = var.opensearch
       opensearch_dashboards = var.opensearch_dashboards
       prometheus            = var.prometheus
@@ -152,7 +162,7 @@ locals {
 
   managed_clusters = {
     for k, v in var.cluster_ids :
-    k => v if k != "admin" && v != ""
+    k => v if k != local.admin_region_name && v != ""
   }
 
   install_managed_vz_templates = tobool(var.configure_dns) ? {
@@ -181,6 +191,9 @@ locals {
         mesh_network        = k
         prometheus          = var.prometheus
         prometheus_operator = var.prometheus_operator
+        thanos_enabled        = tobool(lookup(var.thanos, "thanos_enabled", "false"))        
+        thanos_integration  = lookup(var.thanos, "integration", "sidecar")
+        storage_gateway     = tobool(lookup(var.thanos, "storage_gateway", "false"))
         velero              = var.velero
         weblogic_operator   = var.weblogic_operator
       }
@@ -236,27 +249,34 @@ locals {
     k => templatefile("${path.module}/scripts/create_cert_secret.template.sh",
       {
         cluster = k
+        admin_ctx = local.admin_region_name
       }
     ) if tobool(var.install_verrazzano)
   }
 
-  api_cm_template = templatefile("${path.module}/resources/api_cm.template.yaml", {})
+  api_cm_template = templatefile("${path.module}/resources/api_cm.template.yaml", {
+    admin_ctx = local.admin_region_name
+  })
 
-  create_api_cm_template = templatefile("${path.module}/scripts/create_api_cm.template.sh", {})
+  create_api_cm_template = templatefile("${path.module}/scripts/create_api_cm.template.sh", {
+    admin_ctx = local.admin_region_name
+  })
 
   vmc_template = templatefile("${path.module}/resources/vmc.template.yaml", {})
 
   create_vmc_script = {
     for k, v in local.managed_clusters :
     k => templatefile("${path.module}/scripts/create_vmc.template.sh", {
-      cluster = k
+      admin_ctx = local.admin_region_name
+      cluster   = k
     }) if tobool(var.install_verrazzano)
   }
 
   register_vmc_templates = {
     for k, v in local.managed_clusters :
     k => templatefile("${path.module}/scripts/register_vmc.template.sh", {
-      cluster = k
+      admin_ctx = local.admin_region_name
+      cluster   = k
     }) if tobool(var.install_verrazzano)
   }
 

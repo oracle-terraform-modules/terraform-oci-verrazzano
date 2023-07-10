@@ -16,4 +16,7 @@
   - [Control plane](./advanced/controlplane.md)
   - [Data plane](./advanced/dataplane.md)
   - [DNS](./advanced/dns.md)
+  - [Observability]()
+    - [Prometheus]()
+    - [Thanos](./advanced/thanos.md)
 - [Terraform Options](./terraformoptions.md)

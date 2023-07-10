@@ -62,3 +62,7 @@ variable "nodepools" {
 variable "cloudinit_nodepool_common" {
   type        = string
 }
+
+variable "thanos" {
+  type        = map(string)
+}
