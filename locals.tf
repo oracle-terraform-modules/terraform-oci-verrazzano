@@ -56,4 +56,6 @@ locals {
     sanjose   = "us-sanjose-1"
     toronto   = "ca-toronto-1"
   }
+
+  managed_clusters = { for k,v in module.clusters.cluster_ids: k => v if v != null }
 }

@@ -5,6 +5,7 @@ locals {
 
   admin_region = lookup(local.regions, lower(lookup(var.admin_region, "region")))
 
+  all_regions = merge({ "admin" = local.admin_region }, local.regions)
   regions = {
     # Africa
     johannesburg = "af-johannesburg-1"

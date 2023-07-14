@@ -6,37 +6,35 @@ locals {
   admin_region_name = lookup(var.admin_region, "admin_name", "admin")
 
   kubeconfig_templates = {
-    for c in keys(var.cluster_ids) :
-    c => templatefile("${path.module}/scripts/generate_kubeconfig.template.sh",
+    for cluster_name, cluster_id in var.managed_cluster_ids :
+    cluster_name => templatefile("${path.module}/scripts/generate_kubeconfig.template.sh",
       {
-        cluster-id = lookup(var.cluster_ids, c)
+        cluster_id = cluster_id
         endpoint   = var.oke_control_plane == "public" ? "PUBLIC_ENDPOINT" : "PRIVATE_ENDPOINT"
-        # region     = c == "admin" ? local.admin_region : lookup(local.regions, c)
-        region = lookup(local.regions, c)
+        region     = lookup(local.regions, cluster_name)
       }
-    ) if(c != local.admin_region_name)
+    ) 
   }
 
   set_credentials_templates = {
-    for c in keys(var.cluster_ids) :
-    c => templatefile("${path.module}/scripts/kubeconfig_set_credentials.template.sh",
+    for cluster_name, cluster_id in var.managed_cluster_ids :
+    cluster_name => templatefile("${path.module}/scripts/kubeconfig_set_credentials.template.sh",
       {
-        cluster-id    = lookup(var.cluster_ids, c)
-        cluster-id-11 = substr(lookup(var.cluster_ids, c), (length(lookup(var.cluster_ids, c)) - 11), length(lookup(var.cluster_ids, c)))
-        # region        = c == "admin" ? local.admin_region : lookup(local.regions, c)
-        region = lookup(local.regions, c)
+        cluster_id = cluster_id
+        cluster_id_11 = substr(cluster_id, (length(cluster_id) - 11), length(cluster_id))
+        region        = lookup(local.regions, cluster_name)
       }
-    ) if(c != local.admin_region_name)
+    )
   }
 
   set_alias_templates = {
-    for c in keys(var.cluster_ids) :
-    c => templatefile("${path.module}/scripts/set_alias.template.sh",
+    for cluster_name, cluster_id in var.managed_cluster_ids :
+    cluster_name => templatefile("${path.module}/scripts/set_alias.template.sh",
       {
-        cluster       = c
-        cluster-id-11 = substr(lookup(var.cluster_ids, c), (length(lookup(var.cluster_ids, c)) - 11), length(lookup(var.cluster_ids, c)))
+        cluster       = cluster_name
+        cluster_id_11 = substr(cluster_id, (length(cluster_id) - 11), length(cluster_id))
       }
-    ) if(c != local.admin_region_name)
+    )
   }
 
   setup_vz_env_template = templatefile("${path.module}/scripts/setup_vz_env.template.sh", {})
@@ -48,7 +46,7 @@ locals {
   )
 
   install_vz_operator_templates = {
-    for k, v in var.cluster_ids :
+    for k, v in var.all_cluster_ids :
     k => templatefile("${path.module}/scripts/install_vz_operator.template.sh",
       {
         cluster = k
@@ -58,7 +56,7 @@ locals {
   }
 
   check_vz_operator_templates = {
-    for k, v in var.cluster_ids :
+    for k, v in var.all_cluster_ids :
     k => templatefile("${path.module}/scripts/check_vz_operator.template.sh",
       {
         cluster = k
@@ -72,7 +70,7 @@ locals {
   )
 
   create_oci_secret_templates = {
-    for k, v in var.cluster_ids :
+    for k, v in var.all_cluster_ids :
     k => templatefile("${path.module}/scripts/create_oci_secret.template.sh",
       {
         cluster = k
@@ -155,18 +153,8 @@ locals {
     }
   )
 
-  all_clusters = {
-    for k, v in var.cluster_ids :
-    k => v if v != ""
-  }
-
-  managed_clusters = {
-    for k, v in var.cluster_ids :
-    k => v if k != local.admin_region_name && v != ""
-  }
-
   install_managed_vz_templates = tobool(var.configure_dns) ? {
-    for k, v in local.managed_clusters :
+    for k, v in var.managed_cluster_ids :
     k => templatefile("${path.module}/resources/vz_mc.template.yaml",
       {
         cluster             = k
@@ -182,8 +170,8 @@ locals {
         lb_shape            = lookup(var.verrazzano_load_balancer, "shape")
         flex_min            = lookup(var.verrazzano_load_balancer, "flex_min")
         flex_max            = lookup(var.verrazzano_load_balancer, "flex_max")
-        int_nsg_id          = coalesce(lookup(var.int_nsg_ids, k))
-        int_lb_subnet_id    = coalesce(lookup(var.int_lb_subnet_ids, k))
+        int_nsg_id          = lookup(var.int_nsg_ids, k,"")
+        int_lb_subnet_id    = lookup(var.int_lb_subnet_ids, k,"")
         jaeger              = var.jaeger
         kiali               = var.kiali
         kube_state_metrics  = var.kube_state_metrics
@@ -191,7 +179,7 @@ locals {
         mesh_network        = k
         prometheus          = var.prometheus
         prometheus_operator = var.prometheus_operator
-        thanos_enabled        = tobool(lookup(var.thanos, "thanos_enabled", "false"))        
+        thanos_enabled      = tobool(lookup(var.thanos, "thanos_enabled", "false"))
         thanos_integration  = lookup(var.thanos, "integration", "sidecar")
         storage_gateway     = tobool(lookup(var.thanos, "storage_gateway", "false"))
         velero              = var.velero
@@ -199,7 +187,7 @@ locals {
       }
     ) if(var.install_verrazzano == true)
     } : {
-    for k, v in local.managed_clusters :
+    for k, v in var.managed_cluster_ids :
     k => templatefile("${path.module}/resources/vz_mc_nip.template.yaml",
       {
         cluster             = k
@@ -212,8 +200,8 @@ locals {
         lb_shape            = lookup(var.verrazzano_load_balancer, "shape")
         flex_min            = lookup(var.verrazzano_load_balancer, "flex_min")
         flex_max            = lookup(var.verrazzano_load_balancer, "flex_max")
-        int_nsg_id          = coalesce(lookup(var.int_nsg_ids, k))
-        int_lb_subnet_id    = coalesce(lookup(var.int_lb_subnet_ids, k))
+        int_nsg_id          = lookup(var.int_nsg_ids, k)
+        int_lb_subnet_id    = lookup(var.int_lb_subnet_ids, k)
         jaeger              = var.jaeger
         kiali               = var.kiali
         kube_state_metrics  = var.kube_state_metrics
@@ -228,7 +216,7 @@ locals {
   }
 
   install_managed_vz_script = {
-    for k, v in local.managed_clusters :
+    for k, v in var.managed_cluster_ids :
     k => templatefile("${path.module}/scripts/install_vz_cluster.template.sh",
       {
         cluster = k
@@ -236,7 +224,7 @@ locals {
     )
   }
 
-  managed_clusters_str = join(" ", keys(local.managed_clusters))
+  managed_clusters_str = join(" ", keys(var.managed_cluster_ids))
 
   check_vz_cluster_script = templatefile("${path.module}/scripts/check_vz_status.template.sh",
     {
@@ -245,10 +233,10 @@ locals {
   )
 
   create_cert_script = {
-    for k, v in local.managed_clusters :
+    for k, v in var.managed_cluster_ids :
     k => templatefile("${path.module}/scripts/create_cert_secret.template.sh",
       {
-        cluster = k
+        cluster   = k
         admin_ctx = local.admin_region_name
       }
     ) if tobool(var.install_verrazzano)
@@ -265,7 +253,7 @@ locals {
   vmc_template = templatefile("${path.module}/resources/vmc.template.yaml", {})
 
   create_vmc_script = {
-    for k, v in local.managed_clusters :
+    for k, v in var.managed_cluster_ids :
     k => templatefile("${path.module}/scripts/create_vmc.template.sh", {
       admin_ctx = local.admin_region_name
       cluster   = k
@@ -273,11 +261,19 @@ locals {
   }
 
   register_vmc_templates = {
-    for k, v in local.managed_clusters :
+    for k, v in var.managed_cluster_ids :
     k => templatefile("${path.module}/scripts/register_vmc.template.sh", {
       admin_ctx = local.admin_region_name
       cluster   = k
     }) if tobool(var.install_verrazzano)
+  }
+
+  thanos_storage_templates = {
+    for k, v in var.all_cluster_ids :
+    k => templatefile("${path.module}/resources/thanos-storage.template.yaml", {
+      region      = lookup(local.all_regions, k)
+      bucket_name = lookup(var.thanos, "bucket_name", "thanos")
+    }) if tobool(lookup(var.thanos, "enabled", "false")) && v != ""
   }
 
   vz_access_template = templatefile("${path.module}/scripts/get_vz_access.template.sh", {})

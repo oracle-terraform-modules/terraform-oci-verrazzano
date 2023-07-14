@@ -42,7 +42,7 @@ resource "null_resource" "install_vz_admin" {
 
 resource "null_resource" "install_managed_vz" {
 
-  for_each = tobool(var.install_verrazzano) ? local.managed_clusters : {}
+  for_each = tobool(var.install_verrazzano) ? var.managed_cluster_ids : {}
 
   connection {
     host        = var.operator_ip
@@ -103,7 +103,7 @@ resource "null_resource" "check_managed_vz" {
 
   depends_on = [null_resource.install_managed_vz]
   triggers = {
-    clusters = length(var.cluster_ids)
+    clusters = length(var.managed_cluster_ids)
   }
 
   count = tobool(var.install_verrazzano) ? 1 : 0

@@ -30,7 +30,7 @@ resource "null_resource" "install_vz_cli" {
 }
 
 resource "null_resource" "install_vz_operator" {
-  for_each = tobool(var.install_verrazzano) ? local.all_clusters : {}
+  for_each = tobool(var.install_verrazzano) ? var.all_cluster_ids : {}
 
   connection {
     host        = var.operator_ip
@@ -58,13 +58,13 @@ resource "null_resource" "install_vz_operator" {
   depends_on = [null_resource.setup_vz_env]
 
   triggers = {
-    clusters = length(var.cluster_ids)
+    clusters = length(var.all_cluster_ids)
   }
 
 }
 
 resource "null_resource" "check_vz_operator" {
-  for_each = tobool(var.install_verrazzano) ? local.all_clusters : {}
+  for_each = tobool(var.install_verrazzano) ? var.all_cluster_ids : {}
 
   connection {
     host        = var.operator_ip
@@ -92,7 +92,7 @@ resource "null_resource" "check_vz_operator" {
   depends_on = [null_resource.install_vz_operator]
 
   triggers = {
-    clusters = length(var.cluster_ids)
+    clusters = length(var.all_cluster_ids)
   }
 
 }

@@ -126,14 +126,37 @@ echo >> oci.yaml
 bash create_oci_secret_admin.sh
 ```
 
-5. Install Verrazzano:
+5. If you are using Thanos, configure your secret for OCI Object Storage now.
+
+```
+cd /home/opc/vz/clusters
+```
+
+6. Edit `thanos_admin_storage.yaml` file and enter the following parameters:
+
+  - compartment_ocid
+  - region
+  - tenancy_ocid
+  - user_ocid
+  - fingerprint
+  - and the private key
+
+7. Create the secret:
+
+```
+
+kubectl create namespace verrazzano-monitoring
+kubectl create secret generic objstore-config -n verrazzano-monitoring --from-file=objstore.yml=thanos_admin_storage.yaml
+```
+
+8. Install Verrazzano:
 
 ```
 cd /home/opc/vz/clusters
 bash install_vz_cluster_admin.sh
 ```
 
-6. Wait for Verrazzano to be installed:
+9. Wait for Verrazzano to be installed:
 
 ```
 bash vz_status.sh

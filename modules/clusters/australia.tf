@@ -94,7 +94,7 @@ resource "oci_objectstorage_bucket" "thanos_melbourne" {
 
   provider = oci.melbourne
 
-  count = tobool(lookup(var.clusters, "melbourne")) && lookup(var.thanos, "enabled", "false") ? 1 : 0
+  count = tobool(lookup(var.clusters, "melbourne", "false")) && tobool(lookup(var.thanos, "enabled", "false")) ? 1 : 0
 }
 
 module "sydney" {
@@ -181,7 +181,16 @@ module "sydney" {
     oci.home = oci.home
   }
 
-  count = tobool(lookup(var.clusters, "sydney")) ? 1 : 0
+  count = tobool(lookup(var.clusters, "sydney", )) ? 1 : 0
 
 }
 
+resource "oci_objectstorage_bucket" "thanos_sydney" {
+  compartment_id = var.compartment_id
+  name           = "syd-${lookup(var.thanos, "bucket_name", "thanos")}"
+  namespace      = lookup(var.thanos, "bucket_namespace")
+
+  provider = oci.sydney
+
+  count = tobool(lookup(var.clusters, "sydney", "false")) && tobool(lookup(var.thanos, "enabled", "false")) ? 1 : 0
+}

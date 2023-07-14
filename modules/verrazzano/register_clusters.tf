@@ -2,7 +2,7 @@
 # Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl
 
 resource "null_resource" "register_vmc" {
-  for_each =  tobool(var.install_verrazzano) ? local.managed_clusters : {}
+  for_each =  tobool(var.install_verrazzano) ? var.managed_cluster_ids : {}
 
   connection {
     host        = var.operator_ip
@@ -30,6 +30,6 @@ resource "null_resource" "register_vmc" {
   depends_on = [null_resource.create_vmc]
 
   triggers = {
-    clusters = length(var.cluster_ids)
+    clusters = length(var.managed_cluster_ids)
   }
 }

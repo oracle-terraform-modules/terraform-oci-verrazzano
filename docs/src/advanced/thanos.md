@@ -34,7 +34,7 @@ When the above is configured, they will be generated and added to the Custom Res
 1. For each cluster, use the following to configure your user principal authentication for Thanos:
 
 ``` yaml, editable
-{{#include ../../../modules/verrazzano/resources/thanos-storage.yaml.example:4:}}
+{{#include ../../../modules/verrazzano/resources/thanos-storage.yaml.example:1:}}
 ```
 2. Save the file as storage.yaml
 
@@ -54,7 +54,6 @@ TODO
 Before enabling Thanos, ensure the following secret is created:
 
 ``` bash
-
 kubectl create namespace verrazzano-monitoring
 kubectl create secret generic objstore-config -n verrazzano-monitoring --from-file=objstore.yml=storage.yaml
 ```

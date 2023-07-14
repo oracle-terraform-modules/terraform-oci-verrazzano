@@ -50,8 +50,13 @@ variable "verrazzano_load_balancer" {
   type = map(string)
 }
 
-variable "cluster_ids" {
-  type = map(any)
+variable "all_cluster_ids" {
+  type = map(string)
+}
+
+
+variable "managed_cluster_ids" {
+  type = map(string)
 }
 
 variable "int_nsg_ids" {

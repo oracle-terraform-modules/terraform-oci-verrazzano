@@ -32,7 +32,7 @@ resource "null_resource" "get_oci_secret" {
 }
 
 resource "null_resource" "create_oci_secret" {
-  for_each = alltrue([var.install_verrazzano, var.configure_dns]) ? local.all_clusters : {}
+  for_each = alltrue([var.install_verrazzano, var.configure_dns]) ? var.all_cluster_ids : {}
   connection {
     host        = var.operator_ip
     private_key = file(var.ssh_private_key_path)
@@ -59,7 +59,9 @@ resource "null_resource" "create_oci_secret" {
   depends_on = [null_resource.get_oci_secret]
 
   triggers = {
-    clusters = length(var.cluster_ids)
+    clusters = length(var.all_cluster_ids)
   }
 
 }
+
+

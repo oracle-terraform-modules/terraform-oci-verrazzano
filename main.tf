@@ -94,7 +94,8 @@ module "verrazzano" {
   verrazzano_control_plane = var.verrazzano_control_plane
   verrazzano_data_plane    = var.verrazzano_data_plane
   verrazzano_load_balancer = var.verrazzano_load_balancer
-  cluster_ids              = merge({ lookup(var.admin_region, "admin_name", "admin") = module.admin.cluster_id }, module.clusters.cluster_ids)
+  all_cluster_ids          = merge({ lookup(var.admin_region, "admin_name", "admin") = module.admin.cluster_id }, local.managed_clusters)
+  managed_cluster_ids      = local.managed_clusters
   int_nsg_ids              = merge({ lookup(var.admin_region, "admin_name", "admin") = lookup(module.admin.nsg_ids, "int_lb") }, module.clusters.int_nsg_ids)
   int_lb_subnet_ids        = merge({ lookup(var.admin_region, "admin_name", "admin") = lookup(module.admin.subnet_ids, "int_lb") }, module.clusters.int_lb_subnet_ids)
   pub_nsg_ids              = merge({ lookup(var.admin_region, "admin_name", "admin") = lookup(module.admin.nsg_ids, "pub_lb") }, module.clusters.pub_nsg_ids)

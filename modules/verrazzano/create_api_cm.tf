@@ -32,6 +32,6 @@ resource "null_resource" "create_api_cm" {
 
   depends_on = [null_resource.create_cert_secret]
 
-  count =  (var.install_verrazzano == true && length(local.all_clusters) > 1) ? 1 :0
+  count =  (var.install_verrazzano == true && length(var.all_cluster_ids) > 1) ? 1 :0
 
 }

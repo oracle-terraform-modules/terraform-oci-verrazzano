@@ -103,5 +103,5 @@ resource "oci_objectstorage_bucket" "thanos_admin" {
 
   provider = oci.sydney
 
-  count = lookup(var.thanos, "enabled", "false") ? 1 : 0
+  count = tobool(lookup(var.thanos, "enabled", "false")) ? 1 : 0
 }

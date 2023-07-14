@@ -335,7 +335,26 @@ for cluster in admin phoenix ; do
 done
 ```
 
-5. Install the Verrazzano Admin cluster:
+5. If you are using Thanos, configure your secret for OCI Object Storage now. For each enabled cluster, a storage file is created. Edit them and enter the following and create a secret:
+
+  - compartment_ocid
+  - region
+  - tenancy_ocid
+  - user_ocid
+  - fingerprint
+  - and the private key
+
+```
+cd /home/opc/vz/clusters
+for cluster in admin phoenix; do
+  kubectx $cluster
+  kubectl create namespace verrazzano-monitoring
+  kubectl create secret generic objstore-config -n verrazzano-monitoring --from-file=objstore.yml=thanos_$cluster_storage.yaml
+done
+
+```  
+
+6. Install the Verrazzano Admin cluster:
 
 ```
 cd /home/opc/vz/clusters
@@ -345,7 +364,7 @@ bash install_vz_cluster_admin.sh
 The Admin cluster has more components to install and takes longer, so we install it separately. This allows us to install the managed clusters in parallel.
 ```
 
-6. While the Admin cluster is being installed in the background, you can install the managed clusters in parallel:
+7. While the Admin cluster is being installed in the background, you can install the managed clusters in parallel:
 
 ```bash, editable
 cd /home/opc/vz/clusters
@@ -354,7 +373,7 @@ for cluster in phoenix ; do
 done
 ```
 
-7. Wait for Verrazzano to be installed in all clusters:
+8. Wait for Verrazzano to be installed in all clusters:
 
 ```
 # check managed clusters' status
@@ -365,7 +384,7 @@ kubectx admin
 kubectl wait --timeout=20m --for=condition=InstallComplete verrazzano/admin
 ```
 
-8. Create the certificates secrets for each managed cluster:
+9. Create the certificates secrets for each managed cluster:
 
 ```bash, editable
 cd /home/opc/vz/certs
@@ -374,14 +393,14 @@ for cluster in phoenix; do
 done
 ```
 
-9. Create the ConfigMap for the API Server:
+10. Create the ConfigMap for the API Server:
 
 ```
 cd /home/opc/vz/cm
 bash create_api_cm.sh
 ```
 
-10. Create the Verrazzano managed cluster objects for each managed cluster:    
+11. Create the Verrazzano managed cluster objects for each managed cluster:    
 
 ```bash, editable
 cd /home/opc/vz/clusters
@@ -390,7 +409,7 @@ for cluster in phoenix; do
 done
 ```
 
-11. Register all the managed clusters:
+12. Register all the managed clusters:
 
 ```bash, editable
 for cluster in phoenix; do
