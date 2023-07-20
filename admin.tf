@@ -90,7 +90,8 @@ module "admin" {
   # operator host
   create_operator            = true
   operator_upgrade           = false
-  create_iam_operator_policy = "auto"
+  create_iam_resources       = true
+  create_iam_operator_policy = "always"
 
   # oke cluster options
   cluster_name                = lookup(var.admin_region, "admin_name")
