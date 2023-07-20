@@ -74,15 +74,17 @@ get_kubeconfigs = true
 install_verrazzano = true
 ```
 
-2. Configure the Verrazzano profile:
+2. If you want to configure additional Verrazzano components, you can still do so now.
+
+3. Configure the Verrazzano profile:
 
 ```
 verrazzano_profile = "dev"
 ```
 
-3. If you need to use your own DNS, you need to configure DNS before you run Terraform and the installation scripts. Else, the installation scripts will use nip.io.
+4. If you need to use your own DNS, you need to configure DNS before you run Terraform and the installation scripts. Else, the installation scripts will use nip.io.
 
-4. Run Terraform again:
+5. Run Terraform again:
 ```
 terraform init
 terraform plan

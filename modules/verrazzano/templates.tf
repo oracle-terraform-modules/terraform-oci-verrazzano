@@ -6,29 +6,29 @@ locals {
   admin_region_name = lookup(var.admin_region, "admin_name", "admin")
 
   kubeconfig_templates = {
-    for cluster_name, cluster_id in var.managed_cluster_ids :
+    for cluster_name, cluster_id in var.all_cluster_ids :
     cluster_name => templatefile("${path.module}/scripts/generate_kubeconfig.template.sh",
       {
         cluster_id = cluster_id
         endpoint   = var.oke_control_plane == "public" ? "PUBLIC_ENDPOINT" : "PRIVATE_ENDPOINT"
-        region     = lookup(local.regions, cluster_name)
+        region     = lookup(local.all_regions, cluster_name)
       }
     ) 
   }
 
   set_credentials_templates = {
-    for cluster_name, cluster_id in var.managed_cluster_ids :
+    for cluster_name, cluster_id in var.all_cluster_ids :
     cluster_name => templatefile("${path.module}/scripts/kubeconfig_set_credentials.template.sh",
       {
         cluster_id = cluster_id
         cluster_id_11 = substr(cluster_id, (length(cluster_id) - 11), length(cluster_id))
-        region        = lookup(local.regions, cluster_name)
+        region        = lookup(local.all_regions, cluster_name)
       }
     )
   }
 
   set_alias_templates = {
-    for cluster_name, cluster_id in var.managed_cluster_ids :
+    for cluster_name, cluster_id in var.all_cluster_ids :
     cluster_name => templatefile("${path.module}/scripts/set_alias.template.sh",
       {
         cluster       = cluster_name
@@ -124,6 +124,7 @@ locals {
       profile               = var.verrazzano_profile
       argocd                = var.argocd
       cluster               = local.admin_region_name
+      cluster_api           = var.cluster_api      
       coherence             = var.coherence
       console               = var.console
       environment           = "${var.label_prefix}-${local.admin_region_name}"
@@ -147,6 +148,9 @@ locals {
       opensearch_dashboards = var.opensearch_dashboards
       prometheus            = var.prometheus
       prometheus_operator   = var.prometheus_operator
+      thanos_enabled        = tobool(lookup(var.thanos, "thanos_enabled", "false"))
+      thanos_integration    = lookup(var.thanos, "integration", "sidecar")
+      storage_gateway       = tobool(lookup(var.thanos, "storage_gateway", "false"))
       rancher               = var.rancher
       velero                = var.velero
       weblogic_operator     = var.weblogic_operator
@@ -275,6 +279,8 @@ locals {
       bucket_name = lookup(var.thanos, "bucket_name", "thanos")
     }) if tobool(lookup(var.thanos, "enabled", "false")) && v != ""
   }
+
+  token_helper_template = templatefile("${path.module}/scripts/token_helper.template.sh", {})
 
   vz_access_template = templatefile("${path.module}/scripts/get_vz_access.template.sh", {})
 }

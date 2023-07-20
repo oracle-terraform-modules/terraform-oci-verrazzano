@@ -249,7 +249,9 @@ Regardless of what you set the profile value to be, the profile of managed serve
 
 3. If you need to use your own DNS, you need to configure DNS before you run Terraform and the installation scripts. Else, the installation scripts will use nip.io.
 
-4. Run Terraform again:
+4. If you want to configure additional Verrazzano components, you can still do so now.
+
+5. Run Terraform again:
 ```
 terraform init
 terraform plan

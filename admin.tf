@@ -92,6 +92,7 @@ module "admin" {
   operator_upgrade           = false
   create_iam_resources       = true
   create_iam_operator_policy = "always"
+  operator_install_k9s       = true
 
   # oke cluster options
   cluster_name                = lookup(var.admin_region, "admin_name")

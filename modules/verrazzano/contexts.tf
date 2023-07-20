@@ -2,7 +2,7 @@
 # Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl
 
 resource "null_resource" "set_contexts" {
-  for_each = var.managed_cluster_ids
+  for_each = var.all_cluster_ids
   connection {
     host        = var.operator_ip
     private_key = file(var.ssh_private_key_path)

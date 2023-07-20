@@ -8,6 +8,8 @@ spec:
   components:
     argoCD:
       enabled: ${argocd}
+    clusterAPI:
+      enabled: ${cluster_api}        
     clusterOperator:
       overrides:
       - values:
@@ -21,7 +23,7 @@ spec:
     coherenceOperator:
       enabled: ${coherence}
     console:
-      enabled: true
+      enabled: false
     dns:
       wildcard:
         domain: nip.io
@@ -69,7 +71,6 @@ spec:
                       service.beta.kubernetes.io/oci-load-balancer-shape-flex-max: "${flex_max}"
                       service.beta.kubernetes.io/oci-load-balancer-security-list-management-mode: "None"
                       oci.oraclecloud.com/oci-network-security-groups: "${data_plane_nsg}"
-
     jaegerOperator:
       enabled: ${jaeger}
     kiali:
@@ -84,6 +85,25 @@ spec:
       enabled: ${prometheus}
     prometheusOperator:
       enabled: ${prometheus_operator}
+    prometheusOperator:
+      enabled: ${prometheus_operator}
+      overrides:
+      - values:
+          prometheus:
+            thanos:
+              integration: ${thanos_integration}
+            prometheusSpec:
+              thanos:
+                objectStorageConfig:
+                  name: objstore-config
+                  key: objstore.yml      
+    thanos:
+      enabled: ${thanos_enabled}
+      overrides:
+      - values:
+          existingObjstoreSecret: objstore-config
+          storagegateway:
+            enabled: ${storage_gateway}      
     rancher:
       enabled: ${rancher}
     velero:

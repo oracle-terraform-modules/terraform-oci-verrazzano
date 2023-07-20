@@ -19,9 +19,17 @@ resource "null_resource" "setup_vz_env" {
     destination = "/home/opc/setup_vz_env.sh"
   }
 
+  provisioner "file" {
+    content     = local.token_helper_template
+    destination = "/home/opc/token_helper.sh"
+  }
+
   provisioner "remote-exec" {
     inline = [
       "if [ -f \"$HOME/setup_vz_env.sh\" ]; then bash \"$HOME/setup_vz_env.sh\";sleep 10;fi",
+      "chmod +x $HOME/token_helper.sh",
+      "mkdir -p $HOME/bin",
+      "mv $HOME/token_helper.sh $HOME/bin",
     ]
   }
 

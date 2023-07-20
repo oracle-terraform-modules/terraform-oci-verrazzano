@@ -29,6 +29,11 @@ resource "null_resource" "install_vz_admin" {
     destination = "/home/opc/bin/vz_access.sh"
   }  
 
+  provisioner "remote-exec" {
+    inline = [
+      "chmod +x $HOME/bin/vz_access.sh",
+    ]
+  }
   # provisioner "remote-exec" {
   #   inline = [
   #     "if [ -f \"$HOME/opc/vz/operator/install_vz_admin.sh\" ]; then bash \"$HOME/opc/vz/operator/install_vz_admin.sh\";fi",
@@ -106,5 +111,5 @@ resource "null_resource" "check_managed_vz" {
     clusters = length(var.managed_cluster_ids)
   }
 
-  count = tobool(var.install_verrazzano) ? 1 : 0
+  count = tobool(var.install_verrazzano) && length(var.managed_cluster_ids) > 0 ? 1 : 0
 }
