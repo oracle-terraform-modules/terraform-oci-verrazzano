@@ -1,14 +1,14 @@
 # # Copyright (c) 2023 Oracle Corporation and/or its affiliates.
 # # Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl
 
-# module "singapore" {
+# module "santiago" {
 #   #   source  = "oracle-terraform-modules/oke/oci"
 #   #   version = "4.5.9"
 
 #   source = "github.com/oracle-terraform-modules/terraform-oci-oke?ref=5.x&depth=1"
 
 #   home_region = var.home_region
-#   region      = local.regions["singapore"]
+#   region      = local.regions["santiago"]
 
 #   tenancy_id = var.tenancy_id
 
@@ -21,9 +21,9 @@
 
 #   # networking
 #   #   create_drg       = true
-#   drg_display_name = "singapore"
+#   drg_display_name = "santiago"
 
-#   #   remote_peering_connections = var.connectivity_mode == "mesh" ? { for k, v in merge({ "admin" = true }, var.clusters) : "rpc-to-${k}" => {} if tobool(v) && k != "singapore" } : { "rpc-to-admin" : {} }
+#   #   remote_peering_connections = var.connectivity_mode == "mesh" ? { for k, v in merge({ "admin" = true }, var.clusters) : "rpc-to-${k}" => {} if tobool(v) && k != "santiago" } : { "rpc-to-admin" : {} }
 
 #   nat_gateway_route_rules = concat([
 #     {
@@ -38,12 +38,12 @@
 #         destination_type  = "CIDR_BLOCK"
 #         network_entity_id = "drg"
 #         description       = "Routing to allow connectivity to ${title(c)} cluster"
-#     } if tobool(lookup(var.clusters, c) && c != "singapore")] : []
+#     } if tobool(lookup(var.clusters, c) && c != "santiago")] : []
 #   )
 
-#   vcn_cidrs     = [lookup(lookup(var.cidrs, lower("singapore")), "vcn")]
-#   vcn_dns_label = "singapore"
-#   vcn_name      = "singapore"
+#   vcn_cidrs     = [lookup(lookup(var.cidrs, lower("santiago")), "vcn")]
+#   vcn_dns_label = "santiago"
+#   vcn_name      = "santiago"
 
 #   #subnets
 #   subnets = {
@@ -65,7 +65,7 @@
 
 
 #   # oke cluster options
-#   cluster_name                = "singapore"
+#   cluster_name                = "santiago"
 #   cni_type                    = var.preferred_cni
 #   control_plane_is_public     = var.oke_control_plane == "public"
 #   control_plane_allowed_cidrs = [local.anywhere]
@@ -111,25 +111,25 @@
 # #   user_id = var.user_id
 
 #   providers = {
-#     oci      = oci.singapore
+#     oci      = oci.santiago
 #     oci.home = oci.home
 #   }
 
-#   count = tobool(lookup(var.clusters, "singapore")) ? 1 : 0
+#   count = tobool(lookup(var.clusters, "santiago")) ? 1 : 0
 
 # }
 
-# resource "oci_objectstorage_bucket" "thanos_singapore" {
+# resource "oci_objectstorage_bucket" "thanos_santiago" {
 #   compartment_id = var.compartment_id
 #   name           = "mel-${lookup(var.thanos, "bucket_name", "thanos")}"
 #   namespace      = lookup(var.thanos, "bucket_namespace")
 
-#   provider = oci.singapore
+#   provider = oci.santiago
 
-#   count = tobool(lookup(var.clusters, "singapore", "false")) && tobool(lookup(var.thanos, "enabled", "false")) ? 1 : 0
+#   count = tobool(lookup(var.clusters, "santiago", "false")) && tobool(lookup(var.thanos, "enabled", "false")) ? 1 : 0
 # }
 
-# module "singapore_drg" {
+# module "santiago_drg" {
 #   source  = "oracle-terraform-modules/drg/oci"
 #   version = "1.0.5"
 
@@ -138,11 +138,11 @@
 #   label_prefix   = var.label_prefix
 
 #   # drg parameters
-#   drg_display_name = "singapore-drg"
+#   drg_display_name = "santiago-drg"
 
 #   drg_vcn_attachments = {
 #     drg = {
-#       vcn_id                    = module.singapore[0].vcn_id
+#       vcn_id                    = module.santiago[0].vcn_id
 #       vcn_transit_routing_rt_id = null
 #       drg_route_table_id        = null
 #     }
@@ -151,10 +151,10 @@
 #   # var.drg_id can either contain an existing DRG ID or be null. 
 #   drg_id = null
 
-#   remote_peering_connections = var.connectivity_mode == "mesh" ? { for k, v in merge({ "admin" = true }, var.clusters) : "rpc-to-${k}" => {} if tobool(v) && k != "singapore" } : { "rpc-to-admin" : {} }
+#   remote_peering_connections = var.connectivity_mode == "mesh" ? { for k, v in merge({ "admin" = true }, var.clusters) : "rpc-to-${k}" => {} if tobool(v) && k != "santiago" } : { "rpc-to-admin" : {} }
 
-#   count = tobool(lookup(var.clusters, "singapore", "false")) ? 1 : 0
+#   count = tobool(lookup(var.clusters, "santiago", "false")) ? 1 : 0
 #   providers = {
-#     oci = oci.singapore
+#     oci = oci.santiago
 #   }
 # }

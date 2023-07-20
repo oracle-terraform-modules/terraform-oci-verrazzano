@@ -232,10 +232,10 @@ variable "nodepools" {
   }
 }
 
-variable "cloudinit_nodepool_common" {
-  type        = string
-  description = "Path to custom cloud init file for OKE workner nodes"
-  default     = ""
+variable "worker_cloud_init" {
+  default     = []
+  description = "List of maps containing cloud init MIME part configuration for worker nodes. Merged with pool-specific definitions. See https://registry.terraform.io/providers/hashicorp/template/latest/docs/data-sources/cloudinit_config.html#part for expected schema of each element."
+  type        = list(map(string))
 }
 
 # verrazzano
