@@ -17,6 +17,22 @@ This module is currently in technical preview. Your ideas and feedback are most 
 ## News
 
 ***
+### July 20: Announcing release v0.0.7
+
+- added support for Thanos and Cluster API
+- added Cluster API documentation
+- upgrade oke module to 5.x branch
+
+***
+### June 28: Announcing release v0.0.6
+
+- added documentation for private endpoints by @hyder in #18
+- added customize dns documentation by @hyder in #19
+- added architecture diagram for managed cluster, control plane by @hyder in #20
+- updated admin templates for using nip.io by @hyder in #22
+- added support for configuring the cni of admin and managed clusters by @hyder in #23
+
+***
 ### June 9 2023: Announcing release v0.0.5
 
 - Configurable Verrazzano components
