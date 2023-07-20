@@ -59,8 +59,9 @@ variable "nodepools" {
   type = any
 }
 
-variable "cloudinit_nodepool_common" {
-  type        = string
+variable "worker_cloud_init" {
+  default     = []
+  type        = list(map(string))
 }
 
 variable "thanos" {

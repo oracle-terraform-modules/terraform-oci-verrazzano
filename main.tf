@@ -25,9 +25,9 @@ module "clusters" {
 
   clusters = var.managed_clusters
 
-  oke_control_plane         = var.oke_control_plane
-  preferred_cni             = var.preferred_cni
-  cloudinit_nodepool_common = var.cloudinit_nodepool_common
+  oke_control_plane = var.oke_control_plane
+  preferred_cni     = var.preferred_cni
+  worker_cloud_init = var.worker_cloud_init
 
   nodepools = var.nodepools
 
@@ -96,9 +96,9 @@ module "verrazzano" {
   verrazzano_load_balancer = var.verrazzano_load_balancer
   all_cluster_ids          = merge({ lookup(var.admin_region, "admin_name", "admin") = module.admin.cluster_id }, local.managed_clusters)
   managed_cluster_ids      = local.managed_clusters
-  int_nsg_ids              = merge({ lookup(var.admin_region, "admin_name", "admin") = lookup(module.admin.nsg_ids, "int_lb") }, module.clusters.int_nsg_ids)
-  int_lb_subnet_ids        = merge({ lookup(var.admin_region, "admin_name", "admin") = lookup(module.admin.subnet_ids, "int_lb") }, module.clusters.int_lb_subnet_ids)
-  pub_nsg_ids              = merge({ lookup(var.admin_region, "admin_name", "admin") = lookup(module.admin.nsg_ids, "pub_lb") }, module.clusters.pub_nsg_ids)
+  int_nsg_ids              = merge({ lookup(var.admin_region, "admin_name", "admin") = module.admin.int_lb_nsg_id }, module.clusters.int_nsg_ids)
+  int_lb_subnet_ids        = merge({ lookup(var.admin_region, "admin_name", "admin") = module.admin.int_lb_subnet_id }, module.clusters.int_lb_subnet_ids)
+  pub_nsg_ids              = merge({ lookup(var.admin_region, "admin_name", "admin") = module.admin.pub_lb_nsg_id }, module.clusters.pub_nsg_ids)
 
   # verrazzano components
   argocd                = var.argocd
@@ -137,4 +137,3 @@ module "verrazzano" {
 
   count = tobool(var.get_kubeconfigs) ? 1 : 0
 }
-

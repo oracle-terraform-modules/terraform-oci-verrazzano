@@ -1,10 +1,9 @@
 [uri-changelog]: https://github.com/oracle-terraform-modules/terraform-oci-verrazzano/blob/main/docs/CHANGELOG.md
 [uri-docs]: https://github.com/oracle-terraform-modules/terraform-oci-verrazzano/blob/main/docs/content/docs
-[uri-multi-cluster]: https://github.com/oracle-terraform-modules/terraform-oci-verrazzano/blob/main/docs/content/docs/3.-multi-cluster.md
-[uri-single-cluster-dev]: https://github.com/oracle-terraform-modules/terraform-oci-verrazzano/blob/main/docs/content/docs/1.-single-cluster-dev.md
-[uri-single-cluster-prod]: https://github.com/oracle-terraform-modules/terraform-oci-verrazzano/blob/main/docs/content/docs/2.-single-cluster-prod.md
+[uri-single-cluster-dev]: https://github.com/oracle-terraform-modules/terraform-oci-verrazzano/blob/main/docs/src/single/dev.md
+[uri-single-cluster-prod]: https://github.com/oracle-terraform-modules/terraform-oci-verrazzano/blob/main/docs/src/single/production.md
 [uri-terraform-oci-oke]: https://github.com/oracle-terraform-modules/terraform-oci-oke
-[uri-terraform-options]: https://github.com/oracle-terraform-modules/terraform-oci-verrazzano/blob/main/docs/content/docs/5.-terraform-options.md
+[uri-terraform-options]: https://github.com/oracle-terraform-modules/terraform-oci-verrazzano/blob/main/docs/src/terraformoptions.md
 [uri-verrazzano]: https://verrazzano.io
 [uri-verrazzano-medium]: https://medium.com/verrazzano
 [uri-verrazzano-slack]: https://bit.ly/3gOeRJn
@@ -18,7 +17,6 @@ This module automates the installation of [Verrazzano Container Platform][uri-ve
 
 * [Create a single cluster with dev profile][uri-single-cluster-dev]
 * [Create a single cluster with production profile][uri-single-cluster-prod]
-* [Create a multi-cluster][uri-multi-cluster]
 * [Terraform Options][uri-terraform-options]
 
 
