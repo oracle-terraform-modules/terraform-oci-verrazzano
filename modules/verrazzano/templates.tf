@@ -213,6 +213,9 @@ locals {
         mesh_network        = k
         prometheus          = var.prometheus
         prometheus_operator = var.prometheus_operator
+        thanos_enabled      = tobool(lookup(var.thanos, "thanos_enabled", "false"))
+        thanos_integration  = lookup(var.thanos, "integration", "sidecar")
+        storage_gateway     = tobool(lookup(var.thanos, "storage_gateway", "false"))
         velero              = var.velero
         weblogic_operator   = var.weblogic_operator
       }
