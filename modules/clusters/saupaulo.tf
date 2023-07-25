@@ -15,12 +15,11 @@
 #   # general oci parameters
 #   compartment_id = var.compartment_id
 
-#   # ssh keys
-#   ssh_private_key_path = "~/.ssh/id_rsa"
-#   ssh_public_key_path  = "~/.ssh/id_rsa.pub"
+#   # ssh key
+#   ssh_public_key_path  = var.ssh_public_key_path
 
 #   # networking
-#   #   create_drg       = true
+#   create_drg       = true
 #   drg_display_name = "saupaulo"
 
 #   #   remote_peering_connections = var.connectivity_mode == "mesh" ? { for k, v in merge({ "admin" = true }, var.clusters) : "rpc-to-${k}" => {} if tobool(v) && k != "saupaulo" } : { "rpc-to-admin" : {} }
