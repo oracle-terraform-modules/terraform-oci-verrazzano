@@ -58,4 +58,7 @@ locals {
   }
 
   managed_clusters = { for k,v in module.clusters.cluster_ids: k => v if v != null }
+  cluster_int_nsg_ids = { for k,v in module.clusters.int_nsg_ids: k => one(v) if v != null }
+  cluster_int_lb_subnet_ids = { for k,v in module.clusters.int_lb_subnet_ids: k => one(v) if v != null }
+  cluster_pub_nsg_ids = { for k,v in module.clusters.pub_nsg_ids: k => one(v) if v != null }  
 }

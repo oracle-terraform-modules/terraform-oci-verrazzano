@@ -9,19 +9,19 @@ locals {
     for cluster_name, cluster_id in var.all_cluster_ids :
     cluster_name => templatefile("${path.module}/scripts/generate_kubeconfig.template.sh",
       {
-        cluster_id = cluster_id
+        cluster_id = element(cluster_id, 0)
         endpoint   = var.oke_control_plane == "public" ? "PUBLIC_ENDPOINT" : "PRIVATE_ENDPOINT"
         region     = lookup(local.all_regions, cluster_name)
       }
-    ) 
+    )
   }
 
   set_credentials_templates = {
     for cluster_name, cluster_id in var.all_cluster_ids :
     cluster_name => templatefile("${path.module}/scripts/kubeconfig_set_credentials.template.sh",
       {
-        cluster_id = cluster_id
-        cluster_id_11 = substr(cluster_id, (length(cluster_id) - 11), length(cluster_id))
+        cluster_id    = element(cluster_id, 0)
+        cluster_id_11 = substr(element(cluster_id, 0), (length(element(cluster_id, 0)) - 11), length(element(cluster_id, 0)))
         region        = lookup(local.all_regions, cluster_name)
       }
     )
@@ -32,7 +32,7 @@ locals {
     cluster_name => templatefile("${path.module}/scripts/set_alias.template.sh",
       {
         cluster       = cluster_name
-        cluster_id_11 = substr(cluster_id, (length(cluster_id) - 11), length(cluster_id))
+        cluster_id_11 = substr(element(cluster_id, 0), (length(element(cluster_id, 0)) - 11), length(element(cluster_id, 0)))
       }
     )
   }
@@ -124,7 +124,7 @@ locals {
       profile               = var.verrazzano_profile
       argocd                = var.argocd
       cluster               = local.admin_region_name
-      cluster_api           = var.cluster_api      
+      cluster_api           = var.cluster_api
       coherence             = var.coherence
       console               = var.console
       environment           = "${var.label_prefix}-${local.admin_region_name}"
@@ -174,8 +174,8 @@ locals {
         lb_shape            = lookup(var.verrazzano_load_balancer, "shape")
         flex_min            = lookup(var.verrazzano_load_balancer, "flex_min")
         flex_max            = lookup(var.verrazzano_load_balancer, "flex_max")
-        int_nsg_id          = lookup(var.int_nsg_ids, k,"")
-        int_lb_subnet_id    = lookup(var.int_lb_subnet_ids, k,"")
+        int_nsg_id          = lookup(var.int_nsg_ids, k, "")
+        int_lb_subnet_id    = lookup(var.int_lb_subnet_ids, k, "")
         jaeger              = var.jaeger
         kiali               = var.kiali
         kube_state_metrics  = var.kube_state_metrics
