@@ -51,24 +51,24 @@ variable "verrazzano_load_balancer" {
 }
 
 variable "all_cluster_ids" {
-  type = map(list(string))
+  type = map(string)
 }
 
 
 variable "managed_cluster_ids" {
-  type = map(list(string))
+  type = map(string)
 }
 
 variable "int_nsg_ids" {
-  type = map(any)
+  type = map(string)
 }
 
 variable "int_lb_subnet_ids" {
-  type = map(any)
+  type = map(string)
 }
 
 variable "pub_nsg_ids" {
-  type = map(any)
+  type = map(string)
 }
 
 # verrazzano

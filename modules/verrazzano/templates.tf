@@ -9,7 +9,7 @@ locals {
     for cluster_name, cluster_id in var.all_cluster_ids :
     cluster_name => templatefile("${path.module}/scripts/generate_kubeconfig.template.sh",
       {
-        cluster_id = element(cluster_id, 0)
+        cluster_id = cluster_id
         endpoint   = var.oke_control_plane == "public" ? "PUBLIC_ENDPOINT" : "PRIVATE_ENDPOINT"
         region     = lookup(local.all_regions, cluster_name)
       }
@@ -20,8 +20,8 @@ locals {
     for cluster_name, cluster_id in var.all_cluster_ids :
     cluster_name => templatefile("${path.module}/scripts/kubeconfig_set_credentials.template.sh",
       {
-        cluster_id    = element(cluster_id, 0)
-        cluster_id_11 = substr(element(cluster_id, 0), (length(element(cluster_id, 0)) - 11), length(element(cluster_id, 0)))
+        cluster_id    = cluster_id
+        cluster_id_11 = substr(cluster_id, (length(cluster_id) - 11), length(cluster_id))
         region        = lookup(local.all_regions, cluster_name)
       }
     )
@@ -32,7 +32,7 @@ locals {
     cluster_name => templatefile("${path.module}/scripts/set_alias.template.sh",
       {
         cluster       = cluster_name
-        cluster_id_11 = substr(element(cluster_id, 0), (length(element(cluster_id, 0)) - 11), length(element(cluster_id, 0)))
+        cluster_id_11 = substr(cluster_id, (length(cluster_id) - 11), length(cluster_id))
       }
     )
   }
@@ -219,7 +219,7 @@ locals {
         velero              = var.velero
         weblogic_operator   = var.weblogic_operator
       }
-    ) if(var.install_verrazzano == true)
+    ) if(var.install_verrazzano == true && tobool(var.configure_dns) == false)
   }
 
   install_managed_vz_script = {

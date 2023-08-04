@@ -73,13 +73,13 @@ module "admin" {
 
   #subnets
   subnets = {
-    bastion  = { newbits = 13, dns_label = "bastion" }
-    operator = { newbits = 13, dns_label = "operator" }
-    cp       = { newbits = 13, dns_label = "cp" }
-    int_lb   = { newbits = 11, dns_label = "ilb" }
-    pub_lb   = { newbits = 11, dns_label = "plb" }
-    workers  = { newbits = 2, dns_label = "workers" }
-    pods     = { newbits = 2, dns_label = "pods" }
+    bastion  = { newbits = 13, netnum = 0, dns_label = "bastion" }
+    operator = { newbits = 13, netnum = 1, dns_label = "operator" }
+    cp       = { newbits = 13, netnum = 2, dns_label = "cp" }
+    int_lb   = { newbits = 11, netnum = 16, dns_label = "ilb" }
+    pub_lb   = { newbits = 11, netnum = 17, dns_label = "plb" }
+    workers  = { newbits = 2, netnum = 1, dns_label = "workers" }
+    pods     = { newbits = 2, netnum = 2, dns_label = "pods" }
   }
   # bastion host
   create_bastion        = true
