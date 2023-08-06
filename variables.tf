@@ -136,7 +136,7 @@ variable "admin_region" {
 }
 
 variable "kubernetes_version" {
-  default     = "v1.24.1"
+  default     = "v1.26.2"
   description = "The version of Kubernetes to use."
   type        = string
 }
@@ -253,7 +253,7 @@ variable "install_verrazzano" {
 }
 
 variable "verrazzano_version" {
-  default     = "1.6.0"
+  default     = "1.6.3"
   description = "Verrazzano version to install"
   type        = string
 }

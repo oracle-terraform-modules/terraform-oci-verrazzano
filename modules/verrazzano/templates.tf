@@ -114,7 +114,7 @@ locals {
     prometheus            = var.prometheus
     prometheus_operator   = var.prometheus_operator
     rancher               = var.rancher
-    thanos_enabled        = tobool(lookup(var.thanos, "thanos_enabled", "false"))
+    thanos_enabled        = tobool(lookup(var.thanos, "enabled", "false"))
     thanos_integration    = lookup(var.thanos, "integration", "sidecar")
     storage_gateway       = tobool(lookup(var.thanos, "storage_gateway", "false"))
     velero                = var.velero
@@ -148,7 +148,7 @@ locals {
       opensearch_dashboards = var.opensearch_dashboards
       prometheus            = var.prometheus
       prometheus_operator   = var.prometheus_operator
-      thanos_enabled        = tobool(lookup(var.thanos, "thanos_enabled", "false"))
+      thanos_enabled        = tobool(lookup(var.thanos, "enabled", "false"))
       thanos_integration    = lookup(var.thanos, "integration", "sidecar")
       storage_gateway       = tobool(lookup(var.thanos, "storage_gateway", "false"))
       rancher               = var.rancher
