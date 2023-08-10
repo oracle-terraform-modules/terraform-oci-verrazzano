@@ -283,6 +283,8 @@ locals {
     }) if tobool(lookup(var.thanos, "enabled", "false")) && v != ""
   }
 
+  capi_template = templatefile("${path.module}/resources/capi-oke.template.yaml", {})
+
   token_helper_template = templatefile("${path.module}/scripts/token_helper.template.sh", {})
 
   vz_access_template = templatefile("${path.module}/scripts/get_vz_access.template.sh", {})

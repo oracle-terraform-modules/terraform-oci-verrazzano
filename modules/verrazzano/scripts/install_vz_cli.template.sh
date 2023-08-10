@@ -10,3 +10,10 @@ sudo cp verrazzano-${version}/bin/vz /usr/local/bin
 
 rm -f verrazzano-${version}-linux-amd64.tar.gz
 rm -rf verrazzano-${version}
+
+curl -L https://github.com/kubernetes-sigs/cluster-api/releases/download/v1.5.0/clusterctl-linux-amd64 -o clusterctl
+chmod +x clusterctl
+sudo mv clusterctl /usr/local/bin
+
+curl -L https://istio.io/downloadIstio | sh -
+sudo cp istio-1.18.2/bin/istioctl /usr/local/bin

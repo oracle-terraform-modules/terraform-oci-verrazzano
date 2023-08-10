@@ -186,4 +186,6 @@ module "admin_drg" {
   providers = {
     oci = oci.sydney
   }
+
+  count = tobool(lookup(var.admin_region, "create_drg", "false")) ? 1 : 0
 }

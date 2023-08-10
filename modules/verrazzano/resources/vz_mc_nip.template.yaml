@@ -84,3 +84,4 @@ spec:
       enabled: ${velero}
     weblogicOperator:
       enabled: ${weblogic_operator}
+      

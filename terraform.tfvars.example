@@ -30,7 +30,7 @@ admin_region = {
 
 get_kubeconfigs = false
 
-kubernetes_version = "v1.24.1"
+kubernetes_version = "v1.26.2"
 
 oke_control_plane = "public"
 
@@ -101,7 +101,7 @@ cloudinit_nodepool_common = "./cloudinit.sh"
 
 # verrazzano
 install_verrazzano = false
-verrazzano_version = "1.6.0"
+verrazzano_version = "1.6.3"
 verrazzano_profile = "prod"
 
 # ingress-nginx

@@ -26,7 +26,7 @@ resource "null_resource" "create_api_cm" {
 
   # provisioner "remote-exec" {
   #   inline = [
-  #     "if [ -f \"$HOME/vz/cm/create_api_cm.sh.sh\" ]; then bash \"$HOME/vz/cm/create_api_cm.sh.sh\";sleep 10;fi",
+  #     "if [ -f \"$HOME/vz/cm/create_api_cm.sh\" ]; then bash \"$HOME/vz/cm/create_api_cm.sh\";sleep 10;fi",
   #   ]
   # }
 

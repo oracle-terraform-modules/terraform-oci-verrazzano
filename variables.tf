@@ -132,6 +132,7 @@ variable "admin_region" {
     vcn_cidr   = "10.0.0.0/16"
     pods       = "10.244.0.0/16"
     services   = "10.96.0.0/16"
+    create_drg = "true"
   }
 }
 
