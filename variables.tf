@@ -227,7 +227,7 @@ variable "nodepools" {
       shape            = "VM.Standard.E4.Flex",
       ocpus            = 2,
       memory           = 32,
-      node_pool_size   = 3,
+      size             = 3,
       boot_volume_size = 150,
     }
   }
