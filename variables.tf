@@ -127,12 +127,13 @@ variable "admin_region" {
   description = "The region parameters of the Admin cluster. In case a single cluster is created, the Admin region is used for the single cluster."
   type        = map(any)
   default = {
-    admin_name = "admin"
-    region     = "Sydney"
-    vcn_cidr   = "10.0.0.0/16"
-    pods       = "10.244.0.0/16"
-    services   = "10.96.0.0/16"
-    create_drg = "true"
+    admin_name   = "admin"
+    allowed_cidr = "0.0.0.0/0" # for the public nsg. leave as anywhere for dev, restrict for other env. 
+    region       = "Sydney"
+    vcn_cidr     = "10.0.0.0/16"
+    pods         = "10.244.0.0/16"
+    services     = "10.96.0.0/16"
+    create_drg   = "true"
   }
 }
 

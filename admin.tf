@@ -26,10 +26,9 @@ locals {
 }
 
 module "admin" {
-  # source  = "oracle-terraform-modules/oke/oci"
-  # version = "4.5.9"
 
-  source = "github.com/oracle-terraform-modules/terraform-oci-oke?ref=5.x&depth=1"
+  source  = "oracle-terraform-modules/oke/oci"
+  version = "5.0.0-RC2"
 
   home_region = local.admin_region
   region      = local.admin_region
@@ -83,9 +82,8 @@ module "admin" {
   }
   # bastion host
   create_bastion        = true
+  bastion_allowed_cidrs = ["0.0.0.0/0"]  
   bastion_upgrade       = false
-  bastion_allowed_cidrs = ["0.0.0.0/0"]
-
 
   # operator host
   create_operator            = true
@@ -107,11 +105,8 @@ module "admin" {
   # node pools
   kubeproxy_mode   = "ipvs"
   worker_pool_mode = "node-pool"
-
   worker_pools = var.nodepools
-
   worker_cloud_init = var.worker_cloud_init
-
   worker_image_type = "oke"
 
   # oke load balancers
@@ -132,7 +127,7 @@ module "admin" {
     for p in local.public_lb_allowed_ports :
 
     format("Allow ingress to port %v", p) => {
-      protocol = local.tcp_protocol, port = p, source = "10.0.0.0/16", source_type = local.rule_type_cidr,
+      protocol = local.tcp_protocol, port = p, source = lookup(var.admin_region, "allowed_cidr"), source_type = local.rule_type_cidr,
     }
   }
 
@@ -182,7 +177,6 @@ module "admin_drg" {
     for k, v in var.managed_clusters : "rpc-to-${k}" => {} if tobool(v)
   }
 
-  # count = var.create_drg || var.drg_id != null ? 1 : 0
   providers = {
     oci = oci.sydney
   }

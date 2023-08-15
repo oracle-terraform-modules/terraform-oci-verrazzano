@@ -307,7 +307,7 @@ for cluster in admin phoenix; do
 done
 ```
 
-3. Obtain the manifest for DNS:
+3. Obtain the manifest for DNS. Follow [the instructions](../advanced/dns.md) to configure a secret for DNS.
 
 ```bash
 cd /home/opc/vz/oci
@@ -323,7 +323,7 @@ for cluster in admin phoenix ; do
 done
 ```
 
-5. If you are using Thanos, configure your secret for OCI Object Storage now. For each enabled cluster, a storage file is created. Edit them and enter the following and create a secret:
+5. If you are using Thanos, [configure your secret for OCI Object Storage now](../advanced/thanos.md). For each enabled cluster, a storage file is created. Edit them and enter the following and create a secret:
 
   - compartment_ocid
   - region
