@@ -28,7 +28,7 @@ locals {
 module "admin" {
 
   source  = "oracle-terraform-modules/oke/oci"
-  version = "5.0.0-RC2"
+  version = "5.0.0-RC3"
 
   home_region = local.admin_region
   region      = local.admin_region
@@ -80,9 +80,10 @@ module "admin" {
     workers  = { newbits = 2, netnum = 1, dns_label = "workers" }
     pods     = { newbits = 2, netnum = 2, dns_label = "pods" }
   }
+
   # bastion host
   create_bastion        = true
-  bastion_allowed_cidrs = ["0.0.0.0/0"]  
+  bastion_allowed_cidrs = ["0.0.0.0/0"]
   bastion_upgrade       = false
 
   # operator host
@@ -103,9 +104,9 @@ module "admin" {
 
 
   # node pools
-  kubeproxy_mode   = "ipvs"
-  worker_pool_mode = "node-pool"
-  worker_pools = var.nodepools
+  kubeproxy_mode    = "ipvs"
+  worker_pool_mode  = "node-pool"
+  worker_pools      = var.nodepools
   worker_cloud_init = var.worker_cloud_init
   worker_image_type = "oke"
 
@@ -122,12 +123,12 @@ module "admin" {
   }
   # internal_lb_allowed_ports = var.connectivity_mode == "mesh" ? [80, 443, 15012, 15017, 15021, 15443] : [80, 443]
   # TODO: allow configuration of source cidr
-  allow_rules_public_lb = {
 
+  allow_rules_public_lb = {
     for p in local.public_lb_allowed_ports :
 
     format("Allow ingress to port %v", p) => {
-      protocol = local.tcp_protocol, port = p, source = lookup(var.admin_region, "allowed_cidr"), source_type = local.rule_type_cidr,
+      protocol = local.tcp_protocol, port = p, source = "0.0.0.0/0", source_type = local.rule_type_cidr,
     }
   }
 

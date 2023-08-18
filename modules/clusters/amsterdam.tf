@@ -3,7 +3,7 @@
 
 # module "amsterdam" {
 #   #   source  = "oracle-terraform-modules/oke/oci"
-#   #   version = "4.5.9"
+#   #   version = "5.0.0-RC3"
 
 #   source = "github.com/oracle-terraform-modules/terraform-oci-oke?ref=5.x&depth=1"
 
@@ -103,7 +103,7 @@
 #     for p in local.public_lb_allowed_ports :
 
 #     format("Allow ingress to port %v", p) => {
-#       protocol = local.tcp_protocol, port = p, source = "10.0.0.0/16", source_type = local.rule_type_cidr,
+#       protocol = local.tcp_protocol, port = p, source = "0.0.0.0/0", source_type = local.rule_type_cidr,
 #     }
 #   }
 
