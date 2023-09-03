@@ -143,6 +143,17 @@ variable "kubernetes_version" {
   type        = string
 }
 
+variable "cluster_type" {
+  default = "basic"
+  description = "whether to use basic or enhanced clusters"
+  type = string
+
+  validation {
+    condition     = contains(["basic", "enhanced"], lower(var.cluster_type))
+    error_message = "Accepted values are 'basic' or 'enhanced'."
+  }  
+}
+
 variable "oke_control_plane" {
   default     = "public"
   description = "Whether to keep all OKE control planes public or private."
@@ -255,7 +266,7 @@ variable "install_verrazzano" {
 }
 
 variable "verrazzano_version" {
-  default     = "1.6.3"
+  default     = "1.6.5"
   description = "Verrazzano version to install"
   type        = string
 }
@@ -449,5 +460,17 @@ variable "mesh_id" {
 variable "istio_model" {
   default     = "single"
   description = "The deployment model of Istio to use when using multiple clusters"
+  type        = string
+}
+
+variable "dev_prom_operator" {
+  default     = ""
+  description = "dev prometheus operator image"
+  type        = string
+}
+
+variable "dev_thanos" {
+  default     = ""
+  description = "dev thanos image"
   type        = string
 }

@@ -28,7 +28,7 @@ locals {
 module "admin" {
 
   source  = "oracle-terraform-modules/oke/oci"
-  version = "5.0.0-RC3"
+  version = "5.0.0-RC4"
 
   home_region = local.admin_region
   region      = local.admin_region
@@ -46,25 +46,25 @@ module "admin" {
   # create_drg       = true
   drg_display_name = lookup(var.admin_region, "admin_name")
 
-  internet_gateway_route_rules = [
-    for c in keys(var.managed_clusters) :
-    {
-      destination       = lookup(lookup(var.cidrs, c), "vcn")
-      destination_type  = "CIDR_BLOCK"
-      network_entity_id = module.admin_drg.drg_id
-      description       = "Routing to allow ssh to ${title(c)}"
-    } if tobool(lookup(var.managed_clusters, c))
-  ]
+  # internet_gateway_route_rules = [
+  #   for c in keys(var.managed_clusters) :
+  #   {
+  #     destination       = lookup(lookup(var.cidrs, c), "vcn")
+  #     destination_type  = "CIDR_BLOCK"
+  #     network_entity_id = one(module.admin_drg[*].drg_id)
+  #     description       = "Routing to allow ssh to ${title(c)}"
+  #   } if tobool(lookup(var.managed_clusters, c))
+  # ]
 
-  nat_gateway_route_rules = [
-    for c in keys(var.managed_clusters) :
-    {
-      destination       = lookup(lookup(var.cidrs, c), "vcn")
-      destination_type  = "CIDR_BLOCK"
-      network_entity_id = module.admin_drg.drg_id
-      description       = "Routing to allow connectivity to ${title(c)} cluster"
-    } if tobool(lookup(var.managed_clusters, c))
-  ]
+  # nat_gateway_route_rules = [
+  #   for c in keys(var.managed_clusters) :
+  #   {
+  #     destination       = lookup(lookup(var.cidrs, c), "vcn")
+  #     destination_type  = "CIDR_BLOCK"
+  #     network_entity_id = one(module.admin_drg[*].drg_id)
+  #     description       = "Routing to allow connectivity to ${title(c)} cluster"
+  #   } if tobool(lookup(var.managed_clusters, c))
+  # ]
 
   vcn_cidrs     = [lookup(var.admin_region, "vcn_cidr")]
   vcn_dns_label = lookup(var.admin_region, "admin_name")
@@ -95,6 +95,7 @@ module "admin" {
 
   # oke cluster options
   cluster_name                = lookup(var.admin_region, "admin_name")
+  cluster_type                = var.cluster_type
   cni_type                    = var.preferred_cni
   control_plane_is_public     = var.oke_control_plane == "public"
   control_plane_allowed_cidrs = [local.anywhere]
@@ -142,7 +143,7 @@ module "admin" {
 
 resource "oci_objectstorage_bucket" "thanos_admin" {
   compartment_id = var.compartment_id
-  name           = "${lookup(var.admin_region, "admin_name")}-${lookup(var.thanos, "bucket_name", "thanos")}"
+  name           = "${var.label_prefix}-${lookup(var.thanos, "bucket_name", "thanos")}"
   namespace      = lookup(var.thanos, "bucket_namespace")
 
   provider = oci.sydney

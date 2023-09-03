@@ -21,12 +21,13 @@ connectivity_mode = "star"
 
 # clusters
 admin_region = {
-  admin_name = "admin"
+  admin_name   = "admin"
   allowed_cidr = "0.0.0.0/0" # for the public nsg. leave as anywhere for dev, restrict for other env. 
-  region     = "Sydney"
-  vcn_cidr   = "10.0.0.0/16"
-  pods       = "10.200.0.0/16"
-  services   = "10.100.0.0/16"
+  region       = "Sydney"
+  vcn_cidr     = "10.0.0.0/16"
+  pods         = "10.200.0.0/16"
+  services     = "10.100.0.0/16"
+  create_drg   = "true"
 }
 
 get_kubeconfigs = false

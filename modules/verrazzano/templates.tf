@@ -92,7 +92,7 @@ locals {
     compartment_id        = var.dns_compartment_id
     dns_zone_id           = var.dns_zone_id
     dns_zone_name         = var.dns_zone_name
-    environment           = "${var.label_prefix}-${local.admin_region_name}"
+    environment           = local.admin_region_name
     fluentd               = var.fluentd
     grafana               = var.grafana
     control_plane         = var.verrazzano_control_plane == "public" ? false : true
@@ -116,6 +116,8 @@ locals {
     rancher               = var.rancher
     thanos_enabled        = tobool(lookup(var.thanos, "enabled", "false"))
     thanos_integration    = lookup(var.thanos, "integration", "sidecar")
+    dev_prom_operator     = var.dev_prom_operator
+    dev_thanos            = var.dev_thanos
     storage_gateway       = tobool(lookup(var.thanos, "storage_gateway", "false"))
     velero                = var.velero
     weblogic_operator     = var.weblogic_operator
@@ -150,6 +152,8 @@ locals {
       prometheus_operator   = var.prometheus_operator
       thanos_enabled        = tobool(lookup(var.thanos, "enabled", "false"))
       thanos_integration    = lookup(var.thanos, "integration", "sidecar")
+      dev_prom_operator     = var.dev_prom_operator
+      dev_thanos            = var.dev_thanos
       storage_gateway       = tobool(lookup(var.thanos, "storage_gateway", "false"))
       rancher               = var.rancher
       velero                = var.velero
@@ -183,8 +187,10 @@ locals {
         mesh_network        = k
         prometheus          = var.prometheus
         prometheus_operator = var.prometheus_operator
-        thanos_enabled      = tobool(lookup(var.thanos, "thanos_enabled", "false"))
+        thanos_enabled      = tobool(lookup(var.thanos, "enabled", "false"))
         thanos_integration  = lookup(var.thanos, "integration", "sidecar")
+        dev_prom_operator   = var.dev_prom_operator
+        dev_thanos          = var.dev_thanos
         storage_gateway     = tobool(lookup(var.thanos, "storage_gateway", "false"))
         velero              = var.velero
         weblogic_operator   = var.weblogic_operator
@@ -213,8 +219,10 @@ locals {
         mesh_network        = k
         prometheus          = var.prometheus
         prometheus_operator = var.prometheus_operator
-        thanos_enabled      = tobool(lookup(var.thanos, "thanos_enabled", "false"))
+        thanos_enabled      = tobool(lookup(var.thanos, "enabled", "false"))
         thanos_integration  = lookup(var.thanos, "integration", "sidecar")
+        dev_prom_operator   = var.dev_prom_operator
+        dev_thanos          = var.dev_thanos
         storage_gateway     = tobool(lookup(var.thanos, "storage_gateway", "false"))
         velero              = var.velero
         weblogic_operator   = var.weblogic_operator
@@ -275,13 +283,18 @@ locals {
     }) if tobool(var.install_verrazzano)
   }
 
+  thanos_template = var.cluster_type == "basic" ? "thanos-storage.template.yaml" : "thanos-enhanced.template.yaml"
+
   thanos_storage_templates = {
     for k, v in var.all_cluster_ids :
-    k => templatefile("${path.module}/resources/thanos-storage.template.yaml", {
-      region      = lookup(local.all_regions, k)
-      bucket_name = lookup(var.thanos, "bucket_name", "thanos")
+    # k => templatefile("${path.module}/resources/thanos-storage.template.yaml", {
+    k => templatefile("${path.module}/resources/${local.thanos_template}", {
+      label_prefix = var.label_prefix
+      region       = lookup(local.all_regions, k)
+      bucket_name  = lookup(var.thanos, "bucket_name", "thanos")
     }) if tobool(lookup(var.thanos, "enabled", "false")) && v != ""
   }
+
 
   capi_template = templatefile("${path.module}/resources/capi-oke.template.yaml", {})
 

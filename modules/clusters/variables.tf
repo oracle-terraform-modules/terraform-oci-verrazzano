@@ -47,6 +47,10 @@ variable "clusters" {
   type = map(bool)
 }
 
+variable "cluster_type" {
+  type = string
+}
+
 variable "oke_control_plane" {
   type = string
 }

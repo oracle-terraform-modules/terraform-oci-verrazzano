@@ -337,7 +337,7 @@ cd /home/opc/vz/clusters
 for cluster in admin phoenix; do
   kubectx $cluster
   kubectl create namespace verrazzano-monitoring
-  kubectl create secret generic objstore-config -n verrazzano-monitoring --from-file=objstore.yml=thanos_$cluster_storage.yaml
+  kubectl create secret generic objstore-config -n verrazzano-monitoring --from-file=objstore.yml=thanos_${cluster}_storage.yaml
 done
 
 ```  

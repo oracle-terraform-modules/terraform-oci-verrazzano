@@ -2,7 +2,7 @@
 # Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl
 
 variable "label_prefix" {
-  type        = string
+  type = string
 }
 
 variable "bastion_ip" {
@@ -13,6 +13,10 @@ variable "operator_ip" {
 }
 
 variable "ssh_private_key_path" {
+  type = string
+}
+
+variable "cluster_type" {
   type = string
 }
 
@@ -205,5 +209,13 @@ variable "mesh_id" {
 variable "istio_model" {
   default     = "single"
   description = "The deployment model of Istio to use when deploying multiple clusters"
-  type        = string  
+  type        = string
+}
+
+variable "dev_prom_operator" {
+  type        = string
+}
+
+variable "dev_thanos" {
+  type        = string
 }

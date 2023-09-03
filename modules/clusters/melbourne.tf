@@ -2,10 +2,8 @@
 # Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl
 
 module "melbourne" {
-  #   source  = "oracle-terraform-modules/oke/oci"
-  #   version = "5.0.0-RC3"
-
-  source = "github.com/oracle-terraform-modules/terraform-oci-oke?ref=5.x&depth=1"
+  source  = "oracle-terraform-modules/oke/oci"
+  version = "5.0.0-RC4"
 
   home_region = var.home_region
   region      = local.regions["melbourne"]
@@ -16,7 +14,7 @@ module "melbourne" {
   compartment_id = var.compartment_id
 
   # ssh key
-  ssh_public_key_path  = var.ssh_public_key_path
+  ssh_public_key_path = var.ssh_public_key_path
 
   # networking
   create_drg       = true
@@ -24,21 +22,21 @@ module "melbourne" {
 
   #   remote_peering_connections = var.connectivity_mode == "mesh" ? { for k, v in merge({ "admin" = true }, var.clusters) : "rpc-to-${k}" => {} if tobool(v) && k != "melbourne" } : { "rpc-to-admin" : {} }
 
-  nat_gateway_route_rules = concat([
-    {
-      destination       = lookup(var.admin_region, "vcn_cidr")
-      destination_type  = "CIDR_BLOCK"
-      network_entity_id = "drg"
-      description       = "To Admin"
-    }], var.connectivity_mode == "mesh" ?
-    [for c in keys(var.clusters) :
-      {
-        destination       = lookup(lookup(var.cidrs, c), "vcn")
-        destination_type  = "CIDR_BLOCK"
-        network_entity_id = "drg"
-        description       = "Routing to allow connectivity to ${title(c)} cluster"
-    } if tobool(lookup(var.clusters, c) && c != "melbourne")] : []
-  )
+  # nat_gateway_route_rules = concat([
+  #   {
+  #     destination       = lookup(var.admin_region, "vcn_cidr")
+  #     destination_type  = "CIDR_BLOCK"
+  #     network_entity_id = "drg"
+  #     description       = "To Admin"
+  #   }], var.connectivity_mode == "mesh" ?
+  #   [for c in keys(var.clusters) :
+  #     {
+  #       destination       = lookup(lookup(var.cidrs, c), "vcn")
+  #       destination_type  = "CIDR_BLOCK"
+  #       network_entity_id = "drg"
+  #       description       = "Routing to allow connectivity to ${title(c)} cluster"
+  #   } if tobool(lookup(var.clusters, c) && c != "melbourne")] : []
+  # )
 
   vcn_cidrs     = [lookup(lookup(var.cidrs, lower("melbourne")), "vcn")]
   vcn_dns_label = "melbourne"
@@ -46,8 +44,6 @@ module "melbourne" {
 
   #subnets
   subnets = {
-    # bastion  = { newbits = 13, dns_label = "bastion" }
-    # operator = { newbits = 13, dns_label = "operator" }
     cp      = { newbits = 13, dns_label = "cp" }
     int_lb  = { newbits = 11, dns_label = "ilb" }
     pub_lb  = { newbits = 11, dns_label = "plb" }
@@ -59,12 +55,13 @@ module "melbourne" {
   create_bastion = false
 
   # operator host
-  create_operator                    = false
+  create_operator            = false
   create_iam_operator_policy = "never"
 
 
   # oke cluster options
   cluster_name                = "melbourne"
+  cluster_type                = var.cluster_type
   cni_type                    = var.preferred_cni
   control_plane_is_public     = var.oke_control_plane == "public"
   control_plane_allowed_cidrs = [local.anywhere]
@@ -107,8 +104,6 @@ module "melbourne" {
     }
   }
 
-#   user_id = var.user_id
-
   providers = {
     oci      = oci.melbourne
     oci.home = oci.home
@@ -120,7 +115,7 @@ module "melbourne" {
 
 resource "oci_objectstorage_bucket" "thanos_melbourne" {
   compartment_id = var.compartment_id
-  name           = "mel-${lookup(var.thanos, "bucket_name", "thanos")}"
+  name           = "${var.label_prefix}-${lookup(var.thanos, "bucket_name", "thanos")}"
   namespace      = lookup(var.thanos, "bucket_namespace")
 
   provider = oci.melbourne

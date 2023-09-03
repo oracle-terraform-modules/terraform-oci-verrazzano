@@ -24,4 +24,6 @@ locals {
   # Todo verify if we need 15021 open for public
   public_lb_allowed_ports = [80, 443, 15021]
 
+  thanos_policy_statement = "Allow any-user to manage objects in compartment id %s where all {request.principal.type='workload',request.principal.cluster_id='%s',request.principal.service_account='thanos-storegateway'}"
+
 }

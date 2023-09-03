@@ -57,8 +57,17 @@ locals {
     toronto   = "ca-toronto-1"
   }
 
-  managed_clusters = { for k,v in module.clusters.cluster_ids: k => v if v != null }
-  cluster_int_nsg_ids = { for k,v in module.clusters.int_nsg_ids: k => v if v != null }
-  cluster_int_lb_subnet_ids = { for k,v in module.clusters.int_lb_subnet_ids: k => v if v != null }
-  cluster_pub_nsg_ids = { for k,v in module.clusters.pub_nsg_ids: k => v if v != null }  
+  all_clusters              = merge({ lookup(var.admin_region, "admin_name", "admin") = module.admin.cluster_id }, local.managed_clusters)
+  managed_clusters          = { for k, v in module.clusters.cluster_ids : k => v if v != null }
+  cluster_int_nsg_ids       = { for k, v in module.clusters.int_nsg_ids : k => v if v != null }
+  cluster_int_lb_subnet_ids = { for k, v in module.clusters.int_lb_subnet_ids : k => v if v != null }
+  cluster_pub_nsg_ids       = { for k, v in module.clusters.pub_nsg_ids : k => v if v != null }
+
+
+  thanos_enhanced_template = "Allow any-user to manage objects in compartment id %s where all {request.principal.type='workload',request.principal.cluster_id='%s',request.principal.service_account='thanos-storegateway'}"
+
+  thanos_policy_statement = var.cluster_type == "enhanced" ? tolist([
+    for cluster in local.all_clusters :
+    formatlist(local.thanos_enhanced_template, var.compartment_id, cluster)
+  ]) : []
 }

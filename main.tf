@@ -25,8 +25,12 @@ module "clusters" {
 
   clusters = var.managed_clusters
 
+  cluster_type = var.cluster_type
+
   oke_control_plane = var.oke_control_plane
-  preferred_cni     = var.preferred_cni
+
+  preferred_cni = var.preferred_cni
+
   worker_cloud_init = var.worker_cloud_init
 
   nodepools = var.nodepools
@@ -82,6 +86,7 @@ module "verrazzano" {
   operator_ip = module.admin.operator_private_ip
 
   ssh_private_key_path = var.ssh_private_key_path
+  cluster_type         = var.cluster_type
 
   # verrazzano
   install_verrazzano = var.install_verrazzano
@@ -130,10 +135,26 @@ module "verrazzano" {
   mesh_id     = var.mesh_id
   istio_model = var.istio_model
 
+  dev_prom_operator = var.dev_prom_operator
+  dev_thanos        = var.dev_thanos
 
   depends_on = [
     module.clusters
   ]
 
   count = tobool(var.get_kubeconfigs) ? 1 : 0
+}
+
+resource "oci_identity_policy" "workload-identity" {
+  provider       = oci.home
+  compartment_id = var.compartment_id
+  description    = format("Workload Identity Policy for OKE clusters to write metrics to Object Storage")
+  name           = format("oke-%v-%s", "thanos", module.admin.state_id)
+  statements     = flatten(local.thanos_policy_statement)
+
+  lifecycle {
+    ignore_changes = [defined_tags, freeform_tags]
+  }
+
+  count = var.cluster_type == "enhanced" ? 1 : 0
 }

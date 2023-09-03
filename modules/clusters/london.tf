@@ -2,10 +2,8 @@
 # # Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl
 
 # module "london" {
-#   #   source  = "oracle-terraform-modules/oke/oci"
-#   #   version = "5.0.0-RC3"
-
-#   source = "github.com/oracle-terraform-modules/terraform-oci-oke?ref=5.x&depth=1"
+#   source  = "oracle-terraform-modules/oke/oci"
+#   version = "5.0.0-RC4"
 
 #   home_region = var.home_region
 #   region      = local.regions["london"]
@@ -46,8 +44,6 @@
 
 #   #subnets
 #   subnets = {
-#     # bastion  = { newbits = 13, dns_label = "bastion" }
-#     # operator = { newbits = 13, dns_label = "operator" }
 #     cp      = { newbits = 13, dns_label = "cp" }
 #     int_lb  = { newbits = 11, dns_label = "ilb" }
 #     pub_lb  = { newbits = 11, dns_label = "plb" }
@@ -65,6 +61,7 @@
 
 #   # oke cluster options
 #   cluster_name                = "london"
+#   cluster_type                = var.cluster_type
 #   cni_type                    = var.preferred_cni
 #   control_plane_is_public     = var.oke_control_plane == "public"
 #   control_plane_allowed_cidrs = [local.anywhere]
@@ -120,7 +117,7 @@
 
 # resource "oci_objectstorage_bucket" "thanos_london" {
 #   compartment_id = var.compartment_id
-#   name           = "mel-${lookup(var.thanos, "bucket_name", "thanos")}"
+#   name           = "${var.label_prefix}-${lookup(var.thanos, "bucket_name", "thanos")}"
 #   namespace      = lookup(var.thanos, "bucket_namespace")
 
 #   provider = oci.london
