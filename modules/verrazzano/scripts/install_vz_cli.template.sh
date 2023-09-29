@@ -16,4 +16,4 @@ chmod +x clusterctl
 sudo mv clusterctl /usr/local/bin
 
 curl -L https://istio.io/downloadIstio | sh -
-sudo cp istio-1.18.2/bin/istioctl /usr/local/bin
+sudo cp istio-1.19.0/bin/istioctl /usr/local/bin

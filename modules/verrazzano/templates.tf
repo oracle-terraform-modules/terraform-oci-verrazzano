@@ -116,8 +116,6 @@ locals {
     rancher               = var.rancher
     thanos_enabled        = tobool(lookup(var.thanos, "enabled", "false"))
     thanos_integration    = lookup(var.thanos, "integration", "sidecar")
-    dev_prom_operator     = var.dev_prom_operator
-    dev_thanos            = var.dev_thanos
     storage_gateway       = tobool(lookup(var.thanos, "storage_gateway", "false"))
     velero                = var.velero
     weblogic_operator     = var.weblogic_operator
@@ -152,8 +150,6 @@ locals {
       prometheus_operator   = var.prometheus_operator
       thanos_enabled        = tobool(lookup(var.thanos, "enabled", "false"))
       thanos_integration    = lookup(var.thanos, "integration", "sidecar")
-      dev_prom_operator     = var.dev_prom_operator
-      dev_thanos            = var.dev_thanos
       storage_gateway       = tobool(lookup(var.thanos, "storage_gateway", "false"))
       rancher               = var.rancher
       velero                = var.velero
@@ -189,8 +185,6 @@ locals {
         prometheus_operator = var.prometheus_operator
         thanos_enabled      = tobool(lookup(var.thanos, "enabled", "false"))
         thanos_integration  = lookup(var.thanos, "integration", "sidecar")
-        dev_prom_operator   = var.dev_prom_operator
-        dev_thanos          = var.dev_thanos
         storage_gateway     = tobool(lookup(var.thanos, "storage_gateway", "false"))
         velero              = var.velero
         weblogic_operator   = var.weblogic_operator
@@ -221,8 +215,6 @@ locals {
         prometheus_operator = var.prometheus_operator
         thanos_enabled      = tobool(lookup(var.thanos, "enabled", "false"))
         thanos_integration  = lookup(var.thanos, "integration", "sidecar")
-        dev_prom_operator   = var.dev_prom_operator
-        dev_thanos          = var.dev_thanos
         storage_gateway     = tobool(lookup(var.thanos, "storage_gateway", "false"))
         velero              = var.velero
         weblogic_operator   = var.weblogic_operator
@@ -287,11 +279,10 @@ locals {
 
   thanos_storage_templates = {
     for k, v in var.all_cluster_ids :
-    # k => templatefile("${path.module}/resources/thanos-storage.template.yaml", {
     k => templatefile("${path.module}/resources/${local.thanos_template}", {
       label_prefix = var.label_prefix
       region       = lookup(local.all_regions, k)
-      bucket_name  = lookup(var.thanos, "bucket_name", "thanos")
+      bucket_name  = "${var.label_prefix}-${lookup(var.thanos, "bucket_name", "thanos")}"
     }) if tobool(lookup(var.thanos, "enabled", "false")) && v != ""
   }
 

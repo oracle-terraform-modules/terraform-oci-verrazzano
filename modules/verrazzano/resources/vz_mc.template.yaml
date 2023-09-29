@@ -107,7 +107,6 @@ spec:
               integration: sidecar
             prometheusSpec:
               thanos:
-                image: ${dev_prom_operator}
                 objectStorageConfig:
                   name: objstore-config
                   key: objstore.yml
@@ -116,10 +115,6 @@ spec:
       overrides:
       - values:
           existingObjstoreSecret: objstore-config
-          image:
-            registry: phx.ocir.io
-            repository: ${dev_thanos}
-            tag: 0.32.0
           storagegateway:
             enabled: ${storage_gateway}
     velero:

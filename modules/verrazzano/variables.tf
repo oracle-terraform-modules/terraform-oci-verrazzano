@@ -211,11 +211,3 @@ variable "istio_model" {
   description = "The deployment model of Istio to use when deploying multiple clusters"
   type        = string
 }
-
-variable "dev_prom_operator" {
-  type        = string
-}
-
-variable "dev_thanos" {
-  type        = string
-}

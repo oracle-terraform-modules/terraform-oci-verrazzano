@@ -1,5 +1,5 @@
 type: OCI
 config:
   provider: "oke-workload-identity"
-  bucket: "${label_prefix}-thanos"
+  bucket: ${bucket_name}
   region: "${region}"

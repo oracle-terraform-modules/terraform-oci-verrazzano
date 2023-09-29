@@ -135,9 +135,6 @@ module "verrazzano" {
   mesh_id     = var.mesh_id
   istio_model = var.istio_model
 
-  dev_prom_operator = var.dev_prom_operator
-  dev_thanos        = var.dev_thanos
-
   depends_on = [
     module.clusters
   ]

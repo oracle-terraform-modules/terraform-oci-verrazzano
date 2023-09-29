@@ -138,7 +138,7 @@ variable "admin_region" {
 }
 
 variable "kubernetes_version" {
-  default     = "v1.26.2"
+  default     = "v1.27.2"
   description = "The version of Kubernetes to use."
   type        = string
 }
@@ -266,7 +266,7 @@ variable "install_verrazzano" {
 }
 
 variable "verrazzano_version" {
-  default     = "1.6.5"
+  default     = "1.6.7"
   description = "Verrazzano version to install"
   type        = string
 }
@@ -460,17 +460,5 @@ variable "mesh_id" {
 variable "istio_model" {
   default     = "single"
   description = "The deployment model of Istio to use when using multiple clusters"
-  type        = string
-}
-
-variable "dev_prom_operator" {
-  default     = ""
-  description = "dev prometheus operator image"
-  type        = string
-}
-
-variable "dev_thanos" {
-  default     = ""
-  description = "dev thanos image"
   type        = string
 }
