@@ -27,8 +27,10 @@ locals {
 
 module "admin" {
 
-  source  = "oracle-terraform-modules/oke/oci"
-  version = "5.0.0-RC4"
+  # source  = "oracle-terraform-modules/oke/oci"
+  # version = "5.0.0-RC5"
+
+  source = "github.com/oracle-terraform-modules/terraform-oci-oke?ref=5.x-rebase&depth=1"
 
   home_region = local.admin_region
   region      = local.admin_region
@@ -43,7 +45,7 @@ module "admin" {
   ssh_public_key_path  = var.ssh_public_key_path
 
   # networking
-  # create_drg       = true
+  create_drg       = tobool(lookup(var.admin_region, "create_drg", "false"))
   drg_display_name = lookup(var.admin_region, "admin_name")
 
   # internet_gateway_route_rules = [
@@ -152,36 +154,36 @@ resource "oci_objectstorage_bucket" "thanos_admin" {
 }
 
 
-module "admin_drg" {
-  source  = "oracle-terraform-modules/drg/oci"
-  version = "1.0.5"
+# module "admin_drg" {
+#   source  = "oracle-terraform-modules/drg/oci"
+#   version = "1.0.5"
 
-  # general oci parameters
-  compartment_id = var.compartment_id
-  label_prefix   = var.label_prefix
+#   # general oci parameters
+#   compartment_id = var.compartment_id
+#   label_prefix   = var.label_prefix
 
-  # drg parameters
-  drg_display_name = "${lookup(var.admin_region, "admin_name")}-drg"
+#   # drg parameters
+#   drg_display_name = "${lookup(var.admin_region, "admin_name")}-drg"
 
-  drg_vcn_attachments = {
-    drg = {
-      vcn_id                    = module.admin.vcn_id
-      vcn_transit_routing_rt_id = null
-      drg_route_table_id        = null
-    }
-  }
+#   drg_vcn_attachments = {
+#     drg = {
+#       vcn_id                    = module.admin.vcn_id
+#       vcn_transit_routing_rt_id = null
+#       drg_route_table_id        = null
+#     }
+#   }
 
-  # var.drg_id can either contain an existing DRG ID or be null. 
-  drg_id = null
+#   # var.drg_id can either contain an existing DRG ID or be null. 
+#   drg_id = null
 
-  # admin is always connected to everybody
-  remote_peering_connections = {
-    for k, v in var.managed_clusters : "rpc-to-${k}" => {} if tobool(v)
-  }
+#   # admin is always connected to everybody
+#   remote_peering_connections = {
+#     for k, v in var.managed_clusters : "rpc-to-${k}" => {} if tobool(v)
+#   }
 
-  providers = {
-    oci = oci.sydney
-  }
+#   providers = {
+#     oci = oci.sydney
+#   }
 
-  count = tobool(lookup(var.admin_region, "create_drg", "false")) ? 1 : 0
-}
+#   count = tobool(lookup(var.admin_region, "create_drg", "false")) ? 1 : 0
+# }
