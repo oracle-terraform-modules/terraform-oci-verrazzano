@@ -27,10 +27,8 @@ locals {
 
 module "admin" {
 
-  # source  = "oracle-terraform-modules/oke/oci"
-  # version = "5.0.0-RC5"
-
-  source = "github.com/oracle-terraform-modules/terraform-oci-oke?ref=5.x-rebase&depth=1"
+  source  = "oracle-terraform-modules/oke/oci"
+  version = "5.0.0"
 
   home_region = local.admin_region
   region      = local.admin_region

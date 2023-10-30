@@ -3,7 +3,7 @@
 
 # module "abudhabi" {
 #   source  = "oracle-terraform-modules/oke/oci"
-#   version = "5.0.0-RC4"
+#   version = "5.0.0"
 
 #   source = "github.com/oracle-terraform-modules/terraform-oci-oke?ref=5.x&depth=1"
 

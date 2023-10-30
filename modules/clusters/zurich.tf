@@ -3,7 +3,7 @@
 
 # module "zurich" {
 #   source  = "oracle-terraform-modules/oke/oci"
-#   version = "5.0.0-RC4"
+#   version = "5.0.0"
 
 #   home_region = var.home_region
 #   region      = local.regions["zurich"]
